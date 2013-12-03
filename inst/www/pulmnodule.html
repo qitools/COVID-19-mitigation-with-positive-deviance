@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Clinical Prediction Rules</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- ocpu library -->
+<script src="jquery/jquery-1.9.1.js"> </script>
+<script src="opencpu/opencpu.js"> </script>
+
+<!-- some optional styling stuff -->
+
+<script src="bootstrap/js/bootstrap.js"> </script>
+<script src="jqueryui/jquery-ui-1.10.3.custom.js"> </script>
+
+<style>
+#menu
+{
+list-style-type:none;
+margin:0;
+padding:0;
+overflow:hidden;
+} 
+
+.listitem
+{
+display:inline;
+float:left;
+}
+
+a.menuitem:link,a.menuitem:visited
+{
+display:block;
+width:150px;
+height:40px;
+font-weight:bold;
+text-align:center;
+padding:4px;
+text-decoration:none;background-color:#6DC6E7;
+color:#FFFFFF;
+}
+
+a.menuitem:hover,a.menuitem:active
+{
+background-color:#0022B4;
+color:#FFFFFF;
+}
+
+</style>
+
+</head>
+
+<body>
+<!-- 
+http://jquery-csv.googlecode.com/git/examples/basic-usage.html
+http://jquery-csv.googlecode.com/git/examples/flot.html -> seems best and most stable without reticulating spines error
+http://code.google.com/p/jquery-csv/wiki/API -> instructions
+-->
+<div class="container" style="width:1000px;">
+
+    <div class="page-header" style="color:#0022B4">
+		<div style="float:left;color:#0022B4">
+			<h1>Clinical Prediction Rules</h1>
+			<h2>Pulmonary nodules</h2>
+		</div>
+    <span style="float:right"><a href="mailto:rbadgett@kumc.edu">rbadgett@kumc.edu</a></span>
+    </div>
+	<div style="clear:both"></div>
+
+    <div class="row">
+      <div class="span12">
+
+	  <h3>..</h3>
+
+	  <h3>About</h3>
+	        <ul>
+			<li><a href="https://github.com/clinicalpredictionrules">Source code at GitHub</a> (please add new prediction rules or improve existing rules</li>
+			<li><a href="../man/clinicalpredictionrules/html">Help</a></li>
+			<li>These pages may not function on some versions of Internet Explorer.</li>
+		</ul>
+		<div id=""><a href="mailto:rbadgett@kumc.edu">rbadgett@kumc.edu</a></div>
+		</div>
+		</div>
+  </div>
+</body>
+</html>
