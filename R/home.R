@@ -5,7 +5,7 @@
 #' @author Robert Badgett
 #' @import ggplot2 httr RJSONIO reshape2
 #' @export
-qitools <- function () {
+home <- function () {
 	
 	myplot <- plot.new()
 	text(0,0,getwd())
