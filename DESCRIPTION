@@ -3,7 +3,7 @@ Type: OpenCPU Application
 Title: QItools application for OpenCPU
 Version: 0.1
 Date: 2013-09-02
-Author: Robert Badgett, Scott Chamberlain, Jeroen Ooms
+Author: Robert Badgett
 Maintainer: Robert Badgett <rbadgett@kumc.edu>
 Description: OpenCPU application for selected QI tools in package QCC. 
 License: GPL
@@ -12,7 +12,6 @@ Imports:
     httr,
     RJSONIO,
     stringr,
-    reshape2,
-	qcc
+    reshape2
 Collate:
-    'qitools.R'
+    'home.R'
