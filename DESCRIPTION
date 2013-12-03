@@ -1,11 +1,11 @@
-Package: home
+Package: Clinical Prediction Rules
 Type: OpenCPU Application
-Title: QItools application for OpenCPU
+Title: Clinical Prediction Rules application for OpenCPU
 Version: 0.1
 Date: 2013-09-02
 Author: Robert Badgett
 Maintainer: Robert Badgett <rbadgett@kumc.edu>
-Description: OpenCPU application for selected QI tools in package QCC. 
+Description: OpenCPU application for Clinical Prediction Rules. 
 License: GPL
 Imports:
     ggplot2,
@@ -15,3 +15,4 @@ Imports:
     reshape2
 Collate:
     'home.R'
+    'pulmnodule.R'
