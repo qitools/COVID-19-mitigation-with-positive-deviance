@@ -1,5 +1,5 @@
 export(home)
-export(pulmnodule.html)
+export(pulmnodule)
 import(RJSONIO)
 import(ggplot2)
 import(stringr)
