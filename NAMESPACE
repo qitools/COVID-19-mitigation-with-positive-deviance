@@ -1,7 +1,6 @@
-export(qitools)
+export(home)
 import(RJSONIO)
 import(ggplot2)
 import(stringr)
 import(httr)
-import(qcc)
 import(reshape2)
