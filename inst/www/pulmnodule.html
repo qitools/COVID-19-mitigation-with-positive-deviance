@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <!-- ocpu library -->
-<script src="jquery/jquery-1.9.1.js"> </script>
+<script src="jquery/jquery-2.0.3_min.js"> </script>
 <script src="opencpu/opencpu.js"> </script>
 
 <!-- some optional styling stuff -->
@@ -22,13 +22,25 @@
         //disable the button to prevent multiple clicks
         $("#submitbutton").attr("disabled", "disabled");
         
-        //read the value for 'myname'
-        var myname = $("#namefield").val();
-        
+        //read the values
+        var age = $("#age").val() * 1;
+        var diameter = $("#diameter").val() * 1;
+		var cancer = 0 
+		if ($("#cancer1").prop("checked") == true){cancer = 1}
+		var smoker = 0 
+		if ($("#smoker1").prop("checked") == true){smoker = 1}
+		var location = 0 
+		if ($("#location1").prop("checked") == true){location = 1}
+		var spiculation = 0
+		if ($("#spiculation1").prop("checked") == true){spiculation = 1}
+	  
         //perform the request
         var req = opencpu.r_fun_json("pulmnodule", {
-          myname : myname
-        }, function(output){
+        age : age,
+        age : age,
+        diameter : diameter,
+        location : location
+	  }, function(output){
           $("#output").text(output.message);
         });
         
@@ -52,7 +64,7 @@
     
     <style>
       #output{
-        height: 80px;
+        height: 40px;
         width: 500px;
         border: 1px solid gray;
         padding: 3px;
@@ -79,11 +91,30 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 	<div style="clear:both"></div>
 	
         <form id="paramform" target="target" style="width:500px;">
-          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:500px;height:250px;">
+          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:500px;height:400px;">
+		  <legend>Enter values:</legend>
 
-	    <b>Your name: </b> <input type="text" id="namefield">
-    
-    <button id="submitbutton" type="button">Submit to server!</button>
+	    <div style="display:block">Age: <input type="text" id="age"></div>
+	    <div style="display:block">Diameter of nodule (millimeters): <input type="text" id="diameter"></div>
+             
+		<div style="display:block"><label>Cancer (history of an extrathoracic cancer that was diagnosed > 5 years ago):</label><br/>
+		<input type="radio" name="cancer" id="cancer1" value="1"><label for="cancer1">Yes</label><br/>
+		<input type="radio" name="cancer" id="cancer0" value="0"><label for="cancer0">No</label>
+		</div> 
+		<div style="display:block"><label>Smoker (current or former):</label><br/>
+		<input type="radio" name="smoker" id="smoker1" value="1"><label for="smoker1">Yes</label><br/>
+		<input type="radio" name="smoker" id="smoker0" value="0"><label for="smoker0">No</label>
+		</div> 
+		<div style="display:block"><label>Spiculation:</label><br/>
+		<input type="radio" name="spiculation" id="spiculation1" value="1"><label for="spiculation1">Yes</label><br/>
+		<input type="radio" name="spiculation" id="spiculation0" value="0"><label for="spiculation0">No</label>
+		</div> 
+		<div style="display:block"><label>Location:</label><br/>
+		<input type="radio" name="location" id="location1" value="1"><label for="location1">Upper lobe</label><br/>
+		<input type="radio" name="location" id="location0" value="0"><label for="location0">Other location</label>
+		</div> 
+			
+		<button id="submitbutton" type="button">Submit</button>
  
           </fieldset>
         </form>
@@ -91,7 +122,11 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
     <p id="output"></p>
 	
     </div>
-
+	  <h3>References</h3>
+	  <ol>
+	  <li>Swensen SJ, Silverstein MD, Ilstrup DM, Schleck CD, Edell ES: The probability of malignancy in solitary pulmonary nodules. Application to small radiologically indeterminate nodules. Arch Intern Med 1997;157(8):849-855. PMID: <a href="http://pubmed.gov/9129544">9129544</a></li>
+	  <li>Herder GJ, van Tinteren H, Golding RP, et al: Clinical prediction model to characterize pulmonary nodules: validation and added value of 18F-fluorodeoxyglucose positron emission tomography. Chest 2005;128(4):2490-2496. PMID: <a href="http://pubmed.gov/16236914">16236914</a></li>
+	  </ol>
     <div class="row">
       <div class="span12">
 
