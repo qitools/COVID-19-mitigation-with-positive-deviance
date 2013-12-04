@@ -1,6 +1,6 @@
-\name{openrules}
-\alias{openrules}
-\title{openrules}
+\name{home}
+\alias{home}
+\title{home}
 \description{
 This collection of functions implements selected clinical prediction rules
 
@@ -22,5 +22,7 @@ This collection of functions implements selected clinical prediction rules
 \item \code{\link{pending}}.
 }
 }
+\keyword{openrules}
+\keyword{clinical prediction rules}
 
 http://cran.r-project.org/doc/manuals/R-exts.html
