@@ -16,3 +16,4 @@ Imports:
 Collate:
     'home.R'
     'pulmnodule.R'
+	'cardiovascularrisk.R'

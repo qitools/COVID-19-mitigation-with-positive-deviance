@@ -1,5 +1,6 @@
 export(home)
 export(pulmnodule)
+export(cardiovascularrisk)
 import(RJSONIO)
 import(ggplot2)
 import(stringr)

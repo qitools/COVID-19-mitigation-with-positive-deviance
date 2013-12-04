@@ -23,24 +23,35 @@
         $("#submitbutton").attr("disabled", "disabled");
         
         //read the values
-        var age = $("#age").val() * 1;
-        var diameter = $("#diameter").val() * 1;
-		var cancer = 0 
-		if ($("#cancer1").prop("checked") == true){cancer = 1}
-		var smoker = 0 
-		if ($("#smoker1").prop("checked") == true){smoker = 1}
-		var location = 0 
-		if ($("#location1").prop("checked") == true){location = 1}
-		var spiculation = 0
-		if ($("#spiculation1").prop("checked") == true){spiculation = 1}
+        var age0 = $("#age").val() * 1;
+		var gender = 'f'
+		if ($("#gender1").prop("checked") == true){gender = 'm'}
+		var ethnicity = 'h'
+		if ($("#ethnicity0").prop("checked") == true){ethnicity = 'b'}
+		if ($("#ethnicity1").prop("checked") == true){ethnicity = 'w'}
+		if ($("#ethnicity2").prop("checked") == true){ethnicity = 'a'}
+		if ($("#ethnicity3").prop("checked") == true){ethnicity = 'h'}
+		var smoke0 = 0
+		if ($("#smoker1").prop("checked") == true){smoke0 = 1}
+		var diabetes0 = 0
+		if ($("#diabetes1").prop("checked") == true){diabetes0 = 1}
+		var bprx = 0
+		if ($("#bprx1").prop("checked") == true){bprx = 1}
+        var sbp = $("#sbp").val() * 1;
+        var tchol0 = $("#tchol").val() * 1;
+        var hdl0 = $("#hdl").val() * 1;
 	  
         //perform the request
-        var req = opencpu.r_fun_json("pulmnodule", {
-        age : age,
-        cancer : cancer,
-        smoker : smoker,
-        diameter : diameter,
-        location : location
+        var req = opencpu.r_fun_json("cardiovascularrisk", {
+        age0 : age0,
+        gender : gender,
+        ethnicity : ethnicity,
+        smoke0 : smoke0,
+		diabetes0 : diabetes0,
+		bprx : bprx,
+		sbp : sbp,
+		tchol0 : tchol0,
+		hdl0 : hdl0
 	  }, function(output){
           $("#output").text(output.message);
         });
@@ -86,7 +97,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
     <div class="page-header" style="color:#0022B4">
 		<div style="float:left;color:#0022B4">
 			<h1>openRules</h1>
-			<h2>Pulmonary nodule - risk of malignancy</h2>
+			<h2>Pooled Cohort ASCVD Risk Equations</h2>
 		</div>
 	<div style="clear:both"></div>
 	
@@ -95,24 +106,32 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 		  <legend>Enter values:</legend>
 
 	    <div style="display:block">Age: <input type="text" id="age"></div>
-	    <div style="display:block">Diameter of nodule (millimeters): <input type="text" id="diameter"></div>
              
-		<div style="display:block"><label>Cancer (history of an extrathoracic cancer that was diagnosed > 5 years ago):</label><br/>
-		<input type="radio" name="cancer" id="cancer0" value="0"><label for="cancer0">No</label>
-		<input type="radio" name="cancer" id="cancer1" value="1"><label for="cancer1">Yes</label><br/>
+		<div style="display:block"><label>Gender:</label><br/>
+		<input type="radio" name="gender" id="gender1" value="m"><label for="gender1">Male</label><br/>
+		<input type="radio" name="gender" id="gender0" value="f"><label for="gender0">Female</label>
+		</div> 
+		<div style="display:block"><label>Ethnicity:</label><br/>
+		<input type="radio" name="ethnicity" id="ethnicity0" value="b"><label for="ethnicity0">African-American</label>
+		<input type="radio" name="ethnicity" id="ethnicity1" value="w"><label for="ethnicity1">Anglo</label><br/>
+		<input type="radio" name="ethnicity" id="ethnicity2" value="a"><label for="ethnicity2">Asian</label>
+		<input type="radio" name="ethnicity" id="ethnicity3" value="h"><label for="ethnicity3">Hispanic</label>
 		</div> 
 		<div style="display:block"><label>Smoker (current or former):</label><br/>
 		<input type="radio" name="smoker" id="smoker0" value="0"><label for="smoker0">No</label>
 		<input type="radio" name="smoker" id="smoker1" value="1"><label for="smoker1">Yes</label><br/>
 		</div> 
-		<div style="display:block"><label>Spiculation:</label><br/>
-		<input type="radio" name="spiculation" id="spiculation0" value="0"><label for="spiculation0">No</label>
-		<input type="radio" name="spiculation" id="spiculation1" value="1"><label for="spiculation1">Yes</label><br/>
+		<div style="display:block"><label>Diabetes:</label><br/>
+		<input type="radio" name="diabetes" id="diabetes0" value="0"><label for="diabetes0">No</label>
+		<input type="radio" name="diabetes" id="diabetes1" value="1"><label for="diabetes1">Yes</label><br/>
 		</div> 
-		<div style="display:block"><label>Location:</label><br/>
-		<input type="radio" name="location" id="location1" value="1"><label for="location1">Upper lobe</label><br/>
-		<input type="radio" name="location" id="location0" value="0"><label for="location0">Other location</label>
+		<div style="display:block"><label>Medication for hypertension:</label><br/>
+		<input type="radio" name="bprx" id="bprx0" value="0"><label for="bprx0">No</label>
+		<input type="radio" name="bprx" id="bprx1" value="1"><label for="bprx1">Yes</label><br/>
 		</div> 
+	    <div style="display:block">Systolic blood pressure: <input type="text" id="sbp"></div>
+	    <div style="display:block">Total cholesterol: <input type="text" id="tchol"></div>
+	    <div style="display:block">HDL cholesterol: <input type="text" id="hdl"></div>
 			
 		<button id="submitbutton" type="button">Submit</button>
  
@@ -124,8 +143,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
     </div>
 	  <h3>References</h3>
 	  <ol>
-	  <li>Swensen SJ, Silverstein MD, Ilstrup DM, Schleck CD, Edell ES: The probability of malignancy in solitary pulmonary nodules. Application to small radiologically indeterminate nodules. Arch Intern Med 1997;157(8):849-855. PMID: <a href="http://pubmed.gov/9129544">9129544</a></li>
-	  <li>Herder GJ, van Tinteren H, Golding RP, et al: Clinical prediction model to characterize pulmonary nodules: validation and added value of 18F-fluorodeoxyglucose positron emission tomography. Chest 2005;128(4):2490-2496. PMID: <a href="http://pubmed.gov/16236914">16236914</a></li>
+	  <li>Goff DC Jr, Lloyd-Jones DM, Bennett G, Coady S, D'Agostino RB Sr, Gibbons R, Greenland P, Lackland DT, Levy D, O'Donnell CJ, Robinson J, Schwartz JS, Shero ST, Smith SC Jr, Sorlie P, Stone NJ, Wilson PW. 2013 ACC/AHA Guideline on the Assessment of Cardiovascular Risk: A Report of the American College of Cardiology/American Heart Association Task Force on Practice Guidelines. Circulation. 2013. PMID: 24222018. <a href="http://pubmed.gov/24222018">24222018</a></li>
 	  </ol>
     <div class="row">
       <div class="span12">
@@ -134,7 +152,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 	        <ul>
 			<li><a href="https://github.com/clinicalpredictionrules">Source code at GitHub</a> (please add new prediction rules or improve existing rules</li>
 			<li><a href="../man/clinicalpredictionrules/html">Help</a></li>
-			<li>These pages may not function on some versions of Internet Explorer.</li>
+			<li>These pages may not function on older versions of Internet Explorer.</li>
 		</ul>
 		<div id=""><a href="mailto:rbadgett@kumc.edu">rbadgett@kumc.edu</a></div>
 		</div>
