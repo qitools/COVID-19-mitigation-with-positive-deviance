@@ -54,7 +54,7 @@ age2 = 0 #NA
 tchol = 0.302 * log(tchol0)
 int1 = 0 #NA
 hdl = -0.307 * log(hdl0)
-int2 = #NA
+int2 = 0 #NA
 if (sbpR0 > 0) {sbpR = 1.916 * log(sbpR0)}else{sbpR = 0}
 if (sbpN0 > 0) {sbpN = 1.809 * log(sbpN0)}else{sbpN = 0}
 smoke = 0.549 * smoke0 
@@ -110,14 +110,18 @@ baseline = 0.9533
 }
 
 sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + int5 + smoke + diabetes
-sum
 #FIX FORMATTING SO HAS AT LEAST 0
 prob = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
-prob
-  
-  list(
-    message = paste(sprintf("%.1f",prob), '% probability of cardiovascular event within 10 years.')
-  )
+
+msg = paste(sprintf("%.1f",prob), '% probability of cardiovascular event within 10 years.<ul>')
+if (prob >= 7.5)
+{
+if (diabetes0 == 1){msg = paste(msg, "<li>Since diabetic: <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")}
+if (diabetes0 == 0){msg = paste(msg, "<li>Since not diabetic: <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")}
+if (age0 < 40 || age0 > 75){msg = paste(msg, "<li>Since age not 40 - 75, benefit is less clear</li>")}
+msg = paste(msg,"</ul>")
+}
+list(message = msg)
 #Swensen SJ, Silverstein MD, Ilstrup DM, Schleck CD, Edell ES: The probability of malignancy in solitary pulmonary nodules. Application to small radiologically indeterminate nodules. Arch Intern Med 157. (8): 849-855.1997;
 # Herder GJ, van Tinteren H, Golding RP, et al: Clinical prediction model to characterize pulmonary nodules: validation and added value of 18F-fluorodeoxyglucose positron emission tomography. Chest 128. (4): 2490-2496.2005; Full Text 
 }

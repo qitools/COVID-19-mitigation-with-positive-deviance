@@ -53,7 +53,7 @@
 		tchol0 : tchol0,
 		hdl0 : hdl0
 	  }, function(output){
-          $("#output").text(output.message);
+          document.getElementById("output").innerHTML = output.message
         });
         
         //if R returns an error, alert the error message
@@ -76,10 +76,10 @@
     
     <style>
       #output{
-        height: 40px;
+       /*  height: 40px;
         width: 500px;
         border: 1px solid gray;
-        padding: 3px;
+        padding: 3px; */
       }
     </style>
     
@@ -98,6 +98,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 		<div style="float:left;color:#0022B4">
 			<h1>openRules</h1>
 			<h2>Pooled Cohort ASCVD Risk Equations</h2>
+			<div id="">This equation does not apply to patients with known ASCVD or LDL-C <u>></u> 190 mg/dl as these patients need high-intensity statins.</div>
 		</div>
 	<div style="clear:both"></div>
 	
@@ -134,12 +135,10 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 	    <div style="display:block">HDL cholesterol: <input type="text" id="hdl"></div>
 			
 		<button id="submitbutton" type="button">Submit (answer will show below)</button>
- 
           </fieldset>
         </form>
+		<div id="output"></div>
 		
-    <p id="output"></p>
-	
     </div>
 	  <h3>References</h3>
 	  <ol>
