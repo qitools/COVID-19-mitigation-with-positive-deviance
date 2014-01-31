@@ -66,6 +66,7 @@ meancoef = 19.54
 baseline = 0.8954
 }
 }
+
 #WOMEN
 if (gender == "f")
 {
@@ -82,7 +83,7 @@ if (sbpR0 > 0) {sbpR = 2.019 * log(sbpR0)}else{sbpR = 0}
 int3 = 0 #NA
 if (sbpN0 > 0) {sbpN = 1.957 * log(sbpN0)}else{sbpN = 0}
 int4 = 0 #NA
-smoke = -1.665 * smoke0 
+smoke = 7.574 * smoke0 
 int5 = -1.665 * log(age0) * smoke0
 diabetes = 0.661 * diabetes0
 meancoef = -29.18
