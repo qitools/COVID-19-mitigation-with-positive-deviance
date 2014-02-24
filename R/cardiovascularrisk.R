@@ -4,7 +4,7 @@ cardiovascularrisk <- function(age0 = 0, gender = "", ethnicity = "", smoke0 = 0
     stop("Tell me your age!")
   }
 
-age = 0
+age = 0  
 age2 = 0
 int1 = 0
 int2 = 0
@@ -21,6 +21,9 @@ smoke = 0
 diabetes = 0
 baseline = 0
 meancoef = 0
+
+#Friedewald 
+estLDL = tchol0 - hdl0 - 30 # 30 is typical trig of 150/5
 
 if (bprx == 1){sbpR0 = sbp}else{sbpN0 = sbp}
 
@@ -121,6 +124,17 @@ if (diabetes0 == 1){msg = paste(msg, "<li>Since diabetic: <a href=\"javascript:a
 if (diabetes0 == 0){msg = paste(msg, "<li>Since not diabetic: <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")}
 if (age0 < 40 || age0 > 75){msg = paste(msg, "<li>Since age not 40 - 75, benefit is less clear</li>")}
 msg = paste(msg,"</ul>")
+}
+else
+{
+if (diabetes0 == 1)
+{
+msg = paste(msg, "<li>However, since diabetic: <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin</li>")
+}
+else
+{
+if (estLDL >= 190){msg = paste(msg, "<li>Non-HDL cholesterol is ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl (2). If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin if a candidate, else <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")}
+}
 }
 list(message = msg)
 #Swensen SJ, Silverstein MD, Ilstrup DM, Schleck CD, Edell ES: The probability of malignancy in solitary pulmonary nodules. Application to small radiologically indeterminate nodules. Arch Intern Med 157. (8): 849-855.1997;
