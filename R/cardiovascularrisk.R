@@ -119,23 +119,32 @@ prob = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
 
 msg = paste(sprintf("%.1f",prob), '% probability of cardiovascular event within 10 years.<ul>')
 if (prob >= 7.5)
-{
-if (diabetes0 == 1){msg = paste(msg, "<li>Since diabetic: <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")}
-if (diabetes0 == 0){msg = paste(msg, "<li>Since not diabetic: <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")}
-if (age0 < 40 || age0 > 75){msg = paste(msg, "<li>Since age not 40 - 75, benefit is less clear</li>")}
+	{
+	if (diabetes0 == 1){msg = paste(msg, "<li>Since diabetic: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")}
+	if (diabetes0 == 0){msg = paste(msg, "<li>Since not diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")}
+	if (age0 < 40 || age0 > 75){msg = paste(msg, "<li>Since age not 40 - 75, benefit is less clear</li>")}
+	}
+else
+	{
+		if (diabetes0 == 1)
+		{
+		msg = paste(msg, "<li>However, since diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin</li>")
+		}
+	else
+		{
+		if (estLDL >= 190){msg = paste(msg, "<li>Non-HDL cholesterol is ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2). If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin if a candidate, else <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")}
+		}
+	}
+if (grepl("<li>", msg) > 0)
+	{
+	arr = prob * 0.27
+	msg = paste(msg, "<li>At this level of risk and assuming statins reduce the  risk of major cardiovascular events by 27% (3), statins in your example will:")
+	msg = paste(msg, "<ul><li>Reduce risk to ", format(round(prob - arr,digits = 1), nsmall = 1), "%</li>")
+	msg = paste(msg, "<li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", format(round(arr,digits = 1), nsmall = 1), "%</li>")
+	msg = paste(msg, "<li><a href=\"http://www.cebm.net/?o=1044\">Number needed to treat</a> (NNT) is ", format(round(100/arr,digits = 0), nsmall = 0))
+	msg = paste(msg, "</li>")
+	}
 msg = paste(msg,"</ul>")
-}
-else
-{
-if (diabetes0 == 1)
-{
-msg = paste(msg, "<li>However, since diabetic: <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin</li>")
-}
-else
-{
-if (estLDL >= 190){msg = paste(msg, "<li>Non-HDL cholesterol is ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2). If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin if a candidate, else <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")}
-}
-}
 list(message = msg)
 #Swensen SJ, Silverstein MD, Ilstrup DM, Schleck CD, Edell ES: The probability of malignancy in solitary pulmonary nodules. Application to small radiologically indeterminate nodules. Arch Intern Med 157. (8): 849-855.1997;
 # Herder GJ, van Tinteren H, Golding RP, et al: Clinical prediction model to characterize pulmonary nodules: validation and added value of 18F-fluorodeoxyglucose positron emission tomography. Chest 128. (4): 2490-2496.2005; Full Text 
