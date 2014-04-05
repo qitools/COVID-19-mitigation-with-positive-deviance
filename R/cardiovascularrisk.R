@@ -117,7 +117,38 @@ sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + int5 
 #FIX FORMATTING SO HAS AT LEAST 0
 prob = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
 
-msg = paste(sprintf("%.1f",prob), '% probability of cardiovascular event within 10 years.<ul>')
+msg = paste("<h3>Your risk of cardiovascular disease in 10 years</h3><div>",sprintf("%.1f",prob), '% probability of cardiovascular event within 10 years.</div>')
+if (prob >= 7.5)
+#if (grepl("<li>", msg) > 0)
+	{
+	arr = prob * 0.27
+	withstatins = prob - arr
+	msg = paste(msg, "<div>Assuming statins reduce the risk of major cardiovascular events by 27% (3), the following is expected:</div><div>&nbsp;</div>")
+	}
+#Make SVG
+svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"400px\" height=\"100px\" viewBox=\"0 0 400 100\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">
+<!-- Scale -->
+<text x=\"0\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">0%</text><text x=\"90\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">25%</text><text x=\"190\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">50%</text><text x=\"290\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">75%</text><text x=\"360\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">100%</text>
+<polygon points=\"0,18 400,18 400,20 0,20\"  style=\"fill:black;fill-opacity:1;stroke-width:0\"/>
+<text x=\"0\" y=\"35\" fill=\"black\" style=\"\">Your current risk</text>
+<polygon points=\"0,40 ", prob*4,",40 ", prob*4,",60 0,60\"  style=\"fill:red;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+prob*4,"\" y=\"55\" style=\"fill:red;font-weight:bold\">", sprintf("%.1f",prob),"%</text>
+<text x=\"0\" y=\"75\" fill=\"black\" style=\"\">With statins</text>
+<polygon points=\"0,80 ", withstatins*4,",80 ", withstatins*4,",100 0,100\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withstatins*4,"\" y=\"95\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withstatins),"%</text>")
+if (smoke0 > 100)
+	{
+svgtext = paste(svgtext,"<text x=\"0\" y=\"75\" fill=\"black\" style=\"\">With smoking cessation</text>
+<polygon points=\"0,80 ", withstatins*4,",80 ", withstatins*4,",100 0,100\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withstatins*4,"\" y=\"95\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withstatins),"%</text>")
+	}
+svgtext = paste(svgtext,"Sorry, your browser does not support inline SVG.</svg>")
+#End of SVG
+msg = paste(msg, svgtext)	
+#Details
+msg = paste(msg, "<h4>Details:</h4><ul>")
+msg = paste(msg, "<li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", format(round(arr,digits = 1), nsmall = 1), "%</li>")
+msg = paste(msg, "<li><a href=\"http://www.cebm.net/?o=1044\">Number needed to treat</a> (NNT) is ", format(round(100/arr,digits = 0), nsmall = 0))
+msg = paste(msg, "</li></ul>")
+msg = paste(msg, "<h3>Recommendations</h3><ul>")
+msg = paste(msg, "<li><a href=\"http://pubmed.gov/24222015\">Healthy lifestyle</a></li>")
 if (prob >= 7.5)
 	{
 	if (diabetes0 == 1){msg = paste(msg, "<li>Since diabetic: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")}
@@ -134,15 +165,6 @@ else
 		{
 		if (estLDL >= 190){msg = paste(msg, "<li>Non-HDL cholesterol is ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2). If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin if a candidate, else <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")}
 		}
-	}
-if (grepl("<li>", msg) > 0)
-	{
-	arr = prob * 0.27
-	msg = paste(msg, "<li>At this level of risk and assuming statins reduce the  risk of major cardiovascular events by 27% (3), statins in your example will:")
-	msg = paste(msg, "<ul><li>Reduce risk to ", format(round(prob - arr,digits = 1), nsmall = 1), "%</li>")
-	msg = paste(msg, "<li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", format(round(arr,digits = 1), nsmall = 1), "%</li>")
-	msg = paste(msg, "<li><a href=\"http://www.cebm.net/?o=1044\">Number needed to treat</a> (NNT) is ", format(round(100/arr,digits = 0), nsmall = 0))
-	msg = paste(msg, "</li>")
 	}
 msg = paste(msg,"</ul>")
 list(message = msg)
