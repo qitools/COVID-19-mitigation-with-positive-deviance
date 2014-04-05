@@ -116,6 +116,10 @@ baseline = 0.9533
 sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + int5 + smoke + diabetes
 #FIX FORMATTING SO HAS AT LEAST 0
 prob = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
+#Revise for nonsmoking
+if (ethnicity != "b" && gender != "f"){int3=0}
+sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + 0 + 0 + diabetes
+withsmokecess = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
 
 msg = paste("<h3>Your risk of cardiovascular disease in 10 years</h3><div>",sprintf("%.1f",prob), '% probability of cardiovascular event within 10 years.</div>')
 if (prob >= 7.5)
@@ -126,18 +130,18 @@ if (prob >= 7.5)
 	msg = paste(msg, "<div>Assuming statins reduce the risk of major cardiovascular events by 27% (3), the following is expected:</div><div>&nbsp;</div>")
 	}
 #Make SVG
-svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"400px\" height=\"100px\" viewBox=\"0 0 400 100\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">
+svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"400px\" height=\"150px\" viewBox=\"0 0 400 150\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">
 <!-- Scale -->
 <text x=\"0\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">0%</text><text x=\"90\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">25%</text><text x=\"190\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">50%</text><text x=\"290\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">75%</text><text x=\"360\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">100%</text>
 <polygon points=\"0,18 400,18 400,20 0,20\"  style=\"fill:black;fill-opacity:1;stroke-width:0\"/>
 <text x=\"0\" y=\"35\" fill=\"black\" style=\"\">Your current risk</text>
 <polygon points=\"0,40 ", prob*4,",40 ", prob*4,",60 0,60\"  style=\"fill:red;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+prob*4,"\" y=\"55\" style=\"fill:red;font-weight:bold\">", sprintf("%.1f",prob),"%</text>
-<text x=\"0\" y=\"75\" fill=\"black\" style=\"\">With statins</text>
+<text x=\"0\" y=\"75\" fill=\"black\" style=\"\">With statins for 10 years</text>
 <polygon points=\"0,80 ", withstatins*4,",80 ", withstatins*4,",100 0,100\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withstatins*4,"\" y=\"95\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withstatins),"%</text>")
-if (smoke0 > 100)
+if (smoke0 > 0)
 	{
-svgtext = paste(svgtext,"<text x=\"0\" y=\"75\" fill=\"black\" style=\"\">With smoking cessation</text>
-<polygon points=\"0,80 ", withstatins*4,",80 ", withstatins*4,",100 0,100\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withstatins*4,"\" y=\"95\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withstatins),"%</text>")
+svgtext = paste(svgtext,"<text x=\"0\" y=\"115\" fill=\"black\" style=\"\">With smoking cessation (after three years)</text>
+<polygon points=\"0,120 ", withsmokecess*4,",120 ", withsmokecess*4,",140 0,140\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withsmokecess*4,"\" y=\"135\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withsmokecess),"%</text>")
 	}
 svgtext = paste(svgtext,"Sorry, your browser does not support inline SVG.</svg>")
 #End of SVG
