@@ -152,22 +152,27 @@ msg = paste(msg, "<li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_redu
 msg = paste(msg, "<li><a href=\"http://www.cebm.net/?o=1044\">Number needed to treat</a> (NNT) is ", format(round(100/arr,digits = 0), nsmall = 0))
 msg = paste(msg, "</li></ul>")
 msg = paste(msg, "<h3>Recommendations</h3><ul>")
-msg = paste(msg, "<li><a href=\"http://pubmed.gov/24222015\">Healthy lifestyle</a></li>")
+if (smoke0 > 0)
+	{
+	msg = paste(msg, "<li><a href=\"http://www.cdc.gov/tobacco/campaign/tips/quit-smoking/guide/steps-to-prepare.html\">Smoking - make a plan to quit</a></li>")
+	}
+msg = paste(msg, "<li><a href=\"http://pubmed.gov/24222015\">Healthy lifestyle</a> such as the <a href=\"http://dietamediterranea.com/en/piramide/\">Mediterranean Diet</a> (5)
+ or <a href=\"http://www.nhlbi.nih.gov/health/public/heart/hbp/dash/\">Dash Diet</a> (lowers blood pressure) or <a href=\"http://www.heart.org/HEARTORG/GettingHealthy/Diet-and-Lifestyle-Recommendations_UCM_305855_Article.jsp\">AHA Diet</a>.</li>")
 if (prob >= 7.5)
 	{
-	if (diabetes0 == 1){msg = paste(msg, "<li>Since diabetic: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")}
-	if (diabetes0 == 0){msg = paste(msg, "<li>Since not diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")}
-	if (age0 < 40 || age0 > 75){msg = paste(msg, "<li>Since age not 40 - 75, benefit is less clear</li>")}
+	if (diabetes0 == 1){msg = paste(msg, "<li>Statins: since diabetic: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")}
+	if (diabetes0 == 0){msg = paste(msg, "<li>Statins: since not diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")}
+	if (age0 < 40 || age0 > 75){msg = paste(msg, "<li>Statins: since age not 40 - 75, benefit is less clear</li>")}
 	}
 else
 	{
 		if (diabetes0 == 1)
 		{
-		msg = paste(msg, "<li>However, since diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin</li>")
+		msg = paste(msg, "<li>Statins: since diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin</li>")
 		}
 	else
 		{
-		if (estLDL >= 190){msg = paste(msg, "<li>Non-HDL cholesterol is ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2). If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin if a candidate, else <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")}
+		if (estLDL >= 190){msg = paste(msg, "<li>Statins may be needed. Non-HDL cholesterol is high at ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2). If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin if a candidate, else <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")}
 		}
 	}
 msg = paste(msg,"</ul>")
