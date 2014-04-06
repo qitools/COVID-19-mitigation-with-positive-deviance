@@ -130,9 +130,9 @@ if (prob >= 7.5)
 	msg = paste(msg, "<div>Assuming statins reduce the risk of major cardiovascular events by 27% (3), the following is expected:</div><div>&nbsp;</div>")
 	}
 #Make SVG
-svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"400px\" height=\"150px\" viewBox=\"0 0 400 150\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">
+svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"420px\" height=\"150px\" viewBox=\"0 0 420 150\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">
 <!-- Scale -->
-<text x=\"0\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">0%</text><text x=\"90\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">25%</text><text x=\"190\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">50%</text><text x=\"290\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">75%</text><text x=\"360\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">100%</text>
+<text x=\"0\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">0%</text><text x=\"90\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">25%</text><text x=\"190\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">50%</text><text x=\"290\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">75%</text><text x=\"380\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">100%</text>
 <polygon points=\"0,18 400,18 400,20 0,20\"  style=\"fill:black;fill-opacity:1;stroke-width:0\"/>
 <text x=\"0\" y=\"35\" fill=\"black\" style=\"\">Your current risk</text>
 <polygon points=\"0,40 ", prob*4,",40 ", prob*4,",60 0,60\"  style=\"fill:red;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+prob*4,"\" y=\"55\" style=\"fill:red;font-weight:bold\">", sprintf("%.1f",prob),"%</text>
