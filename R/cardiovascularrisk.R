@@ -137,20 +137,20 @@ svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"420px\" height=\"150px\" viewB
 <text x=\"0\" y=\"35\" fill=\"black\" style=\"\">Your current risk</text>
 <polygon points=\"0,40 ", prob*4,",40 ", prob*4,",60 0,60\"  style=\"fill:red;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+prob*4,"\" y=\"55\" style=\"fill:red;font-weight:bold\">", sprintf("%.1f",prob),"%</text>
 <text x=\"0\" y=\"75\" fill=\"black\" style=\"\">With statins for 10 years</text>
-<polygon points=\"0,80 ", withstatins*4,",80 ", withstatins*4,",100 0,100\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withstatins*4,"\" y=\"95\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withstatins),"%</text>")
+<polygon points=\"0,80 ", withstatins*4,",80 ", withstatins*4,",100 0,100\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withstatins*4,"\" y=\"95\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withstatins),"%</text>", sep = "")
 if (smoke0 > 0)
 	{
 svgtext = paste(svgtext,"<text x=\"0\" y=\"115\" fill=\"black\" style=\"\">With smoking cessation (after three years)</text>
-<polygon points=\"0,120 ", withsmokecess*4,",120 ", withsmokecess*4,",140 0,140\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withsmokecess*4,"\" y=\"135\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withsmokecess),"%</text>")
+<polygon points=\"0,120 ", withsmokecess*4,",120 ", withsmokecess*4,",140 0,140\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withsmokecess*4,"\" y=\"135\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withsmokecess),"%</text>", sep = "")
 	}
 svgtext = paste(svgtext,"Sorry, your browser does not support inline SVG.</svg>")
 #End of SVG
 msg = paste(msg, svgtext)	
 #Details
 msg = paste(msg, "<h4>Details:</h4><ul>")
-msg = paste(msg, "<li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", format(round(arr,digits = 1), nsmall = 1), "%</li>")
-msg = paste(msg, "<li><a href=\"http://www.cebm.net/?o=1044\">Number needed to treat</a> (NNT) is ", format(round(100/arr,digits = 0), nsmall = 0))
-msg = paste(msg, "</li></ul>")
+msg = paste(msg, "<li> You have a one in ", format(round(100/arr,digits = 0), nsmall = 0), " chance of benefiting from statins (the <a href=\"http://www.cebm.net/?o=1044\">number needed to treat</a> [NNT] is ", format(round(100/arr,digits = 0), nsmall = 0),").</li>")
+msg = paste(msg, "<li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", format(round(arr,digits = 1), nsmall = 1), "%.</li>")
+msg = paste(msg, "</ul>")
 msg = paste(msg, "<h3>Recommendations</h3><ul>")
 if (smoke0 > 0)
 	{
