@@ -142,7 +142,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
           <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:400px;height:400px;">
 		  <legend>Enter values:</legend>
 
-	    <div style="display:block">Age: <input type="text" id="age"></div>
+	    <div style="display:block">Age: <input type="number" min="15" max="100" id="age"></div>
              
 		<div style="display:block"><label>Gender:</label><br/>
 		<input type="radio" name="gender" id="gender1" value="m"><label for="gender1">Male</label><br/>
@@ -180,9 +180,9 @@ This note added 4/5/2014.
 		<input type="radio" name="bprx" id="bprx0" value="0"><label for="bprx0">No</label>
 		<input type="radio" name="bprx" id="bprx1" value="1"><label for="bprx1">Yes</label><br/>
 		</div> 
-	    <div style="display:block">Systolic blood pressure: <input type="text" id="sbp"></div>
-	    <div style="display:block">Total cholesterol: <input type="text" id="tchol"></div>
-	    <div style="display:block">HDL cholesterol: <input type="text" id="hdl"></div>
+	    <div style="display:block">Systolic blood pressure: <input type="number" min="50" max="250" id="sbp"></div>
+	    <div style="display:block">Total cholesterol: <input type="number" min="50" max="500" id="tchol"></div>
+	    <div style="display:block">HDL cholesterol: <input type="number" min="1" max="150" id="hdl"></div>
 			
 		<button id="submitbutton" type="button">Submit (answer will show to the right)</button>
           </fieldset>
