@@ -116,6 +116,9 @@ baseline = 0.9533
 sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + int5 + smoke + diabetes
 #FIX FORMATTING SO HAS AT LEAST 0
 prob = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
+#Revise for withstatins
+arr = prob * 0.27
+withstatins = prob - arr
 #Revise for nonsmoking
 if (ethnicity != "b" && gender != "f"){int3=0}
 sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + 0 + 0 + diabetes
@@ -125,8 +128,6 @@ msg = paste("<h3>Your risk of cardiovascular disease in 10 years</h3><div>",spri
 if (prob >= 7.5)
 #if (grepl("<li>", msg) > 0)
 	{
-	arr = prob * 0.27
-	withstatins = prob - arr
 	msg = paste(msg, "<div>Assuming statins reduce the risk of major cardiovascular events by 27% (3), the following is expected:</div><div>&nbsp;</div>")
 	}
 #Make SVG
