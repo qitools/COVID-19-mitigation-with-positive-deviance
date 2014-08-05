@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>openRules: Duke Activity Status Index</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- jquery -->
+<script type="text/javascript" src="jquery/jquery-2.0.3_min.js"></script>
+
+<!-- tooltip -->
+<script type="text/javascript" src="qtip/jquery.qtip.min.js"></script>
+<link rel="stylesheet" type="text/css" href="qtip/jquery.qtip.min.css" />
+
+<!-- ocpu library -->
+<script type="text/javascript" src="opencpu/opencpu.js"></script>
+
+<!-- some optional styling stuff -->
+<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="jqueryui/jquery-ui-1.10.3.custom.js"></script>
+
+<script>
+    //init this script when the page has loaded
+    $(document).ready(function(){
+
+	$("#submitbutton").on("click", function(){
+        //disable the button to prevent multiple clicks
+        $("#submitbutton").attr("disabled", "disabled");
+			var DASI = 0;
+			for (var i=1; i<13; i++){   
+				if (document.getElementById(i+'y').checked){DASI = DASI + document.getElementById(i+'y').value*1}
+			}
+			vo2peak = (DASI*0.43 + 9.6)
+			METS = vo2peak/3.5
+			document.getElementById("output").innerHTML = "Score = " + DASI.toString() + "<br/>VO<sub>2</sub> peak " + (vo2peak.toFixed(1)).toString() +"<br/>Peak mets " + (METS.toFixed(1)).toString();
+			//after request complete, re-enable the button 
+			$("#submitbutton").removeAttr("disabled")
+        });
+
+	//http://qtip2.com/
+	// Apply tooltip on all <a/> elements with title attributes. Mousing over
+    // these elements will the show tooltip as expected, but mousing onto the
+    // tooltip is now possible for interaction with it's contents.
+    //$('a').each(function () {
+    $('.hastip').each(function () {
+        $(this).qtip({
+            content: $(this).next('.tooltiptext'),
+            hide: {
+                fixed: true,
+                delay: 300
+            },
+			position: {
+				my: 'bottom left',  // Position my top left...
+				at: 'bottom right', // at the bottom right of...
+			},
+			style: { classes: 'ToolTipClass'
+			}
+		});
+    });
+
+	$('.hastip').click(function(e) {
+		e.stopPropagation();
+		return false;
+	});	
+    });
+    </script>
+    
+    <style>
+      #output{
+       /*  height: 40px;
+        width: 400px;
+        border: 1px solid gray;
+        padding: 3px; */
+      }
+
+	  .tooltiptext{
+			display: none;
+		}
+	  .ToolTipClass{
+		color:black;
+		border-color:#0022B4;
+		background-color: #6DC6E7
+		}
+    </style>
+
+</head>
+
+<body>
+<!-- 
+http://jquery-csv.googlecode.com/git/examples/basic-usage.html
+http://jquery-csv.googlecode.com/git/examples/flot.html -> seems best and most stable without reticulating spines error
+http://code.google.com/p/jquery-csv/wiki/API -> instructions
+-->
+<div class="container" style="width:1000px;">
+
+    <div class="page-header" style="color:#0022B4">
+			<h1>openRules</h1>
+			<h2>Duke Activity Status Index</h2>
+
+			<div style="float:left;color:#0022B4">
+	
+        <form id="paramform" target="target" style="width:600px;">
+          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:600px;height:600px;">
+		  <legend>Enter values:</legend>
+		<table border=0>
+		<tr>
+		<td>&nbsp;</td>
+		<td>Yes<br/>(with no difficulty)</td>
+		<td>No</td>
+		</tr>
+		<tr>
+			<td>1. Are you able to take care of yourself, that is, eating, dressing, bathing, or using the toilet?</td>
+			<td><input type="radio" name="q1" id="1y" value="2.75"></td>
+			<td><input type="radio" name="q1" id="1n" value="0"></td>
+		</tr>
+		<tr>
+			<td>2. Are you able to walk indoors, such as around the house?</td>
+			<td><input type="radio" name="q2" id="2y" value="1.75"></td>
+			<td><input type="radio" name="q2" id="2n" value="0"></td>
+		</tr>
+		<tr>
+			<td>3. Are you able to walk a block or 2 on level ground?</td>
+			<td><input type="radio" name="q3" id="3y" value="2.75"></td>
+			<td><input type="radio" name="q3" id="3n" value="0"></td>
+		</tr>
+		<tr>
+			<td>4. Are you able to climb a flight of stairs or walk up a hill without stopping?</td>
+			<td><input type="radio" name="q4" id="4y" value="5.5"></td>
+			<td><input type="radio" name="q4" id="4n" value="0"></td>
+		</tr>
+		<tr>
+			<td>5. Are you able to run a short distance?</td>
+			<td><input type="radio" name="q5" id="5y" value="8"></td>
+			<td><input type="radio" name="q5" id="5n" value="0"></td>
+		</tr>
+		<tr>
+			<td>6. Are you able to do light work around the house like dusting or washing dishes?</td>
+			<td><input type="radio" name="q6" id="6y" value="2.7"></td>
+			<td><input type="radio" name="q6" id="6n" value="0"></td>
+		</tr>
+		<tr>
+			<td>7. Are you able to do moderate work around the house like vacuuming, sweeping floors, or carrying in the groceries?</td>
+			<td><input type="radio" name="q7" id="7y" value="3.5"></td>
+			<td><input type="radio" name="q7" id="7n" value="0"></td>
+		</tr>
+		<tr>
+			<td>8. Are you able to do heavy work around the house like scrubbing floors, or lifting or moving heavy furniture?</td>
+			<td><input type="radio" name="q8" id="8y" value="8"></td>
+			<td><input type="radio" name="q8" id="8n" value="0"></td>
+		</tr>
+		<tr>
+			<td>9. Are you able to do yard work like raking leaves, weeding or pushing a power mower?</td>
+			<td><input type="radio" name="q9" id="9y" value="4.5"></td>
+			<td><input type="radio" name="q9" id="9n" value="0"></td>
+		</tr>
+		<tr>
+			<td>10. Are you having sexual relations?</td>
+			<td><input type="radio" name="q10" id="10y" value="5.25"></td>
+			<td><input type="radio" name="q10" id="10n" value="0"></td>
+		</tr>
+		<tr>
+			<td>11. Are you able to participate in moderate recreational activities like golf, bowling, dancing, doubles tennis, or throwing a baseball or football?</td>
+			<td><input type="radio" name="q11" id="11y" value="6"></td>
+			<td><input type="radio" name="q11" id="11n" value="0"></td>
+		</tr>
+		<tr>
+			<td>12. Are you able to participate in strenuous sports like swimming, singles tennis, football, basketball or skiing? skiing?</td>
+			<td><input type="radio" name="q12" id="12y" value="7.5"></td>
+			<td><input type="radio" name="q12" id="12n" value="0"></td>
+		</tr>
+		</table>
+		<button id="submitbutton" type="button">Submit (answer will show to the right)</button>
+          </fieldset>
+        </form>
+	</div>
+     <div id="output" style="width:350px;float:right">
+	 </div>
+	<div style="clear:both"></div>
+    </div>
+
+	<h3>References</h3>
+	  <ol>
+	  <li>Hlatky MA, Boineau RE, Higginbotham MB, Lee KL, Mark DB, Califf RM, Cobb FR, Pryor DB. A brief self-administered questionnaire to determine functional capacity (the Duke Activity Status Index). Am J Cardiol. 1989;64:651-4. PMID: <a href="http://pubmed.gov/2782256">2782256</a>.</li>
+	  </ol>
+    <div class="row">
+      <div class="span12">
+
+	  <h3>About</h3>
+	        <ul>
+			<li><a href="https://github.com/openRules">Source code at GitHub</a> (please add new prediction rules or improve existing rules)</li>
+			<li><a href="../man/cardiovascularrisk/html">Help</a></li>
+			<li>These pages may not function on older versions of Internet Explorer.</li>
+		</ul>
+		<div id=""><a href="mailto:rbadgett@kumc.edu">rbadgett@kumc.edu</a></div>
+		</div>
+		</div>
+  </div>
+</body>
+</html>
