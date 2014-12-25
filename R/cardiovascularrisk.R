@@ -124,7 +124,9 @@ if (ethnicity != "b" && gender != "f"){int3=0}
 sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + 0 + 0 + diabetes
 withsmokecess = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
 
-msg = paste("<h3>Your risk of cardiovascular disease in 10 years</h3><div>",sprintf("%.1f",prob), '% probability of cardiovascular event within 10 years.</div>')
+msg = paste("<h3>Your risk of cardiovascular disease in 10 years</h3><div>",sprintf("%.1f",prob), '% probability of cardiovascular event within 10 years per the Pooled Cohort ASCVD Risk Equation.</div>')
+
+#Start SVG output
 if (prob >= 7.5)
 #if (grepl("<li>", msg) > 0)
 	{
@@ -159,7 +161,9 @@ if (smoke0 > 0)
 	}
 msg = paste(msg, "<li><a href=\"http://pubmed.gov/24222015\">Healthy lifestyle</a> such as the <a href=\"http://dietamediterranea.com/en/piramide/\">Mediterranean Diet</a> (5)
  or <a href=\"http://www.nhlbi.nih.gov/health/public/heart/hbp/dash/\">Dash Diet</a> (lowers blood pressure) or <a href=\"http://www.heart.org/HEARTORG/GettingHealthy/Diet-and-Lifestyle-Recommendations_UCM_305855_Article.jsp\">AHA Diet</a>.</li>")
-if (prob >= 7.5)
+#Start of AHA/ACC recommendations
+msg = paste(msg, "<ul<li>AHA/ACC 2013 Recommendations (PMID: <a href=\"http://pubmed.gov/24222016\">24222016</a>):")
+ if (prob >= 7.5)
 	{
 	if (diabetes0 == 1){msg = paste(msg, "<li>Statins: since diabetic: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")}
 	if (diabetes0 == 0){msg = paste(msg, "<li>Statins: since not diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")}
@@ -176,7 +180,7 @@ else
 		if (estLDL >= 190){msg = paste(msg, "<li>Statins may be needed. Non-HDL cholesterol is high at ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2). If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin if a candidate, else <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")}
 		}
 	}
-msg = paste(msg,"</ul>")
+msg = paste(msg,"</ul></li></ul>")
 list(message = msg)
 #Swensen SJ, Silverstein MD, Ilstrup DM, Schleck CD, Edell ES: The probability of malignancy in solitary pulmonary nodules. Application to small radiologically indeterminate nodules. Arch Intern Med 157. (8): 849-855.1997;
 # Herder GJ, van Tinteren H, Golding RP, et al: Clinical prediction model to characterize pulmonary nodules: validation and added value of 18F-fluorodeoxyglucose positron emission tomography. Chest 128. (4): 2490-2496.2005; Full Text 
