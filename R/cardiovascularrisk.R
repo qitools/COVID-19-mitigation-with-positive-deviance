@@ -141,20 +141,33 @@ svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"420px\" height=\"150px\" viewB
 <polygon points=\"0,40 ", prob*4,",40 ", prob*4,",60 0,60\"  style=\"fill:red;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+prob*4,"\" y=\"55\" style=\"fill:red;font-weight:bold\">", sprintf("%.1f",prob),"%</text>
 <text x=\"0\" y=\"75\" fill=\"black\" style=\"\">With statins for 10 years</text>
 <polygon points=\"0,80 ", withstatins*4,",80 ", withstatins*4,",100 0,100\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withstatins*4,"\" y=\"95\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withstatins),"%</text>", sep = "")
+arr_smoke = prob - withsmokecess
 if (smoke0 > 0)
 	{
 svgtext = paste(svgtext,"<text x=\"0\" y=\"115\" fill=\"black\" style=\"\">With smoking cessation (after three years)</text>
 <polygon points=\"0,120 ", withsmokecess*4,",120 ", withsmokecess*4,",140 0,140\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withsmokecess*4,"\" y=\"135\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withsmokecess),"%</text>", sep = "")
 	}
-svgtext = paste(svgtext,"Sorry, your browser does not support inline SVG.</svg>")
+svgtext = paste(svgtext,"Sorry, your browser does not support inline SVG for dynamic graphics.</svg>")
 #End of SVG
 msg = paste(msg, svgtext)	
 #Details
 msg = paste(msg, "<h4>Details:</h4><ul>")
-msg = paste(msg, "<li> You have a one in ", format(round(100/arr,digits = 0), nsmall = 0), " chance of benefiting from statins (the <a href=\"http://www.cebm.net/?o=1044\">number needed to treat</a> [NNT] is ", format(round(100/arr,digits = 0), nsmall = 0),").</li>")
-msg = paste(msg, "<li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", format(round(arr,digits = 1), nsmall = 1), "%.</li>")
+msg = paste(msg, "<li>Smoking cessation:")
+msg = paste(msg, "  <ul>")
+msg = paste(msg, "  <li>You have a one in ", format(round(100/arr_smoke,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years if you stop smoking.</li>")
+msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat-nnt/\">number needed to treat</a> [NNT] is ", format(round(100/arr_smoke,digits = 0), nsmall = 0),".</li>")
+msg = paste(msg, "  <li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", sprintf("%.1f",arr_smoke), "%.</li>")
+msg = paste(msg, "  </ul>")
+msg = paste(msg, "</li>")
+msg = paste(msg, "<li>Statins:")
+msg = paste(msg, "  <ul>")
+msg = paste(msg, "  <li>You have a one in ", format(round(100/arr,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years taking from statins.</li>")
+msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat-nnt/\">number needed to treat</a> [NNT] is ", format(round(100/arr,digits = 0), nsmall = 0),".</li>")
+msg = paste(msg, "  <li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", format(round(arr,digits = 1), nsmall = 1), "%.</li>")
+msg = paste(msg, "  </ul>")
+msg = paste(msg, "</li>")
 msg = paste(msg, "</ul>")
-msg = paste(msg, "<h3>Recommendations</h3><ul>")
+msg = paste(msg, "<h3>Recommendations:</h3><ul>")
 if (smoke0 > 0)
 	{
 	msg = paste(msg, "<li><a href=\"http://www.cdc.gov/tobacco/campaign/tips/quit-smoking/guide/steps-to-prepare.html\">Smoking - make a plan to quit</a></li>")
@@ -162,18 +175,18 @@ if (smoke0 > 0)
 msg = paste(msg, "<li><a href=\"http://pubmed.gov/24222015\">Healthy lifestyle</a> such as the <a href=\"http://dietamediterranea.com/en/piramide/\">Mediterranean Diet</a> (5)
  or <a href=\"http://www.nhlbi.nih.gov/health/public/heart/hbp/dash/\">Dash Diet</a> (lowers blood pressure) or <a href=\"http://www.heart.org/HEARTORG/GettingHealthy/Diet-and-Lifestyle-Recommendations_UCM_305855_Article.jsp\">AHA Diet</a>.</li>")
 #Start of AHA/ACC recommendations
-msg = paste(msg, "<ul<li>AHA/ACC 2013 Recommendations (PMID: <a href=\"http://pubmed.gov/24222016\">24222016</a>):")
+msg = paste(msg, "<li>Statins per AHA/ACC 2013 Recommendations (PMID: <a href=\"http://pubmed.gov/24222016\">24222016</a>):<ul>")
  if (prob >= 7.5)
 	{
-	if (diabetes0 == 1){msg = paste(msg, "<li>Statins: since diabetic: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")}
-	if (diabetes0 == 0){msg = paste(msg, "<li>Statins: since not diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")}
+	if (diabetes0 == 1){msg = paste(msg, "<li>Since diabetic: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")}
+	if (diabetes0 == 0){msg = paste(msg, "<li>Since not diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")}
 	if (age0 < 40 || age0 > 75){msg = paste(msg, "<li>Statins: since age not 40 - 75, benefit is less clear</li>")}
 	}
 else
 	{
 		if (diabetes0 == 1)
 		{
-		msg = paste(msg, "<li>Statins: since diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin</li>")
+		msg = paste(msg, "<li>Since diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin</li>")
 		}
 	else
 		{

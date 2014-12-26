@@ -2,26 +2,24 @@
 <html lang="en">
 <head>
 <title>openRules</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+<!-- jquery -->
+<script src="//code.jquery.com/jquery-2.1.3.min.js"> </script>
+
 <!-- ocpu library -->
 <script src="opencpu/opencpu.js"> </script>
-
-<!-- jquery -->
-<script src="jquery/jquery-2.0.3_min.js"> </script>
 
 <!-- tooltip -->
 <script type="text/javascript" src="qtip/jquery.qtip.min.js"></script>
 <link rel="stylesheet" type="text/css" href="qtip/jquery.qtip.min.css" />
 
 <!-- some optional styling stuff -->
-
 <script src="bootstrap/js/bootstrap.js"> </script>
 <script src="jqueryui/jquery-ui-1.10.3.custom.js"> </script>
 
- <script>
+<script>
     //init this script when the page has loaded
     $(document).ready(function(){
       $("#submitbutton").on("click", function(){
@@ -49,7 +47,7 @@
         spiculation : spiculation,
         location : location
 	  }, function(output){
-          $("#output").text(output.message);
+          document.getElementById("output").innerHTML = output.message
         });
         
         //if R returns an error, alert the error message
@@ -63,6 +61,31 @@
         });
       });
 
+	//http://qtip2.com/
+	// Apply tooltip on all <a/> elements with title attributes. Mousing over
+    // these elements will the show tooltip as expected, but mousing onto the
+    // tooltip is now possible for interaction with it's contents.
+    //$('a').each(function () {
+    $('.hastip').each(function () {
+        $(this).qtip({
+            content: $(this).next('.tooltiptext'),
+            hide: {
+                fixed: true,
+                delay: 300
+            },
+			position: {
+				my: 'bottom left',  // Position my top left...
+				at: 'bottom right', // at the bottom right of...
+			},
+			style: { classes: 'ToolTipClass'
+			}
+		});
+    });
+
+	$('.hastip').click(function(e) {
+		e.stopPropagation();
+		return false;
+	});	
       //this is only needed when using CORS (i.e. web pages hosted outside opencpu)
       if(!location.pathname.match("^/ocpu/.*/appdemo/www")){
         opencpu.seturl("//public.opencpu.org/ocpu/library/appdemo/R");
@@ -70,14 +93,24 @@
     });
     </script>
     
-    <style>
+<style>
       #output{
         height: 40px;
         width: 500px;
         border: 1px solid gray;
         padding: 3px;
       }
-    </style>
+
+	  .tooltiptext{
+			display: none;
+		}
+
+		.ToolTipClass{
+		color:black;
+		border-color:#0022B4;
+		background-color: #6DC6E7
+		}
+</style>
     
 
 </head>
@@ -94,7 +127,9 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 		<div style="float:left;color:#0022B4">
 			<h1>openRules</h1>
 			<h2>Pulmonary nodule - risk of malignancy</h2>
-			<div>Equations are from references 1 and 2. Guidelines for interpeting results are in reference 3.</div></div>
+			<div>For <a href="#" class="hastip">indeterminate nodules</a>
+			<div class="tooltiptext">"a nodule that is not calcified in a benign pattern or that does not have other features strongly suggestive of a benign etiology, such as intranodular fat that is pathognomonic of hamartoma or a feeding artery and vein typical for arteriovenous malformation." - ACCP Guidelines. Chest 2013 <a href="http://pubmedcentral.gov/PMC3749714">PMC3749714</a></div>
+			Equations are from references 1 and 2. Guidelines for interpeting results are in reference 3.</div></div>
 		</div>
 	<div style="clear:both"></div>
 	
