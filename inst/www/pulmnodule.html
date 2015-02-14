@@ -94,9 +94,14 @@
     </script>
     
 <style>
-      #output{
-        height: 40px;
-        width: 500px;
+      .container{
+		width:860px;
+		margin:0 auto;
+	  }
+
+	  #output{
+        height: 100px;
+        width: 620px;
         border: 1px solid gray;
         padding: 3px;
       }
@@ -121,20 +126,21 @@ http://jquery-csv.googlecode.com/git/examples/basic-usage.html
 http://jquery-csv.googlecode.com/git/examples/flot.html -> seems best and most stable without reticulating spines error
 http://code.google.com/p/jquery-csv/wiki/API -> instructions
 -->
-<div class="container" style="width:1000px;">
+<div class="container">
 
-    <div class="page-header" style="color:#0022B4">
-		<div style="float:left;color:#0022B4">
-			<h1>openRules</h1>
-			<h2>Pulmonary nodule - risk of malignancy</h2>
-			<div>For <a href="#" class="hastip">indeterminate nodules</a>
-			<div class="tooltiptext">"a nodule that is not calcified in a benign pattern or that does not have other features strongly suggestive of a benign etiology, such as intranodular fat that is pathognomonic of hamartoma or a feeding artery and vein typical for arteriovenous malformation." - ACCP Guidelines. Chest 2013 <a href="http://pubmedcentral.gov/PMC3749714">PMC3749714</a></div>
-			Equations are from references 1 and 2. Guidelines for interpeting results are in reference 3.</div></div>
+		<div class="page-header" style="color:#0022B4">
+			<div style="float:left;color:#0022B4">
+				<h1>openRules</h1>
+				<h2>Pulmonary nodule - risk of malignancy using Mayo Clinic model</h2>
+				<div>For <a href="#" class="hastip">indeterminate nodules</a>
+				<div class="tooltiptext">"a nodule that is not calcified in a benign pattern or that does not have other features strongly suggestive of a benign etiology, such as intranodular fat that is pathognomonic of hamartoma or a feeding artery and vein typical for arteriovenous malformation." - ACCP Guidelines. Chest 2013 <a href="http://pubmedcentral.gov/PMC3749714">PMC3749714</a></div>
+				</div>
+			</div>
 		</div>
 	<div style="clear:both"></div>
 	
-        <form id="paramform" target="target" style="width:500px;">
-          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:500px;height:400px;">
+        <form id="paramform" target="target">
+          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:600px;height:300px;">
 		  <legend>Enter values:</legend>
 
 	    <div style="display:block">Age: <input type="text" id="age"></div>
@@ -164,30 +170,29 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 		
     <div id="output"></div>
 	
-    </div>
 	  <h3>References</h3>
-		<div>Predicting the risk of malignancy in a pulmonary nodule</div>
+		<div style="font-weight:bold">Clinical practice guidelines for the management of a pulmonary nodule</div>
+	  <ol>
+	  <li>Gould MK et al. Evaluation of individuals with pulmonary nodules: when is it lung cancer? Diagnosis and management of lung cancer, 3rd ed: American College of Chest Physicians evidence-based clinical practice guidelines. Chest. 2013 May;143(5 Suppl):e93S-120S. doi: <a href="http://dx.doi.org/10.1378/chest.12-2351">10.1378/chest.12-2351</a>. PMID: <a href="http://pubmed.gov/23649456">23649456</a>; <a href="http://pubmedcentral.gov/PMC3749714">PMC3749714 (open access)</a>.</li>
+	  <li>(for subsolid nodules only) Naidich DP, Bankier AA, MacMahon H, Schaefer-Prokop CM, Pistolesi M, Goo JM, Macchiarini P, Crapo JD, Herold CJ, Austin JH, Travis WD. Recommendations for the management of subsolid pulmonary nodules detected at CT: a statement from the Fleischner Society. Radiology. 2013 Jan;266(1):304-17. doi: <a href="http://dx.doi.org/10.1148/radiol.12120628">10.1148/radiol.12120628</a>. Epub 2012 Oct 15.  PMID: <a href="http://pubmed.gov/23070270">23070270</a></li>
+	  </ol>
+		<div style="font-weight:bold">Source studies for predicting the risk of malignancy in a pulmonary nodule</div>
 	  <ol>
 	  <li>Swensen SJ, Silverstein MD, Ilstrup DM, Schleck CD, Edell ES: The probability of malignancy in solitary pulmonary nodules. Application to small radiologically indeterminate nodules. Arch Intern Med 1997;157(8):849-855. PMID: <a href="http://pubmed.gov/9129544">9129544</a></li>
 	  <li>Herder GJ, van Tinteren H, Golding RP, et al: Clinical prediction model to characterize pulmonary nodules: validation and added value of 18F-fluorodeoxyglucose positron emission tomography. Chest 2005;128(4):2490-2496. PMID: <a href="http://pubmed.gov/16236914">16236914</a></li>
-	  </ol>
-		<div>Clinical practice guidelines for the management of a pulmonary nodule</div>
-	  <ol>
-	  <li>Gould MK et al. Evaluation of individuals with pulmonary nodules: when is it lung cancer? Diagnosis and management of lung cancer, 3rd ed: American College of Chest Physicians evidence-based clinical practice guidelines. Chest. 2013 May;143(5 Suppl):e93S-120S. doi: <a href="http://dx.doi.org/10.1378/chest.12-2351">10.1378/chest.12-2351</a>. PMID: <a href="http://pubmed.gov/23649456">23649456</a>; <a href="http://pubmedcentral.gov/PMC3749714">PMC3749714</a>.</li>
-	  <li>Naidich DP, Bankier AA, MacMahon H, Schaefer-Prokop CM, Pistolesi M, Goo JM, Macchiarini P, Crapo JD, Herold CJ, Austin JH, Travis WD. Recommendations for the management of subsolid pulmonary nodules detected at CT: a statement from the Fleischner Society. Radiology. 2013 Jan;266(1):304-17. doi: <a href="http://dx.doi.org/10.1148/radiol.12120628">10.1148/radiol.12120628</a>. Epub 2012 Oct 15.  PMID: <a href="http://pubmed.gov/23070270">23070270</a></li>
 	  </ol>
     <div class="row">
       <div class="span12">
 
 	  <h3>About</h3>
 	        <ul>
-			<li><a href="https://github.com/openRules">Source code at GitHub</a> (please add new prediction rules or improve existing rules)</li>
+			<li><a href="https://github.com/openRules">Source code at GitHub</a> (help add new prediction rules or improve existing rules)</li>
 			<li><a href="../man/pulmnodule/html">Help</a></li>
 			<li>These pages may not function on some versions of Internet Explorer.</li>
 		</ul>
 		<div id=""><a href="mailto:rbadgett@kumc.edu">rbadgett@kumc.edu</a></div>
 		</div>
 		</div>
-  </div>
+  </div><!-- end of container -->
 </body>
 </html>
