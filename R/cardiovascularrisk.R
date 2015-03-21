@@ -152,6 +152,8 @@ svgtext = paste(svgtext,"Sorry, your browser does not support inline SVG for dyn
 msg = paste(msg, svgtext)	
 #Details
 msg = paste(msg, "<h4>Details:</h4><ul>")
+if (smoke0 > 0)
+	{
 msg = paste(msg, "<li>Smoking cessation:")
 msg = paste(msg, "  <ul>")
 msg = paste(msg, "  <li>You have a one in ", format(round(100/arr_smoke,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years if you stop smoking.</li>")
@@ -159,6 +161,7 @@ msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat
 msg = paste(msg, "  <li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", sprintf("%.1f",arr_smoke), "%.</li>")
 msg = paste(msg, "  </ul>")
 msg = paste(msg, "</li>")
+	}
 msg = paste(msg, "<li>Statins:")
 msg = paste(msg, "  <ul>")
 msg = paste(msg, "  <li>You have a one in ", format(round(100/arr,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years taking from statins.</li>")
