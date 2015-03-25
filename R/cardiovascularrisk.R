@@ -123,17 +123,21 @@ withstatins = prob - arr
 if (ethnicity != "b" && gender != "f"){int3=0}
 sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + 0 + 0 + diabetes
 withsmokecess = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
+arr_smoke = prob - withsmokecess
+#Revise for both
+withboth = withsmokecess * 0.73
+arr_both = prob - withboth
 
-msg = paste("<h3>Your risk of cardiovascular disease in 10 years</h3><div>",sprintf("%.1f",prob), '% probability of cardiovascular event within 10 years per the Pooled Cohort ASCVD Risk Equation.</div>')
+msg = paste("<h3>Your risk of cardiovascular disease in 10 years</h3><div>",sprintf("%.1f",prob), '% probability of cardiovascular event within 10 years.</div>')
 
 #Start SVG output
 if (prob >= 7.5)
 #if (grepl("<li>", msg) > 0)
 	{
-	msg = paste(msg, "<div>Assuming statins reduce the risk of major cardiovascular events by 27% (3), the following is expected:</div><div>&nbsp;</div>")
+	msg = paste(msg, "<div>Assuming statin medications reduce your risk by 27% (3), the following is expected:</div><div>&nbsp;</div>")
 	}
 #Make SVG
-svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"420px\" height=\"150px\" viewBox=\"0 0 420 150\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">
+svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"420px\" height=\"190px\" viewBox=\"0 0 420 190\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">
 <!-- Scale -->
 <text x=\"0\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">0%</text><text x=\"90\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">25%</text><text x=\"190\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">50%</text><text x=\"290\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">75%</text><text x=\"380\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">100%</text>
 <polygon points=\"0,18 400,18 400,20 0,20\"  style=\"fill:black;fill-opacity:1;stroke-width:0\"/>
@@ -141,11 +145,12 @@ svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"420px\" height=\"150px\" viewB
 <polygon points=\"0,40 ", prob*4,",40 ", prob*4,",60 0,60\"  style=\"fill:red;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+prob*4,"\" y=\"55\" style=\"fill:red;font-weight:bold\">", sprintf("%.1f",prob),"%</text>
 <text x=\"0\" y=\"75\" fill=\"black\" style=\"\">With statins for 10 years</text>
 <polygon points=\"0,80 ", withstatins*4,",80 ", withstatins*4,",100 0,100\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withstatins*4,"\" y=\"95\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withstatins),"%</text>", sep = "")
-arr_smoke = prob - withsmokecess
 if (smoke0 > 0)
 	{
 svgtext = paste(svgtext,"<text x=\"0\" y=\"115\" fill=\"black\" style=\"\">With smoking cessation (after three years)</text>
 <polygon points=\"0,120 ", withsmokecess*4,",120 ", withsmokecess*4,",140 0,140\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withsmokecess*4,"\" y=\"135\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withsmokecess),"%</text>", sep = "")
+svgtext = paste(svgtext,"<text x=\"0\" y=\"155\" fill=\"black\" style=\"\">With both (after three years)</text>
+<polygon points=\"0,160 ", withboth*4,",160 ", withboth*4,",180 0,180\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withboth*4,"\" y=\"180\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withboth),"%</text>", sep = "")
 	}
 svgtext = paste(svgtext,"Sorry, your browser does not support inline SVG for dynamic graphics.</svg>")
 #End of SVG
@@ -156,19 +161,29 @@ if (smoke0 > 0)
 	{
 msg = paste(msg, "<li>Smoking cessation:")
 msg = paste(msg, "  <ul>")
-msg = paste(msg, "  <li>You have a one in ", format(round(100/arr_smoke,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years if you stop smoking.</li>")
-msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat-nnt/\">number needed to treat</a> [NNT] is ", format(round(100/arr_smoke,digits = 0), nsmall = 0),".</li>")
+msg = paste(msg, "  <li>You have a one in ", format(round(100/arr_smoke,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years.</li>")
+msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat-nnt/\">number needed to treat</a> (NNT) is ", format(round(100/arr_smoke,digits = 0), nsmall = 0),".</li>")
 msg = paste(msg, "  <li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", sprintf("%.1f",arr_smoke), "%.</li>")
 msg = paste(msg, "  </ul>")
 msg = paste(msg, "</li>")
 	}
 msg = paste(msg, "<li>Statins:")
 msg = paste(msg, "  <ul>")
-msg = paste(msg, "  <li>You have a one in ", format(round(100/arr,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years taking from statins.</li>")
-msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat-nnt/\">number needed to treat</a> [NNT] is ", format(round(100/arr,digits = 0), nsmall = 0),".</li>")
+msg = paste(msg, "  <li>You have a one in ", format(round(100/arr,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years.</li>")
+msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat-nnt/\">number needed to treat</a> (NNT) is ", format(round(100/arr,digits = 0), nsmall = 0),".</li>")
 msg = paste(msg, "  <li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", format(round(arr,digits = 1), nsmall = 1), "%.</li>")
 msg = paste(msg, "  </ul>")
 msg = paste(msg, "</li>")
+if (smoke0 > 0)
+	{
+msg = paste(msg, "<li>Both:")
+msg = paste(msg, "  <ul>")
+msg = paste(msg, "  <li>You have a one in ", format(round(100/arr_both,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years if you stop smoking and take a statin.</li>")
+msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat-nnt/\">number needed to treat</a> [NNT] is ", format(round(100/arr_both,digits = 0), nsmall = 0),".</li>")
+msg = paste(msg, "  <li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", sprintf("%.1f",arr_both), "%.</li>")
+msg = paste(msg, "  </ul>")
+msg = paste(msg, "</li>")
+	}
 msg = paste(msg, "</ul>")
 msg = paste(msg, "<h3>Recommendations:</h3><ul>")
 if (smoke0 > 0)
