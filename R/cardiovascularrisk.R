@@ -119,14 +119,55 @@ prob = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
 #Revise for withstatins
 arr = prob * 0.27
 withstatins = prob - arr
+
+#Revise for SBP
+if (bprx == 1){sbpR0 = 140}else{sbpN0 = 140}
+#MEN
+if (gender == "m")
+{
+if (ethnicity == "w" || ethnicity == "a" || ethnicity == "h")
+{
+#WHITE MEN
+if (sbpR0 > 0) {sbpR = 1.797 * log(sbpR0)}else{sbpR = 0}
+if (sbpN0 > 0) {sbpN = 1.764 * log(sbpN0)}else{sbpN = 0}
+}
+else
+{
+#AA MEN
+if (sbpR0 > 0) {sbpR = 1.916 * log(sbpR0)}else{sbpR = 0}
+if (sbpN0 > 0) {sbpN = 1.809 * log(sbpN0)}else{sbpN = 0}
+}
+}
+#WOMEN
+if (gender == "f")
+{
+if (ethnicity == "w" || ethnicity == "a" || ethnicity == "h")
+{
+#WHITE WOMEN
+if (sbpR0 > 0) {sbpR = 2.019 * log(sbpR0)}else{sbpR = 0}
+if (sbpN0 > 0) {sbpN = 1.957 * log(sbpN0)}else{sbpN = 0}
+}
+else
+{
+#AA WOMEN
+if (sbpR0 > 0) {sbpR = 29.291 * log(sbpR0)}else{sbpR = 0}
+if (sbpR0 > 0) {int3 = -6.432 * log(age0) * log(sbpR0)}else{int3 = 0}
+if (sbpN0 > 0) {sbpN = 27.820 * log(sbpN0)}else{sbpN = 0}
+if (sbpN0 > 0) {int4 = -6.087 * log(age0) * log(sbpN0)}else{int4 = 0}
+}
+}
+sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + int5 + smoke + diabetes
+#FIX FORMATTING SO HAS AT LEAST 0
+withsbp = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
+
 #Revise for nonsmoking
 if (ethnicity != "b" && gender != "f"){int3=0}
 sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + 0 + 0 + diabetes
 withsmokecess = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
 arr_smoke = prob - withsmokecess
-#Revise for both
-withboth = withsmokecess * 0.73
-arr_both = prob - withboth
+#Revise for all
+optimal = withsmokecess * 0.73
+arr_both = prob - optimal
 
 msg = paste("<h3>Your risk of cardiovascular disease in 10 years</h3><div>",sprintf("%.1f",prob), '% probability of cardiovascular event within 10 years.</div>')
 
@@ -137,21 +178,48 @@ if (prob >= 7.5)
 	msg = paste(msg, "<div>Assuming statin medications reduce your risk by 27% (3), the following is expected:</div><div>&nbsp;</div>")
 	}
 #Make SVG
-svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"420px\" height=\"190px\" viewBox=\"0 0 420 190\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">
+svgheight = 150
+if (smoke0 > 0){svgheight=svgheight+40}
+if (sbp > 140) {svgheight=svgheight+40}
+svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"420px\" height=\"",svgheight,"px\" viewBox=\"0 0 420 ",svgheight,"\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">
 <!-- Scale -->
 <text x=\"0\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">0%</text><text x=\"90\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">25%</text><text x=\"190\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">50%</text><text x=\"290\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">75%</text><text x=\"380\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">100%</text>
 <polygon points=\"0,18 400,18 400,20 0,20\"  style=\"fill:black;fill-opacity:1;stroke-width:0\"/>
 <text x=\"0\" y=\"35\" fill=\"black\" style=\"\">Your current risk</text>
-<polygon points=\"0,40 ", prob*4,",40 ", prob*4,",60 0,60\"  style=\"fill:red;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+prob*4,"\" y=\"55\" style=\"fill:red;font-weight:bold\">", sprintf("%.1f",prob),"%</text>
-<text x=\"0\" y=\"75\" fill=\"black\" style=\"\">With statins for 10 years</text>
-<polygon points=\"0,80 ", withstatins*4,",80 ", withstatins*4,",100 0,100\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withstatins*4,"\" y=\"95\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withstatins),"%</text>", sep = "")
+<polygon points=\"0,40 ", prob*4,",40 ", prob*4,",60 0,60\"  style=\"fill:red;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+prob*4,"\" y=\"55\" style=\"fill:red;font-weight:bold\">", sprintf("%.1f",prob),"%</text>\n", sep = "")
+currenty = 40
+if (sbp > 140)
+	{
+	currenty = currenty + 35
+	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">With blood pressure of 140</text>\n", sep = "")
+	currenty = currenty + 5
+	svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", withsbp*4,",", currenty, ",", withsbp*4,",", currenty+20, ",0,", currenty+20, "\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withsbp*4,"\" y=\"", currenty+15,"\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withsbp),"%</text>\n", sep = "")
+	}
+#Statins
+	currenty = currenty + 35
+	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">With statins for 10 years</text>\n", sep = "")
+	currenty = currenty + 5
+	svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", withstatins*4,",", currenty, ",", withstatins*4,",", currenty+20, ",0,", currenty+20, "\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withstatins*4,"\" y=\"", currenty+15,"\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withstatins),"%</text>\n", sep = "")
 if (smoke0 > 0)
 	{
-svgtext = paste(svgtext,"<text x=\"0\" y=\"115\" fill=\"black\" style=\"\">With smoking cessation (after three years)</text>
-<polygon points=\"0,120 ", withsmokecess*4,",120 ", withsmokecess*4,",140 0,140\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withsmokecess*4,"\" y=\"135\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withsmokecess),"%</text>", sep = "")
-svgtext = paste(svgtext,"<text x=\"0\" y=\"155\" fill=\"black\" style=\"\">With both (after three years)</text>
-<polygon points=\"0,160 ", withboth*4,",160 ", withboth*4,",180 0,180\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withboth*4,"\" y=\"180\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withboth),"%</text>", sep = "")
+	currenty = currenty + 35
+	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">With smoking cessation (after three years)</text>\n", sep = "")
+	currenty = currenty + 5
+	svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", withsmokecess*4,",", currenty, ",", withsmokecess*4,",", currenty+20, ",0,", currenty+20, "\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withsmokecess*4,"\" y=\"", currenty+15,"\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withsmokecess),"%</text>\n", sep = "")
 	}
+#Make optimal bar
+currenty = currenty + 35
+if (smoke0 > 0)
+	{
+	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">Without smoking and with optimal cholesterol and blood pressure (after three years)</text>\n", sep = "")
+	}
+else
+	{
+	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">With optimal cholesterol and blood pressure (after three years)</text>\n", sep = "")
+	}
+currenty = currenty + 5
+svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", optimal*4,",", currenty, ",", optimal*4,",", currenty+20, ",0,", currenty+20, "\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+optimal*4,"\" y=\"", currenty+15,"\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",optimal),"%</text>", sep = "")
+#In case old browser
 svgtext = paste(svgtext,"Sorry, your browser does not support inline SVG for dynamic graphics.</svg>")
 #End of SVG
 msg = paste(msg, svgtext)	
