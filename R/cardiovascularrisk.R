@@ -175,7 +175,7 @@ msg = paste("<h3>Your risk of cardiovascular disease in 10 years</h3><div>",spri
 if (prob >= 7.5)
 #if (grepl("<li>", msg) > 0)
 	{
-	msg = paste(msg, "<div>Assuming statin medications reduce your risk by 27% (3), the following is expected:</div><div>&nbsp;</div>")
+	#msg = paste(msg, "<div>Assuming statin medications reduce your risk by 27% (3), the following is expected:</div><div>&nbsp;</div>")
 	}
 #Make SVG
 svgheight = 150
@@ -235,7 +235,7 @@ msg = paste(msg, "  <li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_re
 msg = paste(msg, "  </ul>")
 msg = paste(msg, "</li>")
 	}
-msg = paste(msg, "<li>Statins:")
+msg = paste(msg, "<li>Medication ('statins') for cholesterol (3):")
 msg = paste(msg, "  <ul>")
 msg = paste(msg, "  <li>You have a one in ", format(round(100/arr,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years.</li>")
 msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat-nnt/\">number needed to treat</a> (NNT) is ", format(round(100/arr,digits = 0), nsmall = 0),".</li>")
