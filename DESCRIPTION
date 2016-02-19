@@ -12,6 +12,7 @@ Imports:
     httr,
     RJSONIO,
     stringr,
+    BCRA,
     reshape2
 Collate:
     'home.R'
