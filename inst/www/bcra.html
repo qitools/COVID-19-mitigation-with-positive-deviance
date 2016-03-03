@@ -27,36 +27,33 @@
         $("#submitbutton").attr("disabled", "disabled");
         
         //read the values
-        var age0 = $("#age").val() * 1;
-		var gender = 'f'
-		if ($("#gender1").prop("checked") == true){gender = 'm'}
-		var ethnicity = 'h'
-		if ($("#ethnicity0").prop("checked") == true){ethnicity = 'b'}
-		if ($("#ethnicity1").prop("checked") == true){ethnicity = 'w'}
-		if ($("#ethnicity2").prop("checked") == true){ethnicity = 'a'}
-		if ($("#ethnicity3").prop("checked") == true){ethnicity = 'h'}
-		var smoke0 = 0
-		if ($("#smoker1").prop("checked") == true){smoke0 = 1}
-		var diabetes0 = 0
-		if ($("#diabetes1").prop("checked") == true){diabetes0 = 1}
-		var bprx = 0
-		if ($("#bprx1").prop("checked") == true){bprx = 1}
-        var sbp = $("#sbp").val() * 1;
-        var tchol0 = $("#tchol").val() * 1;
-        var hdl0 = $("#hdl").val() * 1;
-	  
+        var genetics                   = $("#genetics").val();
+        var history                    = $("#history").val();
+		var current_age                = $("#current_age").val();
+		var age_at_menarche            = $("#age_at_menarche").val();
+		var age_at_first_live_birth    = $("#age_at_first_live_birth").val();
+		var related_with_breast_cancer = $("#related_with_breast_cancer").val();
+		var ever_had_biopsy            = $("#ever_had_biopsy").val();
+		var previous_biopsies          = $("#previous_biopsies").val();
+		var biopsy_with_hyperplasia    = $("#biopsy_with_hyperplasia").val();
+		var race                       = $("#race").val();
+		var subrace                    = $("#subrace").val();
+
         //perform the request
-        var req = opencpu.r_fun_json("cardiovascularrisk", {
-        age0 : age0,
-        gender : gender,
-        ethnicity : ethnicity,
-        smoke0 : smoke0,
-		diabetes0 : diabetes0,
-		bprx : bprx,
-		sbp : sbp,
-		tchol0 : tchol0,
-		hdl0 : hdl0
-	  }, function(output){
+        var req = opencpu.r_fun_json("bcra", {
+        genetics                   : genetics,
+		history                    : history,
+		current_age                : T1,
+		age_at_menarche            : AgeMen,
+		age_at_first_live_birth    : Age1st,
+		related_with_breast_cancer : N_Rels,
+		//ever_had_biopsy            : ever_had_biopsy,
+		previous_biopsies          : N_Biop,
+		biopsy_with_hyperplasia    : HypPlas,
+		race                       : race,
+		subrace                    : subrace,
+
+		}, function(output){
           document.getElementById("output").innerHTML = output.message
         });
         
@@ -139,7 +136,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 			<div style="float:left;color:#0022B4">
 	
         <form id="paramform" target="target" style="width:400px;">
-          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:400px;height:400px;">
+          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:400px;height:500px;">
 		  <legend>Enter values:</legend>
 
             <table width="466" cellspacing="0" cellpadding="0" border="0">
