@@ -16,5 +16,6 @@ Imports:
     reshape2
 Collate:
     'home.R'
+    'bcra.R'
     'pulmnodule.R'
 	'cardiovascularrisk.R'

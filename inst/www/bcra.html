@@ -33,7 +33,7 @@
 		var age_at_menarche            = $("#age_at_menarche").val();
 		var age_at_first_live_birth    = $("#age_at_first_live_birth").val();
 		var related_with_breast_cancer = $("#related_with_breast_cancer").val();
-		var ever_had_biopsy            = $("#ever_had_biopsy").val();
+		//var ever_had_biopsy            = $("#ever_had_biopsy").val();
 		var previous_biopsies          = $("#previous_biopsies").val();
 		var biopsy_with_hyperplasia    = $("#biopsy_with_hyperplasia").val();
 		var race                       = $("#race").val();
@@ -43,14 +43,14 @@
         var req = opencpu.r_fun_json("bcra", {
         genetics                   : genetics,
 		history                    : history,
-		current_age                : T1,
-		age_at_menarche            : AgeMen,
-		age_at_first_live_birth    : Age1st,
-		related_with_breast_cancer : N_Rels,
+		T1                         : current_age,
+		AgeMen                     : age_at_menarche,
+		Age1st                     : age_at_first_live_birth,
+		N_Rels                     : related_with_breast_cancer,
 		//ever_had_biopsy            : ever_had_biopsy,
-		previous_biopsies          : N_Biop,
-		biopsy_with_hyperplasia    : HypPlas,
-		race                       : race,
+		N_Biop                     : previous_biopsies,
+		HypPlas                    : biopsy_with_hyperplasia,
+		Race                       : race,
 		subrace                    : subrace,
 
 		}, function(output){
@@ -136,7 +136,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 			<div style="float:left;color:#0022B4">
 	
         <form id="paramform" target="target" style="width:400px;">
-          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:400px;height:500px;">
+          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:400px;height:450px;">
 		  <legend>Enter values:</legend>
 
             <table width="466" cellspacing="0" cellpadding="0" border="0">
@@ -358,39 +358,9 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                 </tr>
                 <tr>
                     <td valign="top">
-                        <a href="about-tool.aspx#q7">7</a>.
-                    </td>
-                    <td valign="top" colspan="2">
-                        <label for="ever_had_biopsy">
-                            Has the woman ever had a breast</label>
-                        <a class="grey-text" href="def-biopsy.html" onclick="popUp('def-biopsy.html');return false;">
-                            biopsy</a>?
-                    </td>
-                    <td valign="top">
-                        &nbsp;
-                    </td>
-                    <td valign="top" align="right">
-                        <select id="ever_had_biopsy" name="ever_had_biopsy" size="1" onchange="checkBiopsy()">
-                            <option value="999">Select</option>
-                            <option value="99">Unknown</option>
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" colspan="5">
-                        <img src="images/spacer.gif" width="4" height="20" alt="" />
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" width="19">
-                        &nbsp;
-                    </td>
-                    <td valign="top" width="19">
                         <a href="about-tool.aspx#q7a">7a</a>.
                     </td>
-                    <td valign="top" width="311">
+                    <td valign="top" colspan="2">
                         <label for="previous_biopsies">
                             How many breast biopsies (positive or negative) has the woman had?</label>
                     </td>
@@ -400,6 +370,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                     <td valign="top" width="109" align="right">
                         <select id="previous_biopsies" name="previous_biopsies" size="1">
                             <option value="999">Select</option>
+                            <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">&gt; 1</option>
                         </select>
@@ -412,12 +383,9 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                 </tr>
                 <tr>
                     <td valign="top">
-                        &nbsp;
-                    </td>
-                    <td valign="top">
                         <a href="about-tool.aspx#q7b">7b</a>.
                     </td>
-                    <td valign="top">
+                    <td valign="top" colspan="2">
                         <label for="biopsy_with_hyperplasia">
                             Has the woman had at least one breast biopsy with</label>
                         <a class="grey-text" href="def-ah.html" onclick="popUp('def-ah.html');return false;">
@@ -462,39 +430,20 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                                         <option value="3">Hispanic</option>
                                         <option value="4">Asian-American</option>
                                         <option value="5">American Indian or Alaskan Native</option>
-                                        <option value="6">Unknown</option>
+										<!-- Careful, at NCI website: 5=Wo White 1995-03 SEER rates (rates under further investigation)-->
+                                        <option value="6">Chinese-American</option>
+                                        <option value="7">Japanese-American</option>
+                                        <option value="8">Filipino-American</option>
+                                        <option value="9">Hawaiian-American</option>
+                                        <option value="10">Other Pacific Islander</option>
+                                        <option value="11">Other Asian</option>
+                                        <option value="12">Other Asian-American</option>
                                     </select>
                                 </td>
                             </tr>
                             <tr>
                                 <td valign="top" colspan="5">
                                     <img src="images/spacer.gif" width="4" height="20" alt="" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    &nbsp;
-                                </td>
-                                <td valign="top">
-                                    <a href="about-tool.aspx#q8a">8a</a>.
-                                </td>
-                                <td valign="top">
-                                    <label for="subrace">
-                                        What is the sub race/ethnicity?</label>
-                                </td>
-                                <td valign="top">
-                                    &nbsp;
-                                </td>
-                                <td valign="top" align="right" width="210">
-                                    <select id="subrace" name="subrace" size="1" style="width: 210px;">
-                                        <option value="999">Select</option>
-                                        <option value="7">Chinese</option>
-                                        <option value="8">Japanese</option>
-                                        <option value="9">Filipino</option>
-                                        <option value="10">Hawaiian</option>
-                                        <option value="11">Other Pacific Islander</option>
-                                        <option value="12">Other Asian-American</option>
-                                    </select>
                                 </td>
                             </tr>
                             <tr>
@@ -515,7 +464,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 
 	<h3>References</h3>
 	  <ol>
-	  <li>Goff DC Jr, Lloyd-Jones DM, Bennett G, Coady S, D'Agostino RB Sr, Gibbons R, Greenland P, Lackland DT, Levy D, O'Donnell CJ, Robinson J, Schwartz JS, Shero ST, Smith SC Jr, Sorlie P, Stone NJ, Wilson PW. 2013 ACC/AHA Guideline on the Assessment of Cardiovascular Risk: A Report of the American College of Cardiology/American Heart Association Task Force on Practice Guidelines. Circulation. 2013. PMID: <a href="http://pubmed.gov/24222018">24222018</a>.</li>
+	  <li>Costantino JP, Gail MH, Pee D, Anderson S, Redmond CK, Benichou J, Wieand S,  Validation studies for models projecting the risk of invasive and total breast cancer incidence. J Natl Cancer Inst 1999; 91:1541-1548 PMID: <a href="http://pubmed.gov/10491430">10491430</a>.</li>
 	  </ol>
     <div class="row">
       <div class="span12">
