@@ -130,21 +130,19 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 
     <div class="page-header" style="color:#0022B4">
 			<h1>openRules</h1>
-			<h2>What is my chance of breast cancer after 10 years, 20 years, or lifetime?</h2>
-			<div id="">This page uses the NASBP2 calculator for breast cancer risk accessment</div>
-
+			<h2>What is my chance of breast cancer?</h2>
 			<div style="float:left;color:#0022B4">
 	
-        <form id="paramform" target="target" style="width:400px;">
-          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:400px;height:450px;">
+        <form id="paramform" target="target" style="max-width: 600px">
+          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;">
 		  <legend>Enter values:</legend>
 
-            <table width="466" cellspacing="0" cellpadding="0" border="0">
+            <table cellspacing="0" cellpadding="0" border="0">
                 <tr>
-                    <td valign="top" width="19">
+                    <td valign="top">
                         <a href="about-tool.aspx#q1">1</a>.
                     </td>
-                    <td valign="top" width="330" colspan="2">
+                    <td valign="top" colspan="2">
                         <label for="history">
                             Does the woman have a medical history of any breast cancer or of
                         </label>
@@ -157,7 +155,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                     <td valign="top" width="8">
                         &nbsp;
                     </td>
-                    <td valign="top" width="109" align="right">
+                    <td valign="top" align="right">
                         <select id="history" name="history" onchange="checkHistory()">
                             <option value="">Select</option>
                             <option value="1">Yes</option>
@@ -171,7 +169,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" width="19">
+                    <td valign="top">
                         <a href="about-tool.aspx#q2">2</a>.
                     </td>
                     <td valign="top" width="330" colspan="2">
@@ -409,10 +407,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="5">
-                        <table cellpadding="0" cellspacing="0" width="466">
-                            <tr>
-                                <td valign="top" width="19">
+                                <td valign="top">
                                     <a href="about-tool.aspx#q8">8</a>.
                                 </td>
                                 <td valign="top" width="229" colspan="2">
@@ -422,7 +417,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                                 <td valign="top" width="8">
                                     &nbsp;
                                 </td>
-                                <td valign="top" align="right" width="210">
+                                <td valign="top" align="right"">
                                     <select id="race" name="race" size="1" onchange="checkEthnicity()" style="width: 210px;">
                                         <option value="999">Select</option>
                                         <option value="1">White</option>
@@ -453,11 +448,11 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                             </tr>
                         </table>
 
-		<button id="submitbutton" type="button">Submit (answer will show to the right)</button>
+		<button id="submitbutton" type="button">Submit</button>
           </fieldset>
         </form>
 	</div>
-     <div id="output" style="width:550px;float:right">
+     <div id="output" style="width:550px;float:left">
 	 </div>
 	<div style="clear:both"></div>
     </div>
@@ -472,10 +467,9 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 	  	  <h3>About</h3>
 	        <ul>
 			<li><a href="https://github.com/openRules">Source code at GitHub</a></li>
-			<li><a href="../man/cardiovascularrisk/html">Manual</a></li>
-			<li>Contribute: <a href="https://github.com/openRules/home/issues?q=team%3AopenRules%2FCardiovascular-risk ">open issues</a></li>
-			<li><a href="https://github.com/orgs/openRules/teams/cardiovascular-risk">Authors</a></li>
-			<li>These pages may not function on some versions of Internet Explorer.</li>
+			<li><a href="../man/brca/html">Manual</a></li>
+			<li>Contribute: <a href="https://github.com/openRules/home/issues?q=team%3AopenRules%2Fbrca ">open issues</a></li>
+			<li><a href="https://github.com/orgs/openRules/teams/brca">Authors</a></li>
 		</ul>
 		
 		</div>

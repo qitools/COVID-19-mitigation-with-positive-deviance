@@ -30,7 +30,7 @@ This function implements the following clinical prediction rule:
 \author{
   \href{https://github.com/orgs/openRules/teams/cardiovascular-risk}{Cardiovascular risk}
 }
-\references\{
+\references{
 \href{http://pubmed.gov/24222018}{New Pooled Cohort ASCVD Risk Equations} for the 2013 ACC/AHA Guidelines to Reduce Cardiovascular Risk
 }
 \seealso{
@@ -41,5 +41,3 @@ This function implements the following clinical prediction rule:
 \keyword{openRules}
 \keyword{clinical prediction rules}
 
-http://cran.r-project.org/doc/manuals/R-exts.html
-http://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html
