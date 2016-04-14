@@ -1,4 +1,4 @@
-bcra <- function(genetics = 'no', history = 'no', T1 = 0, AgeMen = 99, Age1st = 99, N_Rels = 99, N_Biop = 99, HypPlas = 99, Race = 1){
+bcra <- function(genetics = 'no', history = 'no', T1 = 0, AgeMen = 99, Age1st = 99, N_Rels = 99, N_Biop = 99, HypPlas = 99, Race = 1, pagename = 'plain'){
   myframe <- data.frame(
     ID = 1,
     T1 = as.numeric(T1),
@@ -43,5 +43,8 @@ if (myframe$T1 < 91){
   msg = paste(msg,'<div>Lifetime average risk (age 90): ', sprintf("%.1f",absolute.risk(myframe,iloop=2)), '%.</div>')
 }
 #msg = paste(myframe, sep = ", ", collapse = NULL)
+#data(pages)
+#msg <- subset(pages, page=pagename)[, "content"]
+#msg <- sub("XX", sprintf("%.1f",100*result$tir),msg)
 list(message = msg)
 }

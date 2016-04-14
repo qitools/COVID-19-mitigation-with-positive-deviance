@@ -38,6 +38,7 @@
 		var biopsy_with_hyperplasia    = $("#biopsy_with_hyperplasia").val();
 		var race                       = $("#race").val();
 		var subrace                    = $("#subrace").val();
+		var pagename                   = window.location.hash.substr(1);
 
         //perform the request
         var req = opencpu.r_fun_json("bcra", {
@@ -52,6 +53,7 @@
 		HypPlas                    : biopsy_with_hyperplasia,
 		Race                       : race,
 		subrace                    : subrace,
+		page                       : pagename,
 
 		}, function(output){
           document.getElementById("output").innerHTML = output.message
