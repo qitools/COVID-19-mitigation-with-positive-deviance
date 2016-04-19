@@ -20,12 +20,15 @@
 <script src="jqueryui/jquery-ui-1.10.3.custom.js"></script>
 
 <script>
-    //init this script when the page has loaded
-    $(document).ready(function(){
-		$("#startover").on("click", function(){
+		function toggleit (itemno){
+			document.getElementById(itemno).style.display = (document.getElementById(itemno).style.display == "none" ) ? "" : "none";
+		}
+		function startover(){
 			$("#paramform").css("display","block");
 			document.getElementById("output").innerHTML = "";
-		})
+		}
+    //init this script when the page has loaded
+    $(document).ready(function(){
       $("#submitbutton").on("click", function(){
 
 		//disable the button to prevent multiple clicks
@@ -164,8 +167,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 
             <table cellspacing="0" cellpadding="0" border="0">
                 <tr>
-                    <td valign="top">
-                        <a href="about-tool.aspx#q1">1</a>.
+                    <td valign="top">1.
                     </td>
                     <td valign="top" colspan="2">
                         <label for="history">
@@ -194,8 +196,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top">
-                        <a href="about-tool.aspx#q2">2</a>.
+                    <td valign="top">2.
                     </td>
                     <td valign="top" width="330" colspan="2">
                         <label for="genetics">
@@ -222,8 +223,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top">
-                        <a href="about-tool.aspx#q3">3</a>.
+                    <td valign="top">3.
                     </td>
                     <td valign="top" colspan="2">
                         <label for="current_age">
@@ -243,14 +243,12 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top">
-                        <a href="about-tool.aspx#q4">4</a>.
+                    <td valign="top">4.
                     </td>
                     <td valign="top" colspan="2">
                         <label for="age_at_menarche">
                             What was the woman's age at the time of her first</label>
-                        <a class="grey-text" href="def-menst.html" onclick="popUp('def-menst.html');return false;">
-                            menstrual period</a>?
+                            menstrual period?
                     </td>
                     <td valign="top">
                         &nbsp;
@@ -271,8 +269,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top">
-                        <a href="about-tool.aspx#q5">5</a>.
+                    <td valign="top">5.
                     </td>
                     <td valign="top" colspan="2">
                         <label for="age_at_first_live_birth">
@@ -299,8 +296,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top">
-                        <a href="about-tool.aspx#q6">6</a>.
+                    <td valign="top">6.
                     </td>
                     <td valign="top" colspan="2">
                         <label for="related_with_breast_cancer">
@@ -326,8 +322,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top">
-                        <a href="about-tool.aspx#q7a">7a</a>.
+                    <td valign="top">7a.
                     </td>
                     <td valign="top" colspan="2">
                         <label for="previous_biopsies">
@@ -351,14 +346,12 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top">
-                        <a href="about-tool.aspx#q7b">7b</a>.
+                    <td valign="top">7b.
                     </td>
                     <td valign="top" colspan="2">
                         <label for="biopsy_with_hyperplasia">
                             Has the woman had at least one breast biopsy with</label>
-                        <a class="grey-text" href="def-ah.html" onclick="popUp('def-ah.html');return false;">
-                            atypical hyperplasia</a>?
+                            atypical hyperplasia?
                     </td>
                     <td valign="top">
                         &nbsp;
@@ -378,8 +371,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                     </td>
                 </tr>
                 <tr>
-                                <td valign="top">
-                                    <a href="about-tool.aspx#q8">8</a>.
+                                <td valign="top">8.
                                 </td>
                                 <td valign="top" width="229" colspan="2">
                                     <label for="race">
