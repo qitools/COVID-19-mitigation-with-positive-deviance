@@ -22,8 +22,13 @@
 <script>
     //init this script when the page has loaded
     $(document).ready(function(){
+		$("#startover").on("click", function(){
+			$("#paramform").css("display","block");
+			document.getElementById("output").innerHTML = "";
+		})
       $("#submitbutton").on("click", function(){
-        //disable the button to prevent multiple clicks
+
+		//disable the button to prevent multiple clicks
         $("#submitbutton").attr("disabled", "disabled");
         
         //read the values
@@ -38,7 +43,7 @@
 		var biopsy_with_hyperplasia    = $("#biopsy_with_hyperplasia").val();
 		var race                       = $("#race").val();
 		var subrace                    = $("#subrace").val();
-		var pagename                   = window.location.hash.substr(1);
+		var pageformat                 = $("input:radio[name=pageformat]:checked" ).val();
 
         //perform the request
         var req = opencpu.r_fun_json("bcra", {
@@ -53,7 +58,7 @@
 		HypPlas                    : biopsy_with_hyperplasia,
 		Race                       : race,
 		subrace                    : subrace,
-		page                       : pagename,
+		pageformat                 : pageformat
 
 		}, function(output){
           document.getElementById("output").innerHTML = output.message
@@ -67,8 +72,10 @@
         //after request complete, re-enable the button 
         req.always(function(){
           $("#submitbutton").removeAttr("disabled")
+			$("#paramform").css("display","none");
         });
-      });
+		
+	  });
 
 	//http://qtip2.com/
 	// Apply tooltip on all <a/> elements with title attributes. Mousing over
@@ -118,7 +125,22 @@
 		border-color:#0022B4;
 		background-color: #6DC6E7
 		}
-    </style>
+
+	.green{
+	background:#D8EDA4;
+	width:60%}
+	.white{
+	background:white;
+	text-align:center}
+	table, tbody, tr, td{
+	padding:0px;
+	border-spacing: 0px}
+	td{
+	padding:5px;
+	border-spacing: 0px}
+	.header{
+	font-weight:bold}
+	</style>
 
 </head>
 
@@ -133,6 +155,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
     <div class="page-header" style="color:#0022B4">
 			<h1>openRules</h1>
 			<h2>What is my chance of breast cancer?</h2>
+			</div>
 			<div style="float:left;color:#0022B4">
 	
         <form id="paramform" target="target" style="max-width: 600px">
@@ -211,61 +234,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                         &nbsp;
                     </td>
                     <td valign="top" align="right">
-                        <select id="current_age" name="current_age" size="1" onchange="checkAge()">
-                            <option value="99">Select</option>
-                            <option value="34">&lt; 35</option>
-                            <option value="35">35</option>
-                            <option value="36">36</option>
-                            <option value="37">37</option>
-                            <option value="38">38</option>
-                            <option value="39">39</option>
-                            <option value="40">40</option>
-                            <option value="41">41</option>
-                            <option value="42">42</option>
-                            <option value="43">43</option>
-                            <option value="44">44</option>
-                            <option value="45">45</option>
-                            <option value="46">46</option>
-                            <option value="47">47</option>
-                            <option value="48">48</option>
-                            <option value="49">49</option>
-                            <option value="50">50</option>
-                            <option value="51">51</option>
-                            <option value="52">52</option>
-                            <option value="53">53</option>
-                            <option value="54">54</option>
-                            <option value="55">55</option>
-                            <option value="56">56</option>
-                            <option value="57">57</option>
-                            <option value="58">58</option>
-                            <option value="59">59</option>
-                            <option value="60">60</option>
-                            <option value="61">61</option>
-                            <option value="62">62</option>
-                            <option value="63">63</option>
-                            <option value="64">64</option>
-                            <option value="65">65</option>
-                            <option value="66">66</option>
-                            <option value="67">67</option>
-                            <option value="68">68</option>
-                            <option value="69">69</option>
-                            <option value="70">70</option>
-                            <option value="71">71</option>
-                            <option value="72">72</option>
-                            <option value="73">73</option>
-                            <option value="74">74</option>
-                            <option value="75">75</option>
-                            <option value="76">76</option>
-                            <option value="77">77</option>
-                            <option value="78">78</option>
-                            <option value="79">79</option>
-                            <option value="80">80</option>
-                            <option value="81">81</option>
-                            <option value="82">82</option>
-                            <option value="83">83</option>
-                            <option value="84">84</option>
-                            <option value="85">85</option>
-                        </select>
+                        <input id="current_age" name="current_age" size="1" type="number" min="35" max="99" style="width:75px">
                     </td>
                 </tr>
                 <tr>
@@ -419,7 +388,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                                 <td valign="top" width="8">
                                     &nbsp;
                                 </td>
-                                <td valign="top" align="right"">
+                                <td valign="top" align="right">
                                     <select id="race" name="race" size="1" onchange="checkEthnicity()" style="width: 210px;">
                                         <option value="999">Select</option>
                                         <option value="1">White</option>
@@ -449,20 +418,27 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
                                 </td>
                             </tr>
                         </table>
-
-		<button id="submitbutton" type="button">Submit</button>
+<div style="text-align:center">Format: <input type="radio" name="pageformat" value="dartmouth" checked>Dartmouth <input type="radio" name="pageformat" value="nci">NCI</div>
+<div style="text-align:center">		<button id="submitbutton" type="button">Submit</button></div>
           </fieldset>
         </form>
 	</div>
      <div id="output" style="width:550px;float:left">
 	 </div>
 	<div style="clear:both"></div>
+
+    <h3>References</h3>
+    <ol start="1">
+	  <li>Nelson HD, Cantor A, Humphrey L, Fu R, Pappas M, Daeges M, Griffin J. Screening for Breast Cancer: A Systematic Review to Update the 2009 U.S. Preventive Services Task Force Recommendation [Internet]. Rockville (MD): Agency for Healthcare Research and Quality (US); 2016 Jan. Available from <a href="http://www.ncbi.nlm.nih.gov/books/NBK343819/">http://www.ncbi.nlm.nih.gov/books/NBK343819/</a> PMID: <a href="http://www.ncbi.nlm.nih.gov/pubmed/26889531">26889531</a></li>
+      <li>Nelson HD, Fu R, Cantor A, Pappas M, Daeges M, Humphrey L. Effectiveness of Breast Cancer Screening: Systematic Review and Meta-analysis to Update the 2009 U.S. Preventive Services Task Force Recommendation. Ann Intern Med. 2016 Feb 16;164(4):244-55. PMID: <a href="https://www.google.com/url?q=http://www.ncbi.nlm.nih.gov/pubmed/26756588">26756588</a></li>
+      <li>Oeffinger KC, Fontham ET, Etzioni R, Herzig A, Michaelson JS, Shih YC, et al; American Cancer Society. Breast Cancer Screening for Women at Average Risk: 2015 Guideline Update From the American Cancer Society. JAMA. 2015 Oct 20;314(15):1599-614. PMID: <a href="http://pubmed.gov/26501536">26501536</a></li>
+	  <li>Gotzsche PC, Jorgensen KJ. Screening for breast cancer with mammography. Cochrane Database Syst Rev. 2013 Jun 4;6:CD001877. PMID: <a href="http://pubmed.gov/23737396">23737396</a></li>
+      <li>Costantino JP, Gail MH, Pee D, Anderson S, Redmond CK, Benichou J, Wieand S, Validation studies for models projecting the risk of invasive and total breast cancer incidence. J Natl Cancer Inst 1999; 91:1541-1548 PMID: <a href="http://pubmed.gov/10491430#">10491430</a>.</li>
+      <li>Nelson HD, Pappas M, Cantor A, Griffin J, Daeges M, Humphrey L. Harms of Breast Cancer Screening: Systematic Review to Update the 2009 U.S. Preventive Services Task Force Recommendation. Ann Intern Med. 2016 Feb 16;164(4):256-67. PMID: <a href="http://www.ncbi.nlm.nih.gov/pubmed/26756737">26756737</a>.</li>
+    </ol>
+
     </div>
 
-	<h3>References</h3>
-	  <ol>
-	  <li>Costantino JP, Gail MH, Pee D, Anderson S, Redmond CK, Benichou J, Wieand S,  Validation studies for models projecting the risk of invasive and total breast cancer incidence. J Natl Cancer Inst 1999; 91:1541-1548 PMID: <a href="http://pubmed.gov/10491430">10491430</a>.</li>
-	  </ol>
     <div class="row">
       <div class="span12">
 

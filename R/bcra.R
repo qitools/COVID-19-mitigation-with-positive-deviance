@@ -1,4 +1,4 @@
-bcra <- function(genetics = 'no', history = 'no', T1 = 0, AgeMen = 99, Age1st = 99, N_Rels = 99, N_Biop = 99, HypPlas = 99, Race = 1, pagename = 'plain'){
+bcra <- function(genetics = 'no', history = 'no', T1 = 0, AgeMen = 99, Age1st = 99, N_Rels = 99, N_Biop = 99, HypPlas = 99, Race = 1, pageformat = 'nci'){
   myframe <- data.frame(
     ID = 1,
     T1 = as.numeric(T1),
@@ -27,24 +27,29 @@ bcra <- function(genetics = 'no', history = 'no', T1 = 0, AgeMen = 99, Age1st = 
   }
 
 msg = NULL
-msg = paste(msg,'<h3>Your risk of invasive breast cancer</h3>')
-msg = paste(msg,'<div>5 years: ', sprintf("%.1f",absolute.risk(myframe)), '%.</div>')
+data(pages)
+msg <- subset(pages, pagename==pageformat)[, "content"]
+
+#msg = paste(msg,'<div>5 years: ', sprintf("%.1f",absolute.risk(myframe)), '%.</div>')
+if (myframe$T1 < 86){
+  #5 years
+  myframe$T2 = myframe$T1 + 5
+  msg <- sub("X5X", sprintf("%.1f",absolute.risk(myframe)),msg)
+  msg <- sub("M5M", sprintf("%.1f",0.8*absolute.risk(myframe)),msg)
+  msg <- sub("T5T", sprintf("%.1f",absolute.risk(myframe,iloop=2)),msg)
+}
 if (myframe$T1 < 81){
+  #10 years
   myframe$T2 = myframe$T1 + 10
-  msg = paste(msg,'<div>10 years: ', sprintf("%.1f",absolute.risk(myframe)), '%.</div>')
-  }
-if (myframe$T1 < 71){
-  myframe$T2 = myframe$T1 + 20
-  msg = paste(msg,'<div>20 years: ', sprintf("%.1f",absolute.risk(myframe)), '%.</div>')
+  msg <- sub("X10X", sprintf("%.1f",absolute.risk(myframe)),msg)
+  msg <- sub("M10M", sprintf("%.1f",0.8*absolute.risk(myframe)),msg)
 }
 if (myframe$T1 < 91){
   myframe$T2 = 90
-  msg = paste(msg,'<div>Lifetime this patient (age 90): ', sprintf("%.1f",absolute.risk(myframe)), '%.</div>')
-  msg = paste(msg,'<div>Lifetime average risk (age 90): ', sprintf("%.1f",absolute.risk(myframe,iloop=2)), '%.</div>')
+  msg <- sub("X90X", sprintf("%.1f",absolute.risk(myframe)),msg)
+  msg <- sub("M90M", sprintf("%.1f",0.8*absolute.risk(myframe)),msg)
+  msg <- sub("T90T", sprintf("%.1f",absolute.risk(myframe,iloop=2)),msg)
 }
-#msg = paste(myframe, sep = ", ", collapse = NULL)
-#data(pages)
-#msg <- subset(pages, page=pagename)[, "content"]
-#msg <- sub("XX", sprintf("%.1f",100*result$tir),msg)
+msg <- paste(msg,seP="<div style=\"text-align:center\">		<button id=\"startover\" type=\"button\" onclick=\"location.reload()\">Start over</button></div>")
 list(message = msg)
 }
