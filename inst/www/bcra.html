@@ -31,6 +31,16 @@
     $(document).ready(function(){
       $("#submitbutton").on("click", function(){
 
+		//Check for missing values
+	  var allFilled = true;
+    $(':input:not(:button)').each(function(index, element) {
+        if (element.value == '999') {
+            allFilled = false;
+		}
+    });
+	if (allFilled == false){alert('Check for missing values');return false;}
+    
+	  
 		//disable the button to prevent multiple clicks
         $("#submitbutton").attr("disabled", "disabled");
         

@@ -11,6 +11,15 @@ bcra <- function(genetics = 'no', history = 'no', T1 = 0, AgeMen = 99, Age1st = 
     Race = as.numeric(Race)
   )
 
+  
+  x.sub <- subset(myframe, myframe[] == 999)
+  
+  if(nrow(x.sub) > 0 ){
+    msg <- "<div>&nbsp;</div><div style=\"text-align:center\">		<button id=\"startover\" type=\"button\" onclick=\"location.reload()\">Start over</button></div>"
+    list(message = msg)
+    stop("Please be sure to enter all values!")
+  }  
+  
   if (myframe$N_Biop == 0)
     {myframe$HypPlas = 99} #Corrects for unintuitive data entry
   
@@ -50,6 +59,6 @@ if (myframe$T1 < 91){
   msg <- sub("M90M", sprintf("%.1f",0.8*absolute.risk(myframe)),msg)
   msg <- sub("T90T", sprintf("%.1f",absolute.risk(myframe,iloop=2)),msg)
 }
-msg <- paste(msg,seP="<div>&nbsp;</div><div style=\"text-align:center\">		<button id=\"startover\" type=\"button\" onclick=\"location.reload()\">Start over</button></div>")
+msg <- paste(msg,"<div>&nbsp;</div><div style=\"text-align:center\">		<button id=\"startover\" type=\"button\" onclick=\"location.reload()\">Start over</button></div>", sep="")
 list(message = msg)
 }
