@@ -1,6 +1,6 @@
 \name{brca}
 \alias{brca}
-\title{brca}
+\title{Breast cancer risk asessment}
 \usage{
 brca (genetics = 'no', history = 'no', T1 = 0, AgeMen = 99, Age1st = 99, N_Rels = 99, N_Biop = 99, HypPlas = 99, Race = 1)
 }
