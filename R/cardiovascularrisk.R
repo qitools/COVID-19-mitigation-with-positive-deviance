@@ -223,7 +223,8 @@ svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", optimal*4,",", curr
 svgtext = paste(svgtext,"Sorry, your browser does not support inline SVG for dynamic graphics.</svg>")
 #End of SVG
 msg = paste(msg, svgtext)	
-#Details
+##Details
+if ('a' == 'b') {
 msg = paste(msg, "<h4>Details:</h4><ul>")
 if (smoke0 > 0)
 	{
@@ -253,15 +254,17 @@ msg = paste(msg, "  </ul>")
 msg = paste(msg, "</li>")
 	}
 msg = paste(msg, "</ul>")
+}
+##Recommendations
 msg = paste(msg, "<h3>Recommendations:</h3><ul>")
 if (smoke0 > 0)
 	{
 	msg = paste(msg, "<li><a href=\"http://www.cdc.gov/tobacco/campaign/tips/quit-smoking/guide/steps-to-prepare.html\">Smoking - make a plan to quit</a></li>")
 	}
-msg = paste(msg, "<li><a href=\"http://pubmed.gov/24222015\">Healthy lifestyle</a> such as the <a href=\"http://dietamediterranea.com/en/piramide/\">Mediterranean Diet</a> (5)
+msg = paste(msg, "<li>Healthy lifestyle (5) such as the <a href=\"http://dietamediterranea.com/en/nutrition/\">Mediterranean Diet</a> (6)
  or <a href=\"http://www.nhlbi.nih.gov/health/public/heart/hbp/dash/\">Dash Diet</a> (lowers blood pressure) or <a href=\"http://www.heart.org/HEARTORG/GettingHealthy/Diet-and-Lifestyle-Recommendations_UCM_305855_Article.jsp\">AHA Diet</a>.</li>")
 #Start of AHA/ACC recommendations
-msg = paste(msg, "<li>Statins per AHA/ACC 2013 Recommendations (PMID: <a href=\"http://pubmed.gov/24222016\">24222016</a>):<ul>")
+msg = paste(msg, "<li>Statins per AHA/ACC 2013 Recommendations (7):<ul>")
  if (prob >= 7.5)
 	{
 	if (diabetes0 == 1){msg = paste(msg, "<li>Since diabetic: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")}
