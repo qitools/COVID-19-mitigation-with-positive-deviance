@@ -1,4 +1,4 @@
-cardiovascularrisk <- function(age0 = 0, gender = "", ethnicity = "", smoke0 = 0, diabetes0 = 0, bprx = 0, sbp = 0, tchol0 = 0, hdl0 = 0){
+cardiovascularrisk <- function(age0 = 0, gender = "", ethnicity = "", smoke0 = 0, diabetes0 = 0, bprx = 0, sbp = 0, tchol0 = 0, hdl0 = 0,  pageformat = 'factsbox'){
 
   if(age0 < 1){
     stop("Tell me your age!")

@@ -41,22 +41,24 @@
 		if ($("#diabetes1").prop("checked") == true){diabetes0 = 1}
 		var bprx = 0
 		if ($("#bprx1").prop("checked") == true){bprx = 1}
-        var sbp = $("#sbp").val() * 1;
-        var tchol0 = $("#tchol").val() * 1;
-        var hdl0 = $("#hdl").val() * 1;
+        var sbp        = $("#sbp").val() * 1;
+        var tchol0     = $("#tchol").val() * 1;
+        var hdl0       = $("#hdl").val() * 1;
+		var pageformat = $("input:radio[name=pageformat]:checked" ).val();
 	  
         //perform the request
         var req = opencpu.r_fun_json("cardiovascularrisk", {
-        age0 : age0,
-        gender : gender,
-        ethnicity : ethnicity,
-        smoke0 : smoke0,
-		diabetes0 : diabetes0,
-		bprx : bprx,
-		sbp : sbp,
-		tchol0 : tchol0,
-		hdl0 : hdl0
-	  }, function(output){
+        age0 :       age0,
+        gender :     gender,
+        ethnicity :  ethnicity,
+        smoke0 :     smoke0,
+		diabetes0 :  diabetes0,
+		bprx :       bprx,
+		sbp :        sbp,
+		tchol0 :     tchol0,
+		hdl0 :       hdl0,
+		pageformat : pageformat
+		}, function(output){
           document.getElementById("output").innerHTML = output.message
         });
         
@@ -183,7 +185,9 @@ This note added 4/5/2014.
 	    <div style="display:block">Systolic blood pressure: <input type="number" min="50" max="250" id="sbp"></div>
 	    <div style="display:block">Total cholesterol: <input type="number" min="50" max="500" id="tchol"></div>
 	    <div style="display:block">HDL cholesterol: <input type="number" min="1" max="150" id="hdl"></div>
-			
+
+		<div style="text-align:center">Format: <input type="radio" name="pageformat" value="factsbox" checked>Facts Box <input type="radio" name="pageformat" value="chart">Chart</div>
+		
 		<button id="submitbutton" type="button">Submit (answer will show to the right)</button>
           </fieldset>
         </form>
