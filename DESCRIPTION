@@ -19,3 +19,4 @@ Collate:
     'bcra.R'
     'pulmnodule.R'
 	'cardiovascularrisk.R'
+	'prostatecancerrisk.R'	

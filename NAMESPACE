@@ -1,6 +1,8 @@
 export(home)
 export(pulmnodule)
 export(cardiovascularrisk)
+export(prostatecancerrisk)
+export(bcra)
 import(RJSONIO)
 import(ggplot2)
 import(stringr)

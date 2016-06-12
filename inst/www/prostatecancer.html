@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>openRules</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- jquery -->
+<script src="//code.jquery.com/jquery-2.1.3.min.js"> </script>
+
+<!-- ocpu library -->
+<script src="opencpu/opencpu.js"> </script>
+
+<!-- tooltip -->
+<script type="text/javascript" src="qtip/jquery.qtip.min.js"></script>
+<link rel="stylesheet" type="text/css" href="qtip/jquery.qtip.min.css" />
+
+<!-- some optional styling stuff -->
+<script src="bootstrap/js/bootstrap.js"></script>
+<script src="jqueryui/jquery-ui-1.10.3.custom.js"></script>
+
+<script>
+		function toggleit (itemno){
+			document.getElementById(itemno).style.display = (document.getElementById(itemno).style.display == "none" ) ? "" : "none";
+		}
+		function startover(){
+			$("#paramform").css("display","block");
+			document.getElementById("output").innerHTML = "";
+		}
+    //init this script when the page has loaded
+    $(document).ready(function(){
+      $("#submitbutton").on("click", function(){
+
+		//Check for missing values
+	  var allFilled = true;
+    $(':input:not(:button)').each(function(index, element) {
+        if (element.value == '999') {
+            allFilled = false;
+		}
+    });
+	if (allFilled == false){alert('Check for missing values');return false;}
+    
+	  
+		//disable the button to prevent multiple clicks
+        $("#submitbutton").attr("disabled", "disabled");
+        
+        //read the values
+        var fmh                   = $("#fmh").val();
+		var race                       = $("#race").val();
+		var pageformat                 = $("input:radio[name=pageformat]:checked" ).val();
+
+        //perform the request
+        var req = opencpu.r_fun_json("prostatecancerrisk", {
+        fmh                        : fmh,
+		race                       : race,
+		pageformat                 : pageformat
+
+		}, function(output){
+          document.getElementById("output").innerHTML = output.message
+        });
+        
+        //if R returns an error, alert the error message
+        req.fail(function(){
+          alert("Server error: " + req.responseText);
+        });
+        
+        //after request complete, re-enable the button 
+        req.always(function(){
+          $("#submitbutton").removeAttr("disabled")
+			$("#paramform").css("display","none");
+        });
+		
+	  });
+
+	//http://qtip2.com/
+	// Apply tooltip on all <a/> elements with title attributes. Mousing over
+    // these elements will the show tooltip as expected, but mousing onto the
+    // tooltip is now possible for interaction with it's contents.
+    //$('a').each(function () {
+    $('.hastip').each(function () {
+        $(this).qtip({
+            content: $(this).next('.tooltiptext'),
+            hide: {
+                fixed: true,
+                delay: 300
+            },
+			position: {
+				my: 'bottom left',  // Position my top left...
+				at: 'bottom right', // at the bottom right of...
+			},
+			style: { classes: 'ToolTipClass'
+			}
+		});
+    });
+
+	$('.hastip').click(function(e) {
+		e.stopPropagation();
+		return false;
+	});	
+	
+	
+	  $(function() {
+    $( document ).tooltip();
+  });
+	
+      //this is only needed when using CORS (i.e. web pages hosted outside opencpu)
+      if(!location.pathname.match("^/ocpu/.*/appdemo/www")){
+        opencpu.seturl("//public.opencpu.org/ocpu/library/appdemo/R");
+      }
+    });
+    </script>
+    
+    <style>
+      #output{
+       /*  height: 40px;
+        width: 400px;
+        border: 1px solid gray;
+        padding: 3px; */
+      }
+
+	  .tooltiptext{
+			display: none;
+		}
+	  .ToolTipClass{
+		color:black;
+		border-color:#0022B4;
+		background-color: #6DC6E7
+		}
+
+	.green{
+	background:#D8EDA4;
+	width:60%}
+	.white{
+	background:white;
+	text-align:center}
+	table, tbody, tr, td{
+	padding:0px;
+	border-spacing: 0px}
+	td{
+	padding:5px;
+	border-spacing: 0px}
+	.header{
+	font-weight:bold}
+	</style>
+
+</head>
+
+<body>
+<!-- 
+http://jquery-csv.googlecode.com/git/examples/basic-usage.html
+http://jquery-csv.googlecode.com/git/examples/flot.html -> seems best and most stable without reticulating spines error
+http://code.google.com/p/jquery-csv/wiki/API -> instructions
+-->
+<div class="container" style="width:1000px;">
+
+    <div class="page-header" style="color:#0022B4">
+			<h1>openRules</h1>
+			<h2>What is my chance of dying from prostate cancer?</h2>
+			<a href="#" title="That&apos;s what this widget is">Tooltips</a>
+			</div>
+			<div style="float:left;color:#0022B4">
+	
+        <form id="paramform" target="target" style="max-width: 600px">
+          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;">
+		  <legend>Enter values:</legend>
+
+            <table cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <td valign="top">1.
+                    </td>
+                    <td valign="top" colspan="2">
+                        <label for="fmh">
+                            Do you have a family history of any prostate cancer?
+                        </label>
+                    </td>
+                    <td valign="top" width="8">
+                        &nbsp;
+                    </td>
+                    <td valign="top" align="right">
+                        <select id="fmh" name="fmh">
+                            <option value="">Select</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                                <td valign="top">2.
+                                </td>
+                                <td valign="top" width="229" colspan="2">
+                                    <label for="race">
+                                        What is your race/ethnicity?</label>
+                                </td>
+                                <td valign="top" width="8">
+                                    &nbsp;
+                                </td>
+                                <td valign="top" align="right">
+                                    <select id="race" name="race" size="1" style="width: 210px;">
+                                        <option value="999">Select</option>
+                                        <option value="w">White</option>
+                                        <option value="b">African American</option>
+                                        <option value="h">Hispanic</option>
+                                        <option value="a">Asian Pacific Islander</option>
+                                        <option value="n">American Indian or Alaskan Native</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" colspan="5">
+                                    <img src="images/spacer.gif" width="4" height="20" alt="" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" colspan="5">
+                                    <img src="images/spacer.gif" width="4" height="20" alt="" />
+                                </td>
+                            </tr>
+                        </table>
+<div style="text-align:center">Format: <input type="radio" name="pageformat" value="factsbox" checked>Facts Box</div>
+<div style="text-align:center"><button id="submitbutton" type="button">Submit</button></div>
+          </fieldset>
+        </form>
+	</div>
+     <div id="output" style="width:550px;float:left">
+	 </div>
+	<div style="clear:both"></div>
+
+    <h3>References</h3>
+    <ol start="1">
+	  <li>SEER Stat Fact Sheets: Prostate Cancer. Available from <a href="http://seer.cancer.gov/statfacts/html/prost.html">http://seer.cancer.gov/statfacts/html/prost.html</a></li>
+	  <!-- http://seer.cancer.gov/csr/1975_2013/ http://seer.cancer.gov/archive/csr/1975_2012/results_merged/topic_lifetime_risk.pdf -->
+	  <li><a href="https://canques.seer.cancer.gov/cgi-bin/cq_submit?dir=devcan2012&db=1&rpt=TAB&sel=1,4^5^^2^14^0^20&y=Race^1,2,3,4,5,6,7,8&x=Statistic%20Type^1,4&dec=2,2&template=null">SEER 18 Registries Incidence and Mortality (2014 Submission), with Kaposi Sarcoma and Mesothelioma</a> (Queried 6/12/2016)</li>
+	  <li>Rahal AK, Badgett RG, Hoffman RM. Screening Coverage Needed to Reduce Mortality from Prostate Cancer: A Living Systematic Review. PLoS One. 2016. PMID: <a href="http://www.ncbi.nlm.nih.gov/pubmed/27070904">27070904</a></li>
+    </ol>
+
+    </div>
+
+    <div class="row">
+      <div class="span12">
+
+	  	  <h3>About</h3>
+	        <ul>
+			<li><a href="https://github.com/openRules">Source code at GitHub</a></li>
+			<li><a href="../man/psa/html">Manual</a></li>
+			<li>Contribute: <a href="https://github.com/openRules/home/issues?q=team%3AopenRules%2Fpsa">open issues</a></li>
+			<li><a href="https://github.com/orgs/openRules/teams/psa">Authors</a></li>
+		</ul>
+		
+		</div>
+		</div>
+  </div>
+</body>
+</html>
