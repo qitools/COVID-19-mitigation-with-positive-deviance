@@ -1,10 +1,12 @@
 prostatecancerrisk <- function(fmh = 'no', race = 'w', pageformat = 'factsbox'){
 
 if (race == "w"){prob = 0.0258}
-if (race == "b"){prob = 0.0443}
 if (race == "h"){prob = 0.0314}
 if (race == "a"){prob = 0.0208}
 if (race == "n"){prob = 0.0248}
+if (race == "b"){prob = 0.0443}
+
+if (fmh == "y"){prob = prob * 2}
 
 msg = NULL
 #data(pages)
