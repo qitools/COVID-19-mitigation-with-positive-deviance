@@ -45,7 +45,7 @@
         $("#submitbutton").attr("disabled", "disabled");
         
         //read the values
-        var fmh                   = $("#fmh").val();
+        var fmh                        = $("#fmh").val();
 		var race                       = $("#race").val();
 		var pageformat                 = $("input:radio[name=pageformat]:checked" ).val();
 
@@ -98,10 +98,6 @@
 		return false;
 	});	
 	
-	
-	  $(function() {
-    $( document ).tooltip();
-  });
 	
       //this is only needed when using CORS (i.e. web pages hosted outside opencpu)
       if(!location.pathname.match("^/ocpu/.*/appdemo/www")){
@@ -156,7 +152,6 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
     <div class="page-header" style="color:#0022B4">
 			<h1>openRules</h1>
 			<h2>What is my chance of dying from prostate cancer?</h2>
-			<a href="#" title="That&apos;s what this widget is">Tooltips</a>
 			</div>
 			<div style="float:left;color:#0022B4">
 	
@@ -227,13 +222,15 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 
     <h3>References</h3>
     <ol start="1">
+	<li>Qaseem A, Barry MJ, Denberg TD, Owens DK, Shekelle P. Screening for prostate cancer: a guidance statement from the Clinical Guidelines Committee of the American College of Physicians. Ann Intern Med. 2013. PMID: <a href="http://www.ncbi.nlm.nih.gov/pubmed/23567643">23567643</a>.</li>
+	<li>Carter HB, Albertsen PC, Barry MJ et al. Early detection of prostate cancer: AUA Guideline. J Urol. 2013. PMID: <a href="http://www.ncbi.nlm.nih.gov/pubmed/23659877">23659877</a>.</li>
+	<li>Wolf AM, et al. American Cancer Society Prostate Cancer Advisory Committee. American Cancer Society guideline for the early detection of prostate cancer. CA Cancer J Clin. 2010 PMID: <a href="http://www.ncbi.nlm.nih.gov/pubmed/20200110">20200110</a>.</li>
+	<li>Moyer VA et al. Screening for prostate cancer: U.S. Preventive Services Task Force recommendation statement. Ann Intern Med. 2012 PMID:<a href="http://www.ncbi.nlm.nih.gov/pubmed/22801674">22801674</a>.</li>
+	  <li>Rahal AK, Badgett RG, Hoffman RM. Screening Coverage Needed to Reduce Mortality from Prostate Cancer: A Living Systematic Review. PLoS One. 2016. PMID: <a href="http://www.ncbi.nlm.nih.gov/pubmed/27070904">27070904</a></li>
 	  <li>SEER Stat Fact Sheets: Prostate Cancer. Available from <a href="http://seer.cancer.gov/statfacts/html/prost.html">http://seer.cancer.gov/statfacts/html/prost.html</a></li>
 	  <!-- http://seer.cancer.gov/csr/1975_2013/ http://seer.cancer.gov/archive/csr/1975_2012/results_merged/topic_lifetime_risk.pdf -->
 	  <li><a href="https://canques.seer.cancer.gov/cgi-bin/cq_submit?dir=devcan2012&db=1&rpt=TAB&sel=1,4^5^^2^14^0^20&y=Race^1,2,3,4,5,6,7,8&x=Statistic%20Type^1,4&dec=2,2&template=null">SEER 18 Registries Incidence and Mortality (2014 Submission), with Kaposi Sarcoma and Mesothelioma</a> (Queried 6/12/2016)</li>
-	  <li>Rahal AK, Badgett RG, Hoffman RM. Screening Coverage Needed to Reduce Mortality from Prostate Cancer: A Living Systematic Review. PLoS One. 2016. PMID: <a href="http://www.ncbi.nlm.nih.gov/pubmed/27070904">27070904</a></li>
     </ol>
-
-    </div>
 
     <div class="row">
       <div class="span12">
