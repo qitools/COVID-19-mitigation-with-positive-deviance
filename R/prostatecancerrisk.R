@@ -6,7 +6,7 @@ if (race == "a"){prob = 0.0208}
 if (race == "n"){prob = 0.0248}
 if (race == "b"){prob = 0.0443}
 
-if (fmh == "y"){prob = prob * 2}
+if (fmh == "y"){prob = prob * 2.53}
 
 msg = NULL
 #data(pages)
