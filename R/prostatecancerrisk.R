@@ -6,7 +6,7 @@ if (race == "a"){prob = 0.0208}
 if (race == "n"){prob = 0.0248}
 if (race == "b"){prob = 0.0443}
 
-if (fmh == "y"){prob = prob * 2.53}
+if (fmh == "y"){prob = 0.0272 * 2.53} #So FMH is applied to risk for all races pooled. Unclear what to do with AA male and pos FMH
 
 msg = NULL
 #data(pages)
