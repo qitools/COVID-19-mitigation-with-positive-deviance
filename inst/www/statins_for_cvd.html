@@ -300,7 +300,7 @@ This note added 4/5/2014.
 	    <div style="display:block">Systolic blood pressure: <input type="number" min="50" max="250" id="sbp"></div>
 	    <div style="display:block">Total cholesterol: <input type="number" min="50" max="500" id="tchol"></div>
 	    <div style="display:block">LDL cholesterol: <input type="number" title="This does not apply to people with known atherosclerositic cardiovascular disease or LDL-C > 190 mg/dl as these people need high-intensity statins" min="50" max="189" id="ldl" name = "ldl" ng-model="ldl" required>
-		<span ng-show="paramform.ldl.$invalid" class="required">This does not apply to people with known atherosclerositic cardiovascular disease or LDL-C > 190 mg/dl as these people need high-intensity statins.</span>
+		<span ng-show="paramform.ldl.$invalid" class="required"></span>
 		</div>
 	    <div style="display:block">HDL cholesterol: <input type="number" min="1" max="150" id="hdl"></div>
 
