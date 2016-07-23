@@ -168,122 +168,145 @@ arr_smoke = prob - withsmokecess
 #Revise for all
 optimal = withsmokecess * 0.73
 arr_both = prob - optimal
+#end of calculations
 
-msg = paste("<h3>Your risk of cardiovascular disease in 10 years</h3><div>",sprintf("%.1f",prob), '% probability of cardiovascular event within 10 years.</div>')
+#chart - start
+if (pageformat == "chart")
+  {
+  msg = paste("<h3>Your risk of cardiovascular disease in 10 years</h3><div>",sprintf("%.1f",prob), '% probability of cardiovascular event within 10 years.</div>')
+  
+  #Start SVG output
+  if (prob >= 7.5)
+  #if (grepl("<li>", msg) > 0)
+  	{
+  	#msg = paste(msg, "<div>Assuming statin medications reduce your risk by 27% (3), the following is expected:</div><div>&nbsp;</div>")
+  	}
+  #Make SVG
+  svgheight = 150
+  if (smoke0 > 0){svgheight=svgheight+40}
+  if (sbp > 140) {svgheight=svgheight+40}
+  svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"420px\" height=\"",svgheight,"px\" viewBox=\"0 0 420 ",svgheight,"\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">
+  <!-- Scale -->
+  <text x=\"0\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">0%</text><text x=\"90\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">25%</text><text x=\"190\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">50%</text><text x=\"290\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">75%</text><text x=\"380\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">100%</text>
+  <polygon points=\"0,18 400,18 400,20 0,20\"  style=\"fill:black;fill-opacity:1;stroke-width:0\"/>
+  <text x=\"0\" y=\"35\" fill=\"black\" style=\"\">Your current risk</text>
+  <polygon points=\"0,40 ", prob*4,",40 ", prob*4,",60 0,60\"  style=\"fill:red;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+prob*4,"\" y=\"55\" style=\"fill:red;font-weight:bold\">", sprintf("%.1f",prob),"%</text>\n", sep = "")
+  currenty = 40
+  if (sbp > 140)
+  	{
+  	currenty = currenty + 35
+  	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">With blood pressure of 140</text>\n", sep = "")
+  	currenty = currenty + 5
+  	svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", withsbp*4,",", currenty, ",", withsbp*4,",", currenty+20, ",0,", currenty+20, "\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withsbp*4,"\" y=\"", currenty+15,"\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withsbp),"%</text>\n", sep = "")
+  	}
+  #Statins
+  	currenty = currenty + 35
+  	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">With statins for 10 years</text>\n", sep = "")
+  	currenty = currenty + 5
+  	svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", withstatins*4,",", currenty, ",", withstatins*4,",", currenty+20, ",0,", currenty+20, "\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withstatins*4,"\" y=\"", currenty+15,"\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withstatins),"%</text>\n", sep = "")
+  if (smoke0 > 0)
+  	{
+  	currenty = currenty + 35
+  	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">With smoking cessation (after three years)</text>\n", sep = "")
+  	currenty = currenty + 5
+  	svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", withsmokecess*4,",", currenty, ",", withsmokecess*4,",", currenty+20, ",0,", currenty+20, "\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withsmokecess*4,"\" y=\"", currenty+15,"\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withsmokecess),"%</text>\n", sep = "")
+  	}
+  #Make optimal bar
+  currenty = currenty + 35
+  if (smoke0 > 0)
+  	{
+  	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">Without smoking and with optimal cholesterol and blood pressure (after three years)</text>\n", sep = "")
+  	}
+  else
+  	{
+  	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">With optimal cholesterol and blood pressure (after three years)</text>\n", sep = "")
+  	}
+  currenty = currenty + 5
+  svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", optimal*4,",", currenty, ",", optimal*4,",", currenty+20, ",0,", currenty+20, "\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+optimal*4,"\" y=\"", currenty+15,"\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",optimal),"%</text>", sep = "")
+  #In case old browser
+  svgtext = paste(svgtext,"Sorry, your browser does not support inline SVG for dynamic graphics.</svg>")
+  #End of SVG
+  msg = paste(msg, svgtext)	
+  ##Details
+  if ('a' == 'b') {
+  msg = paste(msg, "<h4>Details:</h4><ul>")
+  if (smoke0 > 0)
+  	{
+  msg = paste(msg, "<li>Smoking cessation:")
+  msg = paste(msg, "  <ul>")
+  msg = paste(msg, "  <li>You have a one in ", format(round(100/arr_smoke,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years.</li>")
+  msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat-nnt/\">number needed to treat</a> (NNT) is ", format(round(100/arr_smoke,digits = 0), nsmall = 0),".</li>")
+  msg = paste(msg, "  <li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", sprintf("%.1f",arr_smoke), "%.</li>")
+  msg = paste(msg, "  </ul>")
+  msg = paste(msg, "</li>")
+  	}
+  msg = paste(msg, "<li>Medication ('statins') for cholesterol (3):")
+  msg = paste(msg, "  <ul>")
+  msg = paste(msg, "  <li>You have a one in ", format(round(100/arr,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years.</li>")
+  msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat-nnt/\">number needed to treat</a> (NNT) is ", format(round(100/arr,digits = 0), nsmall = 0),".</li>")
+  msg = paste(msg, "  <li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", format(round(arr,digits = 1), nsmall = 1), "%.</li>")
+  msg = paste(msg, "  </ul>")
+  msg = paste(msg, "</li>")
+  if (smoke0 > 0)
+  	{
+  msg = paste(msg, "<li>Both:")
+  msg = paste(msg, "  <ul>")
+  msg = paste(msg, "  <li>You have a one in ", format(round(100/arr_both,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years if you stop smoking and take a statin.</li>")
+  msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat-nnt/\">number needed to treat</a> [NNT] is ", format(round(100/arr_both,digits = 0), nsmall = 0),".</li>")
+  msg = paste(msg, "  <li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", sprintf("%.1f",arr_both), "%.</li>")
+  msg = paste(msg, "  </ul>")
+  msg = paste(msg, "</li>")
+  	}
+  msg = paste(msg, "</ul>")
+  }
+  ##Recommendations
+  msg = paste(msg, "<h3>Recommendations:</h3><ul>")
+  if (smoke0 > 0)
+  	{
+  	msg = paste(msg, "<li><a href=\"http://www.cdc.gov/tobacco/campaign/tips/quit-smoking/guide/steps-to-prepare.html\">Smoking - make a plan to quit</a></li>")
+  	}
+  msg = paste(msg, "<li>Healthy lifestyle (5) such as the <a href=\"http://dietamediterranea.com/en/nutrition/\">Mediterranean Diet</a> (6)
+   or <a href=\"http://www.nhlbi.nih.gov/health/public/heart/hbp/dash/\">Dash Diet</a> (lowers blood pressure) or <a href=\"http://www.heart.org/HEARTORG/GettingHealthy/Diet-and-Lifestyle-Recommendations_UCM_305855_Article.jsp\">AHA Diet</a>.</li>")
+  #Start of AHA/ACC recommendations
+  msg = paste(msg, "<li>Statins per AHA/ACC 2013 Recommendations (<a href=\"http://pubmed.gov/24222016\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">American College of Cardiology/American Heart Association, 2014</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)<ul>")
+   if (prob >= 7.5)
+  	{
+  	if (diabetes0 == 1){msg = paste(msg, "<li>Since diabetic: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")}
+  	if (diabetes0 == 0){msg = paste(msg, "<li>Since not diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")}
+  	if (age0 < 40 || age0 > 75){msg = paste(msg, "<li>Statins: since age not 40 - 75, benefit is less clear</li>")}
+  	}
+  else
+  	{
+  		if (diabetes0 == 1)
+  		{
+  		msg = paste(msg, "<li>Since diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin</li>")
+  		}
+  	else
+  		{
+  		if (estLDL >= 190){msg = paste(msg, "<li>Statins may be needed. Non-HDL cholesterol is high at ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2). If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin if a candidate, else <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")}
+  		}
+  	}
+  msg = paste(msg,"</ul></li></ul>")
+  }
+#chart - end
 
-#Start SVG output
-if (prob >= 7.5)
-#if (grepl("<li>", msg) > 0)
-	{
-	#msg = paste(msg, "<div>Assuming statin medications reduce your risk by 27% (3), the following is expected:</div><div>&nbsp;</div>")
-	}
-#Make SVG
-svgheight = 150
-if (smoke0 > 0){svgheight=svgheight+40}
-if (sbp > 140) {svgheight=svgheight+40}
-svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"420px\" height=\"",svgheight,"px\" viewBox=\"0 0 420 ",svgheight,"\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">
-<!-- Scale -->
-<text x=\"0\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">0%</text><text x=\"90\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">25%</text><text x=\"190\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">50%</text><text x=\"290\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">75%</text><text x=\"380\" y=\"15\" fill=\"black\" style=\"font-weight:bold\">100%</text>
-<polygon points=\"0,18 400,18 400,20 0,20\"  style=\"fill:black;fill-opacity:1;stroke-width:0\"/>
-<text x=\"0\" y=\"35\" fill=\"black\" style=\"\">Your current risk</text>
-<polygon points=\"0,40 ", prob*4,",40 ", prob*4,",60 0,60\"  style=\"fill:red;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+prob*4,"\" y=\"55\" style=\"fill:red;font-weight:bold\">", sprintf("%.1f",prob),"%</text>\n", sep = "")
-currenty = 40
-if (sbp > 140)
-	{
-	currenty = currenty + 35
-	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">With blood pressure of 140</text>\n", sep = "")
-	currenty = currenty + 5
-	svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", withsbp*4,",", currenty, ",", withsbp*4,",", currenty+20, ",0,", currenty+20, "\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withsbp*4,"\" y=\"", currenty+15,"\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withsbp),"%</text>\n", sep = "")
-	}
-#Statins
-	currenty = currenty + 35
-	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">With statins for 10 years</text>\n", sep = "")
-	currenty = currenty + 5
-	svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", withstatins*4,",", currenty, ",", withstatins*4,",", currenty+20, ",0,", currenty+20, "\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withstatins*4,"\" y=\"", currenty+15,"\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withstatins),"%</text>\n", sep = "")
-if (smoke0 > 0)
-	{
-	currenty = currenty + 35
-	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">With smoking cessation (after three years)</text>\n", sep = "")
-	currenty = currenty + 5
-	svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", withsmokecess*4,",", currenty, ",", withsmokecess*4,",", currenty+20, ",0,", currenty+20, "\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withsmokecess*4,"\" y=\"", currenty+15,"\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withsmokecess),"%</text>\n", sep = "")
-	}
-#Make optimal bar
-currenty = currenty + 35
-if (smoke0 > 0)
-	{
-	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">Without smoking and with optimal cholesterol and blood pressure (after three years)</text>\n", sep = "")
-	}
-else
-	{
-	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">With optimal cholesterol and blood pressure (after three years)</text>\n", sep = "")
-	}
-currenty = currenty + 5
-svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", optimal*4,",", currenty, ",", optimal*4,",", currenty+20, ",0,", currenty+20, "\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+optimal*4,"\" y=\"", currenty+15,"\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",optimal),"%</text>", sep = "")
-#In case old browser
-svgtext = paste(svgtext,"Sorry, your browser does not support inline SVG for dynamic graphics.</svg>")
-#End of SVG
-msg = paste(msg, svgtext)	
-##Details
-if ('a' == 'b') {
-msg = paste(msg, "<h4>Details:</h4><ul>")
-if (smoke0 > 0)
-	{
-msg = paste(msg, "<li>Smoking cessation:")
-msg = paste(msg, "  <ul>")
-msg = paste(msg, "  <li>You have a one in ", format(round(100/arr_smoke,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years.</li>")
-msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat-nnt/\">number needed to treat</a> (NNT) is ", format(round(100/arr_smoke,digits = 0), nsmall = 0),".</li>")
-msg = paste(msg, "  <li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", sprintf("%.1f",arr_smoke), "%.</li>")
-msg = paste(msg, "  </ul>")
-msg = paste(msg, "</li>")
-	}
-msg = paste(msg, "<li>Medication ('statins') for cholesterol (3):")
-msg = paste(msg, "  <ul>")
-msg = paste(msg, "  <li>You have a one in ", format(round(100/arr,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years.</li>")
-msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat-nnt/\">number needed to treat</a> (NNT) is ", format(round(100/arr,digits = 0), nsmall = 0),".</li>")
-msg = paste(msg, "  <li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", format(round(arr,digits = 1), nsmall = 1), "%.</li>")
-msg = paste(msg, "  </ul>")
-msg = paste(msg, "</li>")
-if (smoke0 > 0)
-	{
-msg = paste(msg, "<li>Both:")
-msg = paste(msg, "  <ul>")
-msg = paste(msg, "  <li>You have a one in ", format(round(100/arr_both,digits = 0), nsmall = 0), " chance of avoiding cardiovascular disease over 10 years if you stop smoking and take a statin.</li>")
-msg = paste(msg, "  <li>The <a href=\"http://www.cebm.net/number-needed-to-treat-nnt/\">number needed to treat</a> [NNT] is ", format(round(100/arr_both,digits = 0), nsmall = 0),".</li>")
-msg = paste(msg, "  <li><a href=\"https://en.wikipedia.org/wiki/Absolute_risk_reduction\">Absolute risk reduction</a> (ARR) is ", sprintf("%.1f",arr_both), "%.</li>")
-msg = paste(msg, "  </ul>")
-msg = paste(msg, "</li>")
-	}
-msg = paste(msg, "</ul>")
-}
-##Recommendations
-msg = paste(msg, "<h3>Recommendations:</h3><ul>")
-if (smoke0 > 0)
-	{
-	msg = paste(msg, "<li><a href=\"http://www.cdc.gov/tobacco/campaign/tips/quit-smoking/guide/steps-to-prepare.html\">Smoking - make a plan to quit</a></li>")
-	}
-msg = paste(msg, "<li>Healthy lifestyle (5) such as the <a href=\"http://dietamediterranea.com/en/nutrition/\">Mediterranean Diet</a> (6)
- or <a href=\"http://www.nhlbi.nih.gov/health/public/heart/hbp/dash/\">Dash Diet</a> (lowers blood pressure) or <a href=\"http://www.heart.org/HEARTORG/GettingHealthy/Diet-and-Lifestyle-Recommendations_UCM_305855_Article.jsp\">AHA Diet</a>.</li>")
-#Start of AHA/ACC recommendations
-msg = paste(msg, "<li>Statins per AHA/ACC 2013 Recommendations (7):<ul>")
- if (prob >= 7.5)
-	{
-	if (diabetes0 == 1){msg = paste(msg, "<li>Since diabetic: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")}
-	if (diabetes0 == 0){msg = paste(msg, "<li>Since not diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")}
-	if (age0 < 40 || age0 > 75){msg = paste(msg, "<li>Statins: since age not 40 - 75, benefit is less clear</li>")}
-	}
-else
-	{
-		if (diabetes0 == 1)
-		{
-		msg = paste(msg, "<li>Since diabetic: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin</li>")
-		}
-	else
-		{
-		if (estLDL >= 190){msg = paste(msg, "<li>Statins may be needed. Non-HDL cholesterol is high at ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2). If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin if a candidate, else <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")}
-		}
-	}
-msg = paste(msg,"</ul></li></ul>")
+#factsbox - start
+if (pageformat == "factsbox")
+  {
+  # https://github.com/jeroenooms/opencpu/issues/162
+  factsbox <- system.file("www/statins_for_cvd-factsbox.html", package = "home")
+  nc <- nchar(factsbox)
+  msg <- readChar(factsbox,10000)
+  
+  prob = prob * 1
+  msg <- sub("XCONTROLX", sprintf("%.1f",prob),msg)
+  
+  prob = prob * 0.75
+  msg <- sub("XINTERVENTIONX", sprintf("%.1f",prob),msg)
+  
+  msg <- paste(msg,"<div>&nbsp;</div><div style=\"text-align:center\">		<button id=\"startover\" type=\"button\" onclick=\"location.reload()\">Start over</button></div>", sep="")
+  }
+#factsbox - end
+
 list(message = msg)
-#Swensen SJ, Silverstein MD, Ilstrup DM, Schleck CD, Edell ES: The probability of malignancy in solitary pulmonary nodules. Application to small radiologically indeterminate nodules. Arch Intern Med 157. (8): 849-855.1997;
-# Herder GJ, van Tinteren H, Golding RP, et al: Clinical prediction model to characterize pulmonary nodules: validation and added value of 18F-fluorodeoxyglucose positron emission tomography. Chest 128. (4): 2490-2496.2005; Full Text 
 }

@@ -13,7 +13,7 @@ msg = NULL
 #msg <- subset(pages, pagename==pageformat)[, "content"]
 
 # https://github.com/jeroenooms/opencpu/issues/162
-factsbox <- system.file("www/factsbox-psa.html", package = "home")
+factsbox <- system.file("www/prostatecancer-factsbox.html", package = "home")
 #stop(factsbox)
 nc <- nchar(factsbox)
 msg <- readChar(factsbox,10000)
