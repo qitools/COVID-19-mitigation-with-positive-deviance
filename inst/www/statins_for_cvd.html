@@ -115,14 +115,27 @@
 			width = "200px"
 			showtip(tiptext, event, width);
 		});
-
 	$("#tip").mouseleave(function(event){
 		$( "#tip" ).css('display', 'none');
 		});
 	$("body").on("click", function(){
 		$( "#tip" ).css('display', 'none');
 	});	
-		$('.hastip').click(function(e) {
+
+	$("#quicktest").click(function(){
+	$("#age").val("50");
+	$("#gender1").click();
+	$("#ethnicity1").click();
+	$("#smoker1").click();
+	$("#diabetes1").click();
+	$("#bprx1").click();
+	$("#sbp").val("170");
+	$("#tchol").val("250");
+	$("#ldl").val("175");
+	$("#hdl").val("30");
+    });
+	
+	$('.hastip').click(function(e) {
 			e.stopPropagation();
 			return false;
 		});	
@@ -172,8 +185,9 @@ h1, h2, h3, h1 a{
 }
 div.extra
 {
-  min-height:500px;
+  height:500px;
   text-align:left;
+  overflow: scroll;
 }
 /* Media query not required, but cosmetically better */
 @media screen and (max-width: 1000px) {
@@ -224,7 +238,9 @@ div.extra
 	  .ToolTipClass{
 		color:black;
 		border-color:#0022B4;
-		background-color: #6DC6E7
+		background-color: #6DC6E7;
+		line-height:100%;
+		font-size: 80%;
 		}
 
 		/* Facts box */
@@ -254,10 +270,10 @@ div.extra
 <div id="wrapper">
 	<h1><a href="http://OpenRules.github.io">OpenRules.github.io</a></h1>
 		<div id="input">
-        <h2>Taking statins to prevent cardiovascular disease</h2>
+        <h3>Taking statins to prevent cardiovascular disease</h3>
 		<form id="paramform" target="target" style="width:400px;">
-          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:400px;height:400px;">
-		  <legend>Enter values to determine your risk:</legend>
+          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:400px">
+		  <legend>Enter your values to determine your risk:</legend>
 
 	    <div style="display:block">Age: <input type="number" min="15" max="100" id="age"></div>
              
@@ -282,7 +298,6 @@ Is this for former smokers or just current smokers?
 				<li>However, the risk of cardiac events after smoking cessation may return to normal after three years.(4)</li>
 			</ul></li>
 		</ul>
-This note added 4/5/2014.
 </div>
 		
 		<br/>
@@ -309,6 +324,7 @@ This note added 4/5/2014.
 		<div style="text-align:center"><button id="submitbutton" type="button">Submit</button></div>
           </fieldset>
         </form>
+		<a href="#" id="quicktest">.</a>
 	</div>
 	
 	<!-- Start of results -->
@@ -326,7 +342,7 @@ This note added 4/5/2014.
 	<td class="listitem"><a onclick="toggle_extra('patients');window.scrollBy(0, 500);return false" href="#">For patients:<br/>what's next</a></td>
 	<td class="listitem"><a onclick="toggle_extra('about');window.scrollBy(0, 500);return false" href="#">About</a></td>
 	<td class="listitem"><a onclick="toggle_extra('collaborate');window.scrollBy(0,500);return false" href="#">Collaborate</a></td>
-	<td class="listitem"><a href="https://github.com/openRules/facts-boxes/wiki/Contact-us" target="_blank">Contact us</a>&nbsp;<img src="https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png" width="15" alt="opens in new window"/></td>
+	<td class="listitem"><a href="https://github.com/openRules/facts-boxes/wiki/Contact-us" target="_blank">Contact us</a>&nbsp;<img src="https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png" width="13" alt="opens in new window"/></td>
 	</tr>
 	</table>
 	
