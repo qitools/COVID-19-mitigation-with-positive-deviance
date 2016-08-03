@@ -300,10 +300,12 @@ if (pageformat == "factsbox")
   msg <- readChar(factsbox,10000)
   
   prob = prob * 1
-  msg <- sub("XCONTROLX", sprintf("%.1f",prob),msg)
+  msg <- sub("CONTROL_RATE", sprintf("%.1f",prob),msg)
+  msg <- sub("CONTROL_NATURAL", sprintf("%.0f",prob*10),msg)
   
   prob = prob * 0.75
-  msg <- sub("XINTERVENTIONX", sprintf("%.1f",prob),msg)
+  msg <- sub("INTERVENTION_RATE", sprintf("%.1f",prob),msg)
+  msg <- sub("INTERVENTION_NATURAL", sprintf("%.0f",prob*10),msg)
   
   msg <- paste(msg,"<div>&nbsp;</div><div style=\"text-align:center\">		<button id=\"startover\" type=\"button\" onclick=\"location.reload()\">Start over</button></div>", sep="")
   }
