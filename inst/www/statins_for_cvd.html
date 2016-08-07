@@ -95,26 +95,26 @@ function assigneventhandlers (){
       $("#submitbutton").on("click", function(){
         //disable the button to prevent multiple clicks
         $("#submitbutton").attr("disabled", "disabled");
-        
+        document.getElementById("output").innerHTML = ""; //Gives visual clue that new results coming.
         //read the values
         var age0 = $("#age").val() * 1;
-		var gender = 'f'
-		if ($("#gender1").prop("checked") == true){gender = 'm'}
-		var ethnicity = 'h'
-		if ($("#ethnicity0").prop("checked") == true){ethnicity = 'b'}
-		if ($("#ethnicity1").prop("checked") == true){ethnicity = 'w'}
-		if ($("#ethnicity2").prop("checked") == true){ethnicity = 'a'}
-		if ($("#ethnicity3").prop("checked") == true){ethnicity = 'h'}
-		var smoke0 = 0
-		if ($("#smoker1").prop("checked") == true){smoke0 = 1}
-		var diabetes0 = 0
-		if ($("#diabetes1").prop("checked") == true){diabetes0 = 1}
-		var bprx = 0
-		if ($("#bprx1").prop("checked") == true){bprx = 1}
+	var gender = 'f'
+	if ($("#gender1").prop("checked") == true){gender = 'm'}
+	var ethnicity = 'h'
+	if ($("#ethnicity0").prop("checked") == true){ethnicity = 'b'}
+	if ($("#ethnicity1").prop("checked") == true){ethnicity = 'w'}
+	if ($("#ethnicity2").prop("checked") == true){ethnicity = 'a'}
+	if ($("#ethnicity3").prop("checked") == true){ethnicity = 'h'}
+	var smoke0 = 0
+	if ($("#smoker1").prop("checked") == true){smoke0 = 1}
+	var diabetes0 = 0
+	if ($("#diabetes1").prop("checked") == true){diabetes0 = 1}
+	var bprx = 0
+	if ($("#bprx1").prop("checked") == true){bprx = 1}
         var sbp        = $("#sbp").val() * 1;
         var tchol0     = $("#tchol").val() * 1;
         var hdl0       = $("#hdl").val() * 1;
-		var pageformat = $("input:radio[name=pageformat]:checked" ).val();
+	var pageformat = $("input:radio[name=pageformat]:checked" ).val();
 	  
         //perform the request
         var req = opencpu.r_fun_json("cardiovascularrisk", {
@@ -122,15 +122,15 @@ function assigneventhandlers (){
         gender :     gender,
         ethnicity :  ethnicity,
         smoke0 :     smoke0,
-		diabetes0 :  diabetes0,
-		bprx :       bprx,
-		sbp :        sbp,
-		tchol0 :     tchol0,
-		hdl0 :       hdl0,
-		pageformat : pageformat
-		}, function(output){
-          document.getElementById("output").innerHTML = output.message;
-		  assigneventhandlers();
+	diabetes0 :  diabetes0,
+	bprx :       bprx,
+	sbp :        sbp,
+	tchol0 :     tchol0,
+	hdl0 :       hdl0,
+	pageformat : pageformat
+	}, function(output){
+        document.getElementById("output").innerHTML = output.message;
+	assigneventhandlers();
         });
         
         //if R returns an error, alert the error message
@@ -357,7 +357,7 @@ Suggestion: include current smokers and those who quit <= three years ago. Ratio
 
 	<!-- -Start of footer -->
     <div id="footer" style="clear:both">
-	<div id="version" style="color:gray; font-size:smaller;width:100%;text-align:center">Last updates: style 07/22/2016; content 07/22/2016. Click 'About' for recent changes.</div>
+	<div id="version" style="color:gray; font-size:smaller;width:100%;text-align:center">Last updates: style 8/6/2016; content 07/22/2016. Click 'About' for recent changes.</div>
 	<a name="footer_menu"></a>
 	<table width="100%" align="center" id="footer_menu">
 	<tr>
