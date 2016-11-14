@@ -289,6 +289,9 @@ if (pageformat == "chart")
   	}
   msg = paste(msg,"</ul></li></ul>")
   }
+  #Start of USPSTF recommendations
+  #http://jamanetwork.com/journals/jama/fullarticle/2584058
+  #moderate-dose statins for adults aged 40 to 75 without cardiovascular disease who have at least one CVD risk factor — dyslipidemia, diabetes, hypertension, or smoking — plus a 10-year CVD risk of 10% or greater.
 #chart - end
 
 #factsbox - start
