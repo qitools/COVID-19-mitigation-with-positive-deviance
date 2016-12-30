@@ -48,9 +48,10 @@ function assigneventhandlers (){
 			width = "200px"
 			showtip(tiptext, event, width);
 		});
-	$("#tip").mouseleave(function(event){
-		$( "#tip" ).css('display', 'none');
-		});
+	//Commented out below so copy-paste into EHR works
+	//$("#tip").mouseleave(function(event){
+	//	$( "#tip" ).css('display', 'none');
+	//	});
 	$("body").on("click", function(){
 		$( "#tip" ).css('display', 'none');
 	});	
