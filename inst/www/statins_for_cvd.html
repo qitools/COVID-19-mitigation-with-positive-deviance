@@ -197,10 +197,13 @@ div.extra
 }
 /* Media query not required, but cosmetically better */
 @media screen and (max-width: 1000px) {
-        #results {float: left; margin-left: auto;}
+	#results {float: left; margin-left: auto;}
 }
 @media all and (min-width: 1000px) {
-		#msg {display:none;}
+	#msg {display:none;}
+}
+@media print {
+	#EHR_statement_link {display:none;
 }
 .required
 {
