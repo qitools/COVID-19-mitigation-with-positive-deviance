@@ -300,7 +300,7 @@ if (pageformat == "factsbox")
   # https://github.com/jeroenooms/opencpu/issues/162
   factsbox <- system.file("www/statins_for_cvd-factsbox.html", package = "home")
   nc <- nchar(factsbox)
-  msg <- readChar(factsbox,10000)
+  msg <- readChar(factsbox,20000)
   
   prob = prob * 1
   msg <- gsub("CONTROL_RATE", sprintf("%.1f",prob),msg)
