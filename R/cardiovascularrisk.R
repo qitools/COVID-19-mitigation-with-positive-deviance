@@ -117,8 +117,12 @@ sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + int5 
 #FIX FORMATTING SO HAS AT LEAST 0
 prob = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
 #Revise for withstatins
-arr = prob * 0.27
+arr = prob * 0.27 #0.27 IS RRR for statins per PMID 
 withstatins = prob - arr
+
+#Revise for withaspirin
+arr = prob * 0.22 #0.22 IS RRR for nonfatal MI reduction by aspirin per PMID 27064410
+withaspirin = prob - arr
 
 #Revise for SBP
 if (bprx == 1){sbpR0 = 140}else{sbpN0 = 140}
@@ -183,7 +187,7 @@ if (pageformat == "chart")
   	#msg = paste(msg, "<div>Assuming statin medications reduce your risk by 27% (3), the following is expected:</div><div>&nbsp;</div>")
   	}
   #Make SVG
-  svgheight = 150
+  svgheight = 185
   if (smoke0 > 0){svgheight=svgheight+40}
   if (sbp > 140) {svgheight=svgheight+40}
   svgtext = paste("<svg x=\"0px\" y=\"0px\" width=\"420px\" height=\"",svgheight,"px\" viewBox=\"0 0 420 ",svgheight,"\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">
@@ -205,6 +209,11 @@ if (pageformat == "chart")
   	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">With statins for 10 years</text>\n", sep = "")
   	currenty = currenty + 5
   	svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", withstatins*4,",", currenty, ",", withstatins*4,",", currenty+20, ",0,", currenty+20, "\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withstatins*4,"\" y=\"", currenty+15,"\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withstatins),"%</text>\n", sep = "")
+  #Aspirin
+  	currenty = currenty + 35
+  	svgtext = paste(svgtext,"<text x=\"0\" y=\"",currenty, "\" fill=\"black\" style=\"\">With aspirin for 10 years</text>\n", sep = "")
+  	currenty = currenty + 5
+  	svgtext = paste(svgtext,"<polygon points=\"0,",currenty,",", withaspirin*4,",", currenty, ",", withaspirin*4,",", currenty+20, ",0,", currenty+20, "\"  style=\"fill:green;fill-opacity:0.5;stroke-width:0\"/><text x=\"",10+withaspirin*4,"\" y=\"", currenty+15,"\" style=\"fill:green;font-weight:bold\">", sprintf("%.1f",withaspirin),"%</text>\n", sep = "")
   if (smoke0 > 0)
   	{
   	currenty = currenty + 35
@@ -268,7 +277,19 @@ if (pageformat == "chart")
   	}
   msg = paste(msg, "<li>Healthy lifestyle (5) such as the <a href=\"http://dietamediterranea.com/en/nutrition/\" target=\"_blank\">Mediterranean Diet</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>) (6)
    or <a href=\"https://www.nhlbi.nih.gov/health/health-topics/topics/dash\" target=\"_blank\">Dash Diet</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>) (lowers blood pressure) or <a href=\"http://www.heart.org/HEARTORG/GettingHealthy/Diet-and-Lifestyle-Recommendations_UCM_305855_Article.jsp\" target=\"_blank\">AHA Diet</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>).</li>")
-  #Start of AHA/ACC recommendations
+  #Start of USPSTF recommendations for aspirin
+  if (prob >= 10)
+	{
+	if (age0 >= 50 && age0 < 60)
+		{
+		msg = paste(msg, "<li><a href=\"https://www.uspreventiveservicestaskforce.org/Page/Document/RecommendationStatementFinal/aspirin-to-prevent-cardiovascular-disease-and-cancer\">The USPSTF recommends</a> \"initiating low-dose aspirin use for the primary prevention of cardiovascular disease (CVD) and colorectal cancer (CRC) in adults aged 50 to 59 years who have a 10% or greater 10-year CVD risk, are not at increased risk for bleeding, have a life expectancy of at least 10 years, and are willing to take low-dose aspirin daily for at least 10 years\"</li>")
+		}
+	if (age0 >= 60 && age0 < 70)
+		{
+		msg = paste(msg, "<li><a href=\"https://www.uspreventiveservicestaskforce.org/Page/Document/RecommendationStatementFinal/aspirin-to-prevent-cardiovascular-disease-and-cancer\">The USPSTF states</a> \"the decision to initiate low-dose aspirin use for the primary prevention of CVD and CRC in adults aged 60 to 69 years who have a 10% or greater 10-year CVD risk should be an individual one. Persons who are not at increased risk for bleeding, have a life expectancy of at least 10 years, and are willing to take low-dose aspirin daily for at least 10 years are more likely to benefit. Persons who place a higher value on the potential benefits than the potential harms may choose to initiate low-dose aspirin.\"</li>")
+		}
+  	}
+  #Start of AHA/ACC recommendations for statins
   msg = paste(msg, "<li>Statins per American College of Cardiology/American Heart Association 2013 Recommendations (<a href=\"http://pubmed.gov/24222016\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">ACC/AHA, 2014</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)<ul>")
    if (prob >= 7.5)
   	{
@@ -287,7 +308,8 @@ if (pageformat == "chart")
   		if (estLDL >= 190){msg = paste(msg, "<li>Statins may be needed. Non-HDL cholesterol is high at ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2). If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin if a candidate, else <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")}
   		}
   	}
-  msg = paste(msg,"</ul></li></ul>")
+  msg = paste(msg,"</ul></li>")
+  msg = paste(msg,"</ul>")
   }
   #Start of USPSTF recommendations
   #http://jamanetwork.com/journals/jama/fullarticle/2584058
@@ -300,7 +322,7 @@ if (pageformat == "factsbox")
   # https://github.com/jeroenooms/opencpu/issues/162
   factsbox <- system.file("www/statins_for_cvd-factsbox.html", package = "home")
   nc <- nchar(factsbox)
-  msg <- readChar(factsbox,20000)
+  msg <- readChar(factsbox,10000)
   
   prob = prob * 1
   msg <- gsub("CONTROL_RATE", sprintf("%.1f",prob),msg)
