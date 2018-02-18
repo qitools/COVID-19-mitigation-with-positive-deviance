@@ -103,6 +103,7 @@ function assigneventhandlers (){
 	var pageformat = $("input:radio[name=pageformat]:checked" ).val();
 	//perform the request
 	var req = opencpu.r_fun_json("cardiovascularrisk", {
+	site :		 site,
 	age0 :       age0,
 	gender :     gender,
 	ethnicity :  ethnicity,
