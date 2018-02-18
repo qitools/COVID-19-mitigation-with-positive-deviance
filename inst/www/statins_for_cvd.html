@@ -21,6 +21,13 @@
 <script src="jqueryui/jquery-ui-1.10.3.custom.js"></script>
 
 <script>
+function getParameterByName(name) {
+name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+results = regex.exec(location.search);
+return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+var site = getParameterByName('site').toLowerCase();
 function assigneventhandlers (){
 	//Alternative tip method
 	function showtip(tiptext, event, width){
@@ -285,6 +292,12 @@ outline: thick;
 <body ng-app="">
 
 <div id="wrapper">
+<script>
+if (site.length>0)
+{
+document.write("<img src=\"/images/sites/" + site + ".png\" style=\"display: block;margin-left: auto; margin-right: auto;\" />")
+}
+</script>
 	<div id="header" style="position:relative;;float:left;width:100%">
 	<span class="h1" style="float:left;"><a href="http://OpenRules.github.io">OpenRules</a>: </span><span style="position:absolute; bottom:0px;margin-left: 10px;font-size:16px">Prediction rules, decision aids, and facts boxes for clinical medicine. Collaboratively created.</span>
 	</div>
