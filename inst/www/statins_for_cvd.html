@@ -210,6 +210,7 @@ div.extra
 	#msg {display:none;}
 }
 @media print {
+	#results {float: left; margin-left: auto;}
 	#EHR_statement_link {display:none;}
 	page_break {page-break-after: always;}
 }
@@ -336,6 +337,7 @@ Suggestion: include current smokers and those who quit 3 years ago or less. The 
 		<div style="display:block"><label>Diabetes:</label><br/>
 		<input type="radio" name="diabetes" id="diabetes0" ng-model="diabetes" value="0" required><label for="diabetes0">No</label>
 		<input type="radio" name="diabetes" id="diabetes1" ng-model="diabetes" value="1"><label for="diabetes1">Yes</label><br/>
+		<input type="radio" name="diabetes" id="prediabetes" ng-model="diabetes" value="2"><label for="prediabetes">Yes</label><br/>
 		<span ng-show="paramform.diabetes.$invalid" class="required">*</span>
 		</div> 
 		<div style="display:block"><label>Medication for hypertension:</label><br/>
@@ -345,6 +347,8 @@ Suggestion: include current smokers and those who quit 3 years ago or less. The 
 		</div> 
 	    <div style="display:block;clear: both;width:100%;line-height:150%">Systolic blood pressure: <input type="number" min="50" max="250" id="sbp" name="sbp" ng-model="sbp" style="display: inline-block;float:right;width:100px" required>
 		<span ng-show="paramform.sbp.$invalid" class="required">*</span></div>
+	    <div style="display:block;clear: both;width:100%;line-height:150%">Body mass index (BMI): <input type="number" min="50" max="250" id="bmi" name="bmi" ng-model="bmi" style="display: inline-block;float:right;width:100px" required>
+		<span ng-show="paramform.sbp.$invalid" class="required">*</span></div>
 	    <div style="display:block;clear: both;;width:100%;line-height:150%">Total cholesterol: <input type="number" min="50" max="500" id="tchol" name="tchol" ng-model="tchol" style="display: inline-block;float:right;width:100px" required>
 		<span ng-show="paramform.tchol.$invalid" class="required">*</span></div>
 	    <div style="display:block;clear: both;width:100%;line-height:150%">LDL cholesterol: <input type="number" min="50" max="189" id="ldl" name = "ldl" ng-model="ldl" title="This does not apply to people with LDL-C > 190 mg/dl as these people need high-intensity statins" style="float:right;width:100px" required>
@@ -353,7 +357,7 @@ Suggestion: include current smokers and those who quit 3 years ago or less. The 
 		<span ng-show="paramform.hdl.$invalid" class="required">*</span>
 		</div>
 
-		<div style="text-align:center">Format: <input type="radio" name="pageformat" value="factsbox" checked>Facts Box <input type="radio" name="pageformat" value="chart">Chart of alternatives</div>
+		<div style="text-align:center">Format: <input type="radio" name="pageformat" value="factsbox">Facts Box <input type="radio" name="pageformat" value="chart" checked>Chart of alternatives</div>
 		
 		<div style="text-align:center"><button id="submitbutton" type="button">Submit</button></div>
 		<div id="msg" style="text-align:center;">Results will appear below</div>
