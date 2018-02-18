@@ -1,4 +1,4 @@
-cardiovascularrisk <- function(age0 = 0, gender = "", ethnicity = "", smoke0 = 0, diabetes0 = 0, bprx = 0, sbp = 0, tchol0 = 0, hdl0 = 0,  pageformat = 'factsbox'){
+cardiovascularrisk <- function(site = "", age0 = 0, gender = "", ethnicity = "", smoke0 = 0, diabetes0 = 0, bprx = 0, sbp = 0, tchol0 = 0, hdl0 = 0,  pageformat = 'factsbox'){
 
   if(age0 < 1){
     stop("Tell me your age!")
@@ -314,6 +314,11 @@ if (pageformat == "chart")
   	}
   msg = paste(msg,"</ul></li>")
   msg = paste(msg,"</ul>")
+	if (nchar(site) > 1)
+		{
+		msg = paste(msg, "<h3>Recommendations:</h3><ul>")
+		msg = paste(msg, "<div>Welcome, ", site,"</div>")
+		}  
   }
   #Start of USPSTF recommendations
   #http://jamanetwork.com/journals/jama/fullarticle/2584058
