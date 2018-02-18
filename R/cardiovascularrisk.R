@@ -4,6 +4,7 @@ cardiovascularrisk <- function(site = "", age0 = 0, gender = "", ethnicity = "",
     stop("Tell me your age!")
   }
 
+site = "Holy Family"
 age = 0  
 age2 = 0
 int1 = 0

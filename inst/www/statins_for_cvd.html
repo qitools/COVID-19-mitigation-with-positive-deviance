@@ -22,11 +22,11 @@
 
 <script>
 function getParameterByName(name) {
-name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-results = regex.exec(location.search);
-return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	results = regex.exec(location.search);
+	return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
 var site = getParameterByName('site').toLowerCase();
 function assigneventhandlers (){
 	//Alternative tip method
@@ -101,10 +101,8 @@ function assigneventhandlers (){
         var tchol0     = $("#tchol").val() * 1;
         var hdl0       = $("#hdl").val() * 1;
 	var pageformat = $("input:radio[name=pageformat]:checked" ).val();
-	  alert(site)
 	//perform the request
 	var req = opencpu.r_fun_json("cardiovascularrisk", {
-	site :		 site,
 	age0 :       age0,
 	gender :     gender,
 	ethnicity :  ethnicity,
