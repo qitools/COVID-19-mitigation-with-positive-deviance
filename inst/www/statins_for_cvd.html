@@ -102,12 +102,13 @@ function assigneventhandlers (){
         var hdl0       = $("#hdl").val() * 1;
 	var pageformat = $("input:radio[name=pageformat]:checked" ).val();
 	  
-        //perform the request
-        var req = opencpu.r_fun_json("cardiovascularrisk", {
-        age0 :       age0,
-        gender :     gender,
-        ethnicity :  ethnicity,
-        smoke0 :     smoke0,
+	//perform the request
+	var req = opencpu.r_fun_json("cardiovascularrisk", {
+	site :		 site,
+	age0 :       age0,
+	gender :     gender,
+	ethnicity :  ethnicity,
+	smoke0 :     smoke0,
 	diabetes0 :  diabetes0,
 	bprx :       bprx,
 	sbp :        sbp,
@@ -140,6 +141,7 @@ function assigneventhandlers (){
 		$("#diabetes1").click();
 		$("#bprx1").click();
 		$("#sbp").val("170");
+		$("#bmi").val("32");
 		$("#tchol").val("250");
 		$("#ldl").val("175");
 		$("#hdl").val("30");
@@ -336,8 +338,8 @@ Suggestion: include current smokers and those who quit 3 years ago or less. The 
 		</div> 
 		<div style="display:block"><label>Diabetes:</label><br/>
 		<input type="radio" name="diabetes" id="diabetes0" ng-model="diabetes" value="0" required><label for="diabetes0">No</label>
-		<input type="radio" name="diabetes" id="diabetes1" ng-model="diabetes" value="1"><label for="diabetes1">Yes</label><br/>
-		<input type="radio" name="diabetes" id="prediabetes" ng-model="diabetes" value="2"><label for="prediabetes">Yes</label><br/>
+		<input type="radio" name="diabetes" id="diabetes1" ng-model="diabetes" value="1"><label for="diabetes1">Yes</label>
+		<input type="radio" name="diabetes" id="prediabetes" ng-model="diabetes" value="2"><label for="prediabetes">Prediabetes</label><br/>
 		<span ng-show="paramform.diabetes.$invalid" class="required">*</span>
 		</div> 
 		<div style="display:block"><label>Medication for hypertension:</label><br/>
