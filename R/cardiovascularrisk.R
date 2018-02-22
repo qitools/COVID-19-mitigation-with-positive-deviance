@@ -321,7 +321,7 @@ if (pageformat == "chart")
   	}
   msg = paste(msg,"</ul></li>")
   msg = paste(msg,"</ul>")
-	if (nchar(site) > 1 && if (site == "holyfamily"))
+	if (nchar(site) > 1 && site == "holyfamily")
 		{
 		msg = paste(msg, "<h3>Additional recommendations:</h3><ul>")
 		msg = paste(msg, "<div>Welcome, ", site,"</div>")
