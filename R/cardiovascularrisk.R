@@ -305,10 +305,10 @@ if (pageformat == "chart")
 	if (prob >= 7.5 || diabetes0 == 1)
 		{
 		msg = paste(msg, "<li>Statin medications for cholesterol:<ul>")
-		msg = paste(msg, "<li>Recommended for you by the American College of Cardiology/American Heart Association 2013 Recommendations (<a href=\"http://pubmed.gov/24222016\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">ACC/AHA, 2014</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)<ul>")
+		msg = paste(msg, "<li>Recommended for you by the American College of Cardiology/American Heart Association 2013 Recommendations (<a href=\"http://pubmed.gov/24222016\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">ACC/AHA, 2014</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
 		if (prob >= 10)
 			{
-			msg = paste(msg, "<li>Recommended for you by the United States Preventive Services Task Force (<a href=\"http://pubmed.gov/27838723\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">USPSTF, 2016</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)<ul>")
+			msg = paste(msg, "<li>Recommended for you by the United States Preventive Services Task Force (<a href=\"http://pubmed.gov/27838723\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">USPSTF, 2016</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
 			}
 		if (diabetes0 == 1){msg = paste(msg, "<li>Since you have diabetes: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")}
 		if (diabetes0 == 0){msg = paste(msg, "<li>Since you do not have diabetes: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")}
@@ -324,7 +324,7 @@ if (pageformat == "chart")
 	if (nchar(site) > 1 && site == "holyfamily")
 		{
 		msg = paste(msg, "<h3>Additional recommendations:</h3><ul>")
-		msg = paste(msg, "<div>Welcome, ", site,"</div>")
+		msg = paste(msg, "<div>Welcome, ", site," diabetes = ", diabetes0," bmi = ", bmi, "</div>")
 		if (diabetes0 == 2){msg = paste(msg, "<div>You have prediabetes</div>")}
 		if (bmi >= 30){msg = paste(msg, "<div>You are obese</div>")}
 		}  
