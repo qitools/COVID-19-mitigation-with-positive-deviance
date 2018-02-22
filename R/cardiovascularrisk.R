@@ -325,8 +325,8 @@ if (pageformat == "chart")
 		{
 		msg = paste(msg, "<h3>Additional recommendations:</h3><ul>")
 		msg = paste(msg, "<div>Welcome, ", site," diabetes = ", diabetes0," bmi = ", bmi, "</div>")
-		if (diabetes0 == 2){msg = paste(msg, "<div>You have prediabetes</div>")}
-		if (bmi >= 30){msg = paste(msg, "<div>You are obese</div>")}
+		if (diabetes0 == 2){msg = paste(msg, "<div>Low carbohydrate diet (no more than 50 grams) since you have prediabetes</div>")}
+		if (bmi >= 30){msg = paste(msg, "<div>Weight loss of 10% since you are obese. </div>")}
 		}  
   }
   #Start of USPSTF recommendations

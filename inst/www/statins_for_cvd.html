@@ -95,11 +95,13 @@ function assigneventhandlers (){
 	if ($("#smoker1").prop("checked") == true){smoke0 = 1}
 	var diabetes0 = 0
 	if ($("#diabetes1").prop("checked") == true){diabetes0 = 1}
+	if ($("#prediabetes").prop("checked") == true){diabetes0 = 2}
 	var bprx = 0
 	if ($("#bprx1").prop("checked") == true){bprx = 1}
-        var sbp        = $("#sbp").val() * 1;
-        var tchol0     = $("#tchol").val() * 1;
-        var hdl0       = $("#hdl").val() * 1;
+    var bmi        = $("#bmi").val() * 1;
+    var sbp        = $("#sbp").val() * 1;
+    var tchol0     = $("#tchol").val() * 1;
+    var hdl0       = $("#hdl").val() * 1;
 	var pageformat = $("input:radio[name=pageformat]:checked" ).val();
 	//perform the request
 	var req = opencpu.r_fun_json("cardiovascularrisk", {
