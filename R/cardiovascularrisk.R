@@ -274,12 +274,15 @@ if (pageformat == "chart")
   if (smoke0 > 0)
   	{
   	msg = paste(msg, "<li>Smoking cessation<ul>")
-  	msg = paste(msg, "<li>CDC: <a href=\"http://openrules.github.io/cv/tb/cdc/\" target=\"_blank\">http://openrules.github.io/cv/tb/cdc/</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
-  	msg = paste(msg, "<li>KanQuit: <a href=\"http://openrules.github.io/cv/tb/kanquit/\" target=\"_blank\">http://openrules.github.io/cv/tb/kanquit/</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
+  	msg = paste(msg, "<li>CDC: <a href=\"http://openrules.github.io/links/tb/cdc\" target=\"_blank\">http://openrules.github.io/links/tb/cdc</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
+  	msg = paste(msg, "<li>KanQuit: <a href=\"http://openrules.github.io/links/tb/kanquit\" target=\"_blank\">http://openrules.github.io/links/tb/kanquit</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
   	msg = paste(msg, "</ul></li>")
   	}
-  msg = paste(msg, "<li>Healthy lifestyle (5) such as the <a href=\"http://dietamediterranea.com/en/nutrition/\" target=\"_blank\">Mediterranean Diet</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>) (6)
-   or <a href=\"https://www.nhlbi.nih.gov/health/health-topics/topics/dash\" target=\"_blank\">Dash Diet</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>) (lowers blood pressure) or <a href=\"http://www.heart.org/HEARTORG/GettingHealthy/Diet-and-Lifestyle-Recommendations_UCM_305855_Article.jsp\" target=\"_blank\">AHA Diet</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>).</li>")
+  msg = paste(msg, "<li>Healthy lifestyle (5) such as:<ul>")
+  	msg = paste(msg, "<li>Mediterranean Diet: <a href=\"http://openrules.github.io/links/diet/medi\" target=\"_blank\">http://openrules.github.io/links/diet/medi</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>) (6)</li>")
+  	msg = paste(msg, "<li>Dash Diet: <a href=\"http://openrules.github.io/links/diet/dash\" target=\"_blank\">http://openrules.github.io/links/diet/dash</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>) (lowers blood pressure)</li>")
+  	msg = paste(msg, "<li>American Heart Association: <a href=\"http://openrules.github.io/links/diet/aha/" target=\"_blank\">http://openrules.github.io/links/diet/aha/</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>).</li>")
+  	msg = paste(msg, "</ul></li>")
   #Start of USPSTF recommendations for aspirin
   if (prob >= 10)
 	{
