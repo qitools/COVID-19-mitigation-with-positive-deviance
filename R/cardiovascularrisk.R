@@ -302,9 +302,9 @@ if (pageformat == "chart")
   	msg = paste(msg, "</ul></li>")
   	}
   #Start of recommendations for statins
-	msg = paste(msg, "<li>Statin medications for cholesterol:<ul>")
 	if (prob >= 7.5 || diabetes0 == 1)
 		{
+		msg = paste(msg, "<li>Statin medications for cholesterol:<ul>")
 		msg = paste(msg, "<li>Recommended for you by the American College of Cardiology/American Heart Association 2013 Recommendations (<a href=\"http://pubmed.gov/24222016\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">ACC/AHA, 2014</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)<ul>")
 		if (prob >= 10)
 			{
@@ -318,7 +318,7 @@ if (pageformat == "chart")
   		{
   		if (estLDL >= 190){msg = paste(msg, "<li>Statins may be needed. Non-HDL cholesterol is high at ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2). If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin if a candidate, else <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")}
   		}
-  	}
+  	#}
   msg = paste(msg,"</ul></li>")
   msg = paste(msg,"</ul>")
 	if (nchar(site) > 1 && site == "holyfamily")
