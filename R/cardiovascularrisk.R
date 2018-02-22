@@ -1,4 +1,4 @@
-cardiovascularrisk <- function(site = "", age0 = 0, gender = "", ethnicity = "", smoke0 = 0, diabetes0 = 0, bprx = 0, sbp = 0, tchol0 = 0, hdl0 = 0,  pageformat = 'factsbox'){
+cardiovascularrisk <- function(site = "", age0 = 0, gender = "", ethnicity = "", smoke0 = 0, diabetes0 = 0, bmi = 0, bprx = 0, sbp = 0, tchol0 = 0, hdl0 = 0,  pageformat = 'factsbox'){
 
   if(age0 < 1){
     stop("Tell me your age!")
@@ -321,10 +321,12 @@ if (pageformat == "chart")
   	}
   msg = paste(msg,"</ul></li>")
   msg = paste(msg,"</ul>")
-	if (nchar(site) > 1)
+	if (nchar(site) > 1 && if (site == "holyfamily"))
 		{
 		msg = paste(msg, "<h3>Additional recommendations:</h3><ul>")
 		msg = paste(msg, "<div>Welcome, ", site,"</div>")
+		if (diabetes0 == 2){msg = paste(msg, "<div>You have prediabetes</div>")}
+		if (bmi >= 30){msg = paste(msg, "<div>You are obese</div>")}
 		}  
   }
   #Start of USPSTF recommendations
