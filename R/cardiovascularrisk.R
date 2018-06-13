@@ -165,9 +165,14 @@ sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + int5 
 withsbp = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
 
 #Revise for nonsmoking
-if (ethnicity != "b" && gender != "f"){int3=0}
-sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + 0 + 0 + diabetes
+#Below added 06/13/2018
+smoke = 0 #Added this 06/13/2018
+int5 = 0 #(Log Age×Current Smoker) ; Added this 06/13/2018
+#if (ethnicity != "b" && gender != "f"){int3=0}
+sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + int5 + smoke + diabetes
 withsmokecess = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
+#Below added 06/13/2018
+withsmokecess = NA
 arr_smoke = prob - withsmokecess
 #Revise for all
 optimal = withsmokecess * 0.73
