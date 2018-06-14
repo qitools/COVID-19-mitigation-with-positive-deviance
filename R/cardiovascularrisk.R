@@ -42,10 +42,12 @@ int2 = 1.769 * log(age0) * log(hdl0)
 if (sbpR0 > 0) {sbpR = 1.797 * log(sbpR0)}else{sbpR = 0}
 if (sbpN0 > 0) {sbpN = 1.764 * log(sbpN0)}else{sbpN = 0}
 smoke = 7.837 * smoke0 
-int3 = -1.795 * log(age0) * smoke0
+int3 = 0 #Women only
 diabetes = 0.658 * diabetes0
-int4 = 0
-int5 = 0
+int4 = 0 #Women only
+#Fixed 6/13/2018
+int5 = -1.795 * log(age0) * smoke0
+#int5 = 0
 meancoef = 61.18
 baseline = 0.9144
 }
@@ -61,10 +63,10 @@ int2 = 0 #NA
 if (sbpR0 > 0) {sbpR = 1.916 * log(sbpR0)}else{sbpR = 0}
 if (sbpN0 > 0) {sbpN = 1.809 * log(sbpN0)}else{sbpN = 0}
 smoke = 0.549 * smoke0 
-int3 = 0 #NA
+int3 = 0 #Women only
 diabetes = 0.645 * diabetes0
-int4 = 0
-int5 = 0
+int4 = 0 #Women only
+int5 = 0 #Anglos only
 meancoef = 19.54
 baseline = 0.8954
 }
@@ -83,9 +85,9 @@ int1 = -3.114 * log(age0) * log(tchol0)
 hdl = -13.578 * log(hdl0)
 int2 = 3.149 * log(age0) * log(hdl0)
 if (sbpR0 > 0) {sbpR = 2.019 * log(sbpR0)}else{sbpR = 0}
-int3 = 0 #NA
+int3 = 0 #AA Women only
 if (sbpN0 > 0) {sbpN = 1.957 * log(sbpN0)}else{sbpN = 0}
-int4 = 0 #NA
+int4 = 0 #AA Women only
 smoke = 7.574 * smoke0 
 int5 = -1.665 * log(age0) * smoke0
 diabetes = 0.661 * diabetes0
@@ -106,7 +108,7 @@ if (sbpR0 > 0) {int3 = -6.432 * log(age0) * log(sbpR0)}else{int3 = 0}
 if (sbpN0 > 0) {sbpN = 27.820 * log(sbpN0)}else{sbpN = 0}
 if (sbpN0 > 0) {int4 = -6.087 * log(age0) * log(sbpN0)}else{int4 = 0}
 smoke = 0.691 * smoke0 
-int5 = 0 #NA
+int5 = 0 #Anglos only
 diabetes = 0.874 * diabetes0
 meancoef = 86.61
 baseline = 0.9533
@@ -125,7 +127,12 @@ arr = prob * 0.22 #0.22 IS RRR for nonfatal MI reduction by aspirin per PMID 270
 withaspirin = prob - arr
 
 #Revise for SBP
-if (bprx == 1){sbpR0 = 140}else{sbpN0 = 140}
+#Fixed 6/13/2018
+#Assuming goal BP is 140
+if (bprx == 1)
+{if (sbpR0 > 140){sbpR0 = 140}}
+else{if (sbpN0 > 140){sbpN0 = 140}}
+
 #MEN
 if (gender == "m")
 {
@@ -172,7 +179,7 @@ int5 = 0 #(Log Age×Current Smoker) ; Added this 06/13/2018
 sum = age + age2 + tchol + int1 + hdl + int2 + sbpR + int3 + sbpN + int4 + int5 + smoke + diabetes
 withsmokecess = round (100 * (1 - baseline^exp(sum - (meancoef))),2)
 #Below added 06/13/2018
-withsmokecess = NA
+#withsmokecess = NA
 arr_smoke = prob - withsmokecess
 #Revise for all
 optimal = withsmokecess * 0.73
