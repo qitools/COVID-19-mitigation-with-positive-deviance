@@ -39,8 +39,6 @@ Avg_White <- 1
 data(pages)
 msg <- subset(pages, pagename==pageformat)[, "content"]
 
-stop(myframe)
-
 #msg = paste(msg,'<div>5 years: ', sprintf("%.1f",absolute.risk(myframe)), '%.</div>')
 if (myframe$T1 < 86){
   #5 years
