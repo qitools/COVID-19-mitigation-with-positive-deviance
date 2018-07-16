@@ -11,8 +11,6 @@ bcra <- function(genetics = 'no', history = 'no', T1 = 0, AgeMen = 99, Age1st = 
     Race = as.numeric(Race)
   )
 
-  stop(myframe)
-  
   x.sub <- subset(myframe, myframe[] == 999)
   
   if(nrow(x.sub) > 0 ){
