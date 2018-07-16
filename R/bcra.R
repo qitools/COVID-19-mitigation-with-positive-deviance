@@ -39,24 +39,24 @@ msg = NULL
 data(pages)
 msg <- subset(pages, pagename==pageformat)[, "content"]
 
-#msg = paste(msg,'<div>5 years: ', sprintf("%.1f",absolute.risk(myframe, Raw_Ind=1, Avg_White=0)), '%.</div>')
+#msg = paste(msg,'<div>5 years: ', sprintf("%.1f",absolute.risk(myframe, 1, 0)), '%.</div>')
 if (myframe$T1 < 86){
   #5 years
   myframe$T2 = myframe$T1 + 5
-  msg <- sub("X5X", sprintf("%.1f",absolute.risk(myframe, Raw_Ind=1, Avg_White=0)),msg)
-  msg <- sub("M5M", sprintf("%.1f",0.8*absolute.risk(myframe, Raw_Ind=1, Avg_White=0)),msg)
+  msg <- sub("X5X", sprintf("%.1f",absolute.risk(myframe, 1, 0)),msg)
+  msg <- sub("M5M", sprintf("%.1f",0.8*absolute.risk(myframe, 1, 0)),msg)
   msg <- sub("T5T", sprintf("%.1f",absolute.risk(myframe,iloop=2)),msg)
 }
 if (myframe$T1 < 81){
   #10 years
   myframe$T2 = myframe$T1 + 10
-  msg <- sub("X10X", sprintf("%.1f",absolute.risk(myframe, Raw_Ind=1, Avg_White=0)),msg)
-  msg <- sub("M10M", sprintf("%.1f",0.8*absolute.risk(myframe, Raw_Ind=1, Avg_White=0)),msg)
+  msg <- sub("X10X", sprintf("%.1f",absolute.risk(myframe, 1, 0)),msg)
+  msg <- sub("M10M", sprintf("%.1f",0.8*absolute.risk(myframe, 1, 0)),msg)
 }
 if (myframe$T1 < 91){
   myframe$T2 = 90
-  msg <- sub("X90X", sprintf("%.1f",absolute.risk(myframe, Raw_Ind=1, Avg_White=0)),msg)
-  msg <- sub("M90M", sprintf("%.1f",0.8*absolute.risk(myframe, Raw_Ind=1, Avg_White=0)),msg)
+  msg <- sub("X90X", sprintf("%.1f",absolute.risk(myframe, 1, 0)),msg)
+  msg <- sub("M90M", sprintf("%.1f",0.8*absolute.risk(myframe, 1, 0)),msg)
   msg <- sub("T90T", sprintf("%.1f",absolute.risk(myframe,iloop=2)),msg)
 }
 msg <- paste(msg,"<div>&nbsp;</div><div style=\"text-align:center\">		<button id=\"startover\" type=\"button\" onclick=\"location.reload()\">Start over</button></div>", sep="")
