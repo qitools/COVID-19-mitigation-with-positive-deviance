@@ -313,23 +313,48 @@ if (pageformat == "chart")
 		}
   	msg = paste(msg, "</ul></li>")
   	}
+  
   #Start of recommendations for statins
-	if (prob >= 7.5 || diabetes0 == 1)
+  if (estLDL >= 190 || diabetes0 == 1 || prob >= 7.5)
 		{
 		msg = paste(msg, "<li>Statin medications for cholesterol:<ul>")
-		msg = paste(msg, "<li>Recommended for you by the American College of Cardiology/American Heart Association 2013 (<a href=\"http://pubmed.gov/24222016\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">ACC/AHA, 2014</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
-		if (prob >= 10)
-			{
-			msg = paste(msg, "<li>Recommended for you by the United States Preventive Services Task Force (<a href=\"http://pubmed.gov/27838723\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">USPSTF, 2016</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
-			}
-		if (diabetes0 == 1){msg = paste(msg, "<li>Since you have diabetes: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")}
-		if (diabetes0 == 0){msg = paste(msg, "<li>Since you do not have diabetes: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")}
-		if (age0 < 40 || age0 > 75){msg = paste(msg, "<li>However, since your age is not 40 - 75, benefit is less clear</li>")}
 		}
-  	else
-  		{
-  		if (estLDL >= 190){msg = paste(msg, "<li>Statins may be needed. Non-HDL cholesterol is high at ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2). If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin if a candidate, else <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")}
-  		}
+ 	if (estLDL >= 190)
+		{
+		# High intensity
+		msg = paste(msg, "<li>Statins may be needed. Non-HDL cholesterol is high at ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2). If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin if a candidate, else <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")
+		}
+	else
+		{
+		if (diabetes0 == 1)
+			{
+			msg = paste(msg, "<li>Recommended for you by the American College of Cardiology/American Heart Association 2013 (<a href=\"http://pubmed.gov/24222016\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">ACC/AHA, 2014</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
+			if (prob < 7.5)
+				{
+				#Moderate intensity
+				msg = paste(msg, "<li>Since you do not have diabetes: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")
+				}
+			else
+				{
+				#High dose intensity
+				msg = paste(msg, "<li>Since you have diabetes: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")
+				}
+			}
+			else
+			{
+			if (prob >= 7.5)
+				{
+				#Moderate intensity
+				if (prob >= 10)
+					{
+					msg = paste(msg, "<li>Recommended for you by the United States Preventive Services Task Force (<a href=\"http://pubmed.gov/27838723\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">USPSTF, 2016</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
+					}
+				#Moderate dose for prediabetes pending specific recs being published
+				msg = paste(msg, "<li>Since you do not have diabetes: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")
+				if (age0 < 40 || age0 > 75){msg = paste(msg, "<li>However, since your age is not 40 - 75, benefit is less clear</li>")}
+				}
+			}	
+		}
   	#}
   msg = paste(msg,"</ul></li>")
   msg = paste(msg,"</ul>")
