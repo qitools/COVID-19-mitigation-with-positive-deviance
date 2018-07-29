@@ -320,10 +320,14 @@ if (pageformat == "chart")
 		{
 		msg = paste(msg, "<li>Statin medications for cholesterol:<ul>")
 		msg = paste(msg, "<li>Recommended for you by the American College of Cardiology/American Heart Association 2013 (<a href=\"http://pubmed.gov/24222016\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">ACC/AHA, 2014</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
+		if (prob >= 10)
+			{
+			msg = paste(msg, "<li>Recommended for you by the United States Preventive Services Task Force as your estimated risk is 10% or more (<a href=\"http://pubmed.gov/27838723\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">USPSTF, 2016</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
+			}
 		}
  	if (estLDL >= 190)
 		{
-		msg = paste(msg, "<li>Statins may be needed. Non-HDL cholesterol is high at ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2). ")
+		msg = paste(msg, "<li>Statins may be needed. Non-HDL cholesterol is high at ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2).<ul>")
 		if (diabetes0 == 1)
 			{
 			# High intensity
@@ -334,6 +338,7 @@ if (pageformat == "chart")
 			# Moderate intensity
 			msg = paste(msg, "<li>If so, use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")
 			}
+			msg = paste(msg, "</li></ul>")
 		}
 	else
 		{
@@ -354,10 +359,6 @@ if (pageformat == "chart")
 			{
 			if (prob >= 7.5)
 				{
-				if (prob >= 10)
-					{
-					msg = paste(msg, "<li>Recommended for you by the United States Preventive Services Task Force (<a href=\"http://pubmed.gov/27838723\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">USPSTF, 2016</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
-					}
 				#Moderate to high intensity
 				msg = paste(msg, "<li>Since you do not have diabetes: ")
 				msg = paste(msg, "<li>use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")
