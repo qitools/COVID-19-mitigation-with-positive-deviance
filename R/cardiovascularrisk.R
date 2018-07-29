@@ -360,8 +360,7 @@ if (pageformat == "chart")
 			if (prob >= 7.5)
 				{
 				#Moderate to high intensity
-				msg = paste(msg, "<li>Since you do not have diabetes: ")
-				msg = paste(msg, "<li>use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")
+				msg = paste(msg, "<li>Since you do not have diabetes: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> to <a href=\"javascript:alert('Atorvatstin 40 - 80\\nRosuvasatin 20 - 40')\">high</a> intensity statin</li>")
 				if (age0 < 40 || age0 > 75){msg = paste(msg, "<li>However, since your age is not 40 - 75, benefit is less clear</li>")}
 				}
 			}	
