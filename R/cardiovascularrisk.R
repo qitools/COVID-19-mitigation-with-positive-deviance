@@ -43,7 +43,7 @@ if (sbpR0 > 0) {sbpR = 1.797 * log(sbpR0)}else{sbpR = 0}
 if (sbpN0 > 0) {sbpN = 1.764 * log(sbpN0)}else{sbpN = 0}
 smoke = 7.837 * smoke0 
 int3 = 0 #Women only
-diabetes = 0.658 * diabetes0
+if (diabetes0 = 1) {diabetes = 0.658}
 int4 = 0 #Women only
 #Fixed 6/13/2018
 int5 = -1.795 * log(age0) * smoke0
@@ -64,7 +64,7 @@ if (sbpR0 > 0) {sbpR = 1.916 * log(sbpR0)}else{sbpR = 0}
 if (sbpN0 > 0) {sbpN = 1.809 * log(sbpN0)}else{sbpN = 0}
 smoke = 0.549 * smoke0 
 int3 = 0 #Women only
-diabetes = 0.645 * diabetes0
+if (diabetes0 = 1) {diabetes = 0.645}
 int4 = 0 #Women only
 int5 = 0 #Anglos only
 meancoef = 19.54
@@ -90,7 +90,7 @@ if (sbpN0 > 0) {sbpN = 1.957 * log(sbpN0)}else{sbpN = 0}
 int4 = 0 #AA Women only
 smoke = 7.574 * smoke0 
 int5 = -1.665 * log(age0) * smoke0
-diabetes = 0.661 * diabetes0
+if (diabetes0 = 1) {diabetes = 0.661}
 meancoef = -29.18
 baseline = 0.9665
 }
@@ -109,7 +109,7 @@ if (sbpN0 > 0) {sbpN = 27.820 * log(sbpN0)}else{sbpN = 0}
 if (sbpN0 > 0) {int4 = -6.087 * log(age0) * log(sbpN0)}else{int4 = 0}
 smoke = 0.691 * smoke0 
 int5 = 0 #Anglos only
-diabetes = 0.874 * diabetes0
+if (diabetes0 = 1) {diabetes = 0.874}
 meancoef = 86.61
 baseline = 0.9533
 }
@@ -295,6 +295,7 @@ if (pageformat == "chart")
   	msg = paste(msg, "<li>Dash Diet: <a href=\"http://openrules.github.io/links/diet/dash\" target=\"_blank\">http://openrules.github.io/links/diet/dash</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>) (lowers blood pressure)</li>")
   	#msg = paste(msg, "<li>American Heart Association: <a href=\"http://openrules.github.io/links/diet/aha/\" target=\"_blank\">http://openrules.github.io/links/diet/aha/</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>).</li>")
   	msg = paste(msg, "</ul></li>")
+	
   #Start of USPSTF recommendations for aspirin
   if (prob >= 10)
 	{
