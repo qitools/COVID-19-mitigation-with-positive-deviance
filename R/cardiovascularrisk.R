@@ -12,6 +12,7 @@ int3 = 0
 int4 = 0
 int5 = 0
 tchol = 0
+ldl = ldl0
 hdl = 0
 sbpR0 = 0
 sbpR = 0
