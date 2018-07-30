@@ -373,7 +373,7 @@ if (pageformat == "chart")
 				msg = paste(msg, "<li>Since you have diabetes: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")
 				}
 			}
-			else
+		else
 			{
 			if (prob >= 7.5)
 				{
