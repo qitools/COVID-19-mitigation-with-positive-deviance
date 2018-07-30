@@ -101,6 +101,7 @@ function assigneventhandlers (){
     var bmi        = $("#bmi").val() * 1;
     var sbp        = $("#sbp").val() * 1;
     var tchol0     = $("#tchol").val() * 1;
+    var ldl0       = $("#ldl").val() * 1;
     var hdl0       = $("#hdl").val() * 1;
 	var pageformat = $("input:radio[name=pageformat]:checked" ).val();
 	//perform the request
@@ -115,6 +116,7 @@ function assigneventhandlers (){
 	bmi : bmi,
 	sbp :        sbp,
 	tchol0 :     tchol0,
+	ldl0 :       ldl0,
 	hdl0 :       hdl0,
 	pageformat : pageformat
 	}, function(output){

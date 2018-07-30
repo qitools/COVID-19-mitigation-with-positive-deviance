@@ -1,4 +1,4 @@
-cardiovascularrisk <- function(site = "", age0 = 0, gender = "", ethnicity = "", smoke0 = 0, diabetes0 = 0, bmi = 0, bprx = 0, sbp = 0, tchol0 = 0, hdl0 = 0,  pageformat = 'factsbox'){
+cardiovascularrisk <- function(site = "", age0 = 0, gender = "", ethnicity = "", smoke0 = 0, diabetes0 = 0, bmi = 0, bprx = 0, sbp = 0, tchol0 = 0, ldl0 = 0, hdl0 = 0,  pageformat = 'factsbox'){
 
   if(age0 < 1){
     stop("Tell me your age!")
@@ -316,7 +316,7 @@ if (pageformat == "chart")
   	}
   
   #Start of recommendations for statins
-  if (estLDL >= 190 || diabetes0 == 1 || prob >= 7.5)
+  if (estLDL >= 190 || LDL >= 190 || diabetes0 == 1 || prob >= 7.5)
 		{
 		msg = paste(msg, "<li>Statin medications for cholesterol:<ul>")
 		msg = paste(msg, "<li>Recommended for you by the American College of Cardiology/American Heart Association 2013 (<a href=\"http://pubmed.gov/24222016\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">ACC/AHA, 2014</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
@@ -325,20 +325,37 @@ if (pageformat == "chart")
 			msg = paste(msg, "<li>Recommended for you by the United States Preventive Services Task Force as your estimated risk is 10% or more (<a href=\"http://pubmed.gov/27838723\" title=\"Click to display source at PubMed in a new window\" target=\"_blank\" class=\"citation\">USPSTF, 2016</a>&nbsp;<img src=\"https://raw.githubusercontent.com/openRules/openRules.github.io/master/images/External.svg.png\" width=\"15\" alt=\"opens in new window\"/>)</li>")
 			}
 		}
- 	if (estLDL >= 190)
+ 	if (estLDL >= 190 || LDL >= 190)
 		{
-		msg = paste(msg, "<li>Statins may be needed. Non-HDL cholesterol is high at ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2).<ul>")
-		if (diabetes0 == 1)
+		if (LDL >= 190)
 			{
-			# High intensity
-			msg = paste(msg, "<li>If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin.</li>")
+			msg = paste(msg, "<li>Statins needed as non-HDL cholesterol is high at ", tchol0 - hdl0, " mg/dl.</li>")
+			if (diabetes0 == 1)
+				{
+				# High intensity for diabetics
+				msg = paste(msg, "<li>Use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin as diabetes present.</li>")
+				}
+			else
+				{
+				# Moderate intensity for non-diabetics
+				msg = paste(msg, "<li>Use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")
+				}
 			}
-		else
+		if (estLDL >= 190 && LDL == 0) 
 			{
-			# Moderate intensity
-			msg = paste(msg, "<li>If so, use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")
+			msg = paste(msg, "<li>Statins may be needed. Non-HDL cholesterol is high at ", tchol0 - hdl0, " mg/dl. Consider measuring LDL as may be <u>></u> 190 mg/dl per Friedewald equation(2).<ul>")
+			if (diabetes0 == 1)
+				{
+				# High intensity for diabetics
+				msg = paste(msg, "<li>If so, use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin as diabetes present.</li>")
+				}
+			else
+				{
+				# Moderate intensity for non-diabetics
+				msg = paste(msg, "<li>If so, use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10')\">moderate</a> intensity statin.</li>")
+				}
+			msg = paste(msg, "</ul></li>")
 			}
-			msg = paste(msg, "</li></ul>")
 		}
 	else
 		{
