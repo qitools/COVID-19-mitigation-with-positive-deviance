@@ -366,12 +366,12 @@ if (pageformat == "chart")
 			if (prob < 7.5)
 				{
 				#Moderate intensity
-				msg = paste(msg, "<li>Since you have diabetes and ASCVD risk is >= 7.5%: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> intensity statin</li>")
+				msg = paste(msg, "<li>Since you have diabetes and ASCVD risk is < 7.5%: use <a href=\"javascript:alert('Atorvastatin 10 - 20\\nPravastain 40 - 80\\nRosuvastatin 5 - 10\\nSimvastatin 20 - 40')\">moderate</a> intensity statin</li>")
 				}
 			else
 				{
 				#High dose intensity
-				msg = paste(msg, "<li>Since you have diabetes and ASCVD risk is < 7.5%: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")
+				msg = paste(msg, "<li>Since you have diabetes and ASCVD risk is >= 7.5%: use <a href=\"javascript:alert('Atorvastatin 40 - 80\\nRosuvastatin 20 - 40')\">high</a> intensity statin</li>")
 				}
 			}
 		else
