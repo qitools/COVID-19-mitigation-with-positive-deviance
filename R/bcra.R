@@ -43,7 +43,7 @@ msg <- subset(pages, pagename==pageformat)[, "content"]
 
 #msg = paste(msg,'<div>5 years: ', sprintf("%.1f",absolute.risk(myframe)), '%.</div>')
 if (Race == 3 || Race == 5) {Avg_White=1} else{Avg_White=0}
-Avg_White <- 0
+Avg_White <- 1 #Avg_White <- 0 yields very low rates
 if (myframe$T1 < 86){
   #5 years - for NCI format
   myframe$T2 = myframe$T1 + 5
