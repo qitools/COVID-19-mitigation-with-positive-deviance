@@ -43,7 +43,7 @@ data(pages)
 msg <- subset(pages, pagename==pageformat)[, "content"]
 
 #msg = paste(msg,'<div>5 years: ', sprintf("%.1f",absolute.risk(myframe)), '%.</div>')
-if (Race = 3 || Race 5) {Avg_White=1} else{Avg_White=0}
+if (Race = 3 || Race = 5) {Avg_White=1} else{Avg_White=0}
 if (myframe$T1 < 86){
   #5 years
   myframe$T2 = myframe$T1 + 5
