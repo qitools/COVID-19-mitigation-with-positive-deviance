@@ -49,7 +49,7 @@ if (myframe$T1 < 86){
   myframe$T2 = myframe$T1 + 5
   msg <- sub("X5X", sprintf("%.1f",absolute.risk(myframe)),msg)
   msg <- sub("M5M", sprintf("%.1f",0.8*absolute.risk(myframe)),msg) #With mmg
-  msg <- sub("T5T", sprintf("%.1f",absolute.risk(myframe,Raw_Ind=1,Avg_White)),msg)
+  msg <- sub("T5T", sprintf("%.1f",absolute.risk(myframe,Raw_Ind=0,Avg_White)),msg) #Raw_Ind=1 gives identicle results as pt
 }
 if (myframe$T1 < 81){
   #10 years - for Facts Box
@@ -62,7 +62,7 @@ if (myframe$T1 < 91){
   myframe$T2 = 90
   msg <- sub("X90X", sprintf("%.1f",absolute.risk(myframe)),msg)
   msg <- sub("M90M", sprintf("%.1f",0.8*absolute.risk(myframe)),msg) #With mmg
-  msg <- sub("T90T", sprintf("%.1f",absolute.risk(myframe,Raw_Ind=1,Avg_White)),msg)
+  msg <- sub("T90T", sprintf("%.1f",absolute.risk(myframe,Raw_Ind=0,Avg_White)),msg) #Raw_Ind=1 gives identicle results as pt
 }
 msg <- paste(msg,"<div>&nbsp;</div><div style=\"text-align:center\">		<button id=\"startover\" type=\"button\" onclick=\"location.reload()\">Start over</button></div>", sep="")
 list(message = msg)
