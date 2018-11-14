@@ -164,8 +164,17 @@ http://jquery-csv.googlecode.com/git/examples/flot.html -> seems best and most s
 http://code.google.com/p/jquery-csv/wiki/API -> instructions
 -->
 <div class="container" style="width:1000px;">
+<script>
+if (site.length>0)
+{
+document.write("<img src=\"images/sites/" + site + ".png\" style=\"display: block;max-width: 950px;margin-left: auto; margin-right: auto;\" />")
+}
+</script>
 
-	<h1><a href="http://OpenRules.github.io">OpenRules.github.io</a></h1>
+<!--	<h1><a href="http://OpenRules.github.io">OpenRules.github.io</a></h1>  -->
+	<div id="header" style="position:relative;float:left;width:100%">
+	<span class="h1" style="float:left;"><a href="http://OpenRules.github.io">OpenRules</a>: </span><span style="position:absolute; bottom:0px;margin-left: 10px;font-size:16px">Prediction rules, decision aids, and facts boxes for clinical medicine. Collaboratively created.</span>
+	</div>
 
 	<div style="float:left;color:#0022B4">
 	<h2>Should I undergo mammography to reduce risk of breast cancer?</h2>
