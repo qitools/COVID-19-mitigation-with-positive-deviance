@@ -20,6 +20,14 @@
 <script src="jqueryui/jquery-ui-1.10.3.custom.js"></script>
 
 <script>
+		function getParameterByName(name) {
+			name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+			var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+			results = regex.exec(location.search);
+			return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+			}
+		var site = getParameterByName('site').toLowerCase();
+
 		function toggleit (itemno){
 			document.getElementById(itemno).style.display = (document.getElementById(itemno).style.display == "none" ) ? "" : "none";
 		}
@@ -60,6 +68,7 @@
 
         //perform the request
         var req = opencpu.r_fun_json("bcra", {
+		site					   : site,
         genetics                   : genetics,
 		history                    : history,
 		T1                         : current_age,
