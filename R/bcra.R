@@ -1,4 +1,4 @@
-bcra <- function(genetics = 'no', history = 'no', T1 = 0, AgeMen = 99, Age1st = 99, N_Rels = 99, N_Biop = 99, HypPlas = 99, Race = 1, pageformat = 'nci'){
+bcra <- function(site = "", genetics = 'no', history = 'no', T1 = 0, AgeMen = 99, Age1st = 99, N_Rels = 99, N_Biop = 99, HypPlas = 99, Race = 1, pageformat = 'nci'){
   myframe <- data.frame(
     ID = 1,
     T1 = as.numeric(T1),
