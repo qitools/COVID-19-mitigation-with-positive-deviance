@@ -31,6 +31,9 @@ pulmnodule <- function(age = 0, diameter = 0, cancer = 0, smoker = 0, spiculatio
 		if (geo_region == "KS"){message = paste(message,'<ul><li>Consider pulmonary consultation. <a href=\'http://www.mssconline.org/physician_finder.php?hdnScrollLeft=hdnScrollLeft&amp;hdnScrollTop=0&amp;rowcount=100&amp;ddlspecialty=Pulmonary+Disease\'>List of pulmonologists in Wichita region</a>.</li></ul>');}
 		message = paste(message,'</li>');
 		};
+	if (diameter =< 8){
+		message = paste(message,'<li>Since diameter =< 8 mm, see section <a href=\'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3749714/#__sec30title\'>5.0 Solid Nodules Measuring ≤ 8 mm in Diameter</a> of ACCP guidelines for more specific suggestions</li>');
+		}
 	#Finish assembling message
 	message = paste(message, '</ul>');
 	message = paste(message, '<div>');
