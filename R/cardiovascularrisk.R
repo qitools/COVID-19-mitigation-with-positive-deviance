@@ -3,7 +3,7 @@ cardiovascularrisk <- function(site = "", age0 = 0, gender = "", ethnicity = "",
   if(age0 < 1){
     stop("Tell me your age!")
   }
-
+ 
 age = 0  
 age2 = 0
 int1 = 0
