@@ -12,6 +12,7 @@ Imports:
     RJSONIO,
     stringr,
     BCRA,
+	RCurl,
     reshape2
 Collate:
     'covid19positivedeviance.R'

@@ -28,29 +28,17 @@
         $("#submitbutton").attr("disabled", "disabled");
         
         //read the values
-        var age = $("#age").val() * 1;
-        var diameter = $("#diameter").val() * 1;
-		var cancer = 0 
-		if ($("#cancer1").prop("checked") == true){cancer = 1}
-		var smoker = 0 
-		if ($("#smoker1").prop("checked") == true){smoker = 1}
-		var location = 0 
-		if ($("#location1").prop("checked") == true){location = 1}
-		var spiculation = 0
-		if ($("#spiculation1").prop("checked") == true){spiculation = 1}
-		var geo_region = ''
-		if (hash.indexOf('KS')>0){geo_region = "KS"}
-	  
+        var fips = $("#fips").val() * 1;
+        var size = $("#sizetolerance").val() * 1;
+        var densitytolerance = $("#densitytolerance").val() * 1;
+        var growthratemethod = $("#growthratemethod").val() * 1;
+		
         //perform the request
         var req = opencpu.r_fun_json("covid19positivedeviance", {
-        age : age,
-        cancer : cancer,
-        smoker : smoker,
-        diameter : diameter,
-        spiculation : spiculation,
-        location : location,
-        geo_region : geo_region
-	  }, function(output){
+        fips : fips,
+        sizetolerance : sizetolerance,
+        densitytolerance : densitytolerance
+		}, function(output){
           document.getElementById("output").innerHTML = output.message
         });
         
@@ -139,32 +127,15 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 			</div>
 		</div>
 	<div style="clear:both"></div>
-<div><a href="../data/positivedeviance/csv">/data/positivedeviance/csv</a></div>
 	
         <form id="paramform" target="target">
-          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:780px;height:300px;">
+          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:780px;height:150px;">
 		  <legend>Enter values:</legend>
-	    <div style="display:block">County FIPS: <input type="text" id="age" value="20173"></div>
-	    <div style="display:block">Diameter: <input type="text" id="diameter"></div>
-	    <div style="display:block">Population size similarity: <input type="text" id="size" value="25">%</div>
-	    <div style="display:block">Population densitiy similarity: <input type="text" id="densitiy" value="25">%</div>
-             
-		<div style="display:block"><label>Cancer (history of an extrathoracic cancer that was diagnosed > 5 years ago):</label><br/>
-		<input type="radio" name="cancer" id="cancer0" value="0"><label for="cancer0">No</label>
-		<input type="radio" name="cancer" id="cancer1" value="1"><label for="cancer1">Yes</label><br/>
-		</div> 
-		<div style="display:block"><label>Smoker (current or former):</label><br/>
-		<input type="radio" name="smoker" id="smoker0" value="0"><label for="smoker0">No</label>
-		<input type="radio" name="smoker" id="smoker1" value="1"><label for="smoker1">Yes</label><br/>
-		</div> 
-		<div style="display:block"><label>Spiculation:</label><br/>
-		<input type="radio" name="spiculation" id="spiculation0" value="0"><label for="spiculation0">No</label>
-		<input type="radio" name="spiculation" id="spiculation1" value="1"><label for="spiculation1">Yes</label><br/>
-		</div> 
-		<div style="display:block"><label>Location:</label><br/>
-		<input type="radio" name="location" id="location1" value="1"><label for="location1">Upper lobe</label><br/>
-		<input type="radio" name="location" id="location0" value="0"><label for="location0">Other location</label>
-		</div> 
+		  
+	    <div style="display:block">County FIPS: <input type="text" id="fips" value="20173"></div>
+	    <div style="display:block">Population size similarity: <input type="text" id="sizetolerance" value="25">%</div>
+	    <div style="display:block">Population densitiy similarity: <input type="text" id="densitytolerance" value="25">%</div>
+	    <div style="display:block">Growth rate method: <input type="radio" id="deterministic" name="growthratemethod" value="deterministic"><label for="male">deterministic</label> <input type="radio" id="nlr" name="growthratemethod" value="nlr" checked><label for="nlr">non-linear regression</label><br></div>
 			
 		<button id="submitbutton" type="button">Submit (answer will show below)</button>
  
@@ -175,17 +146,19 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 	
 	  <h3>References</h3>
 	  <ol>
-	  <li>Pending</li>
+	  <li>Rose AJ, McCullough MB. A Practical Guide to Using the Positive Deviance Method in Health Services Research. Health Serv Res. 2017 Jun;52(3):1207-1222. doi: <a href="http://doi.org/10.1111/1475-6773.12524">10.1111/1475-6773.12524</a>. PMID: <a href="http://pubmed.gov/27349472">27349472</a>; PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5441507/">PMC5441507</a>.
+</li>
 	  </ol>
     <div class="row">
       <div class="span12">
 
 	  <h3>About</h3>
 	        <ul>
-			<li><a href="https://github.com/openRules">Source code at GitHub</a></li>
+			<li><a href="https://github.com/qitools/COVID-19-mitigation-with-positive-deviance/blob/master/data/data.counties.final.csv">data file</a></li>
+			<li><a href="https://github.com/qitools/COVID-19-mitigation-with-positive-deviance">Source code at GitHub</a></li>
 			<li><a href="../man/positivedeviance/html">Manual</a></li>
-			<li>Contribute: <a href="https://github.com/qitools/home/issues?q=team%3AopenRules%2FPulmonary-nodule">open issues</a></li>
-			<li><a href="https://github.com/orgs/qitools/teams/pulmonary-nodule">Authors</a></li>
+			<li>Contribute: <a href="https://github.com/qitools/home/issues?q=team%3AqiTools%2FCOVID-19-mitigation-with-positive-deviance">open issues</a></li>
+			<li><a href="https://github.com/orgs/qitools/teams/COVID-19-mitigation-with-positive-deviance">Authors</a></li>
 			<li>These pages may not function on some versions of Internet Explorer.</li>
 		</ul>
 		</div>
