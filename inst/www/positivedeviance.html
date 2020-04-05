@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>openRules</title>
+<title>Identify deviant counties based on population characteristics</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -42,7 +42,7 @@
 		if (hash.indexOf('KS')>0){geo_region = "KS"}
 	  
         //perform the request
-        var req = opencpu.r_fun_json("pulmnodule", {
+        var req = opencpu.r_fun_json("positivedeviance", {
         age : age,
         cancer : cancer,
         smoker : smoker,
@@ -134,7 +134,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 		<div class="page-header" style="color:#0022B4">
 			<div style="float:left;color:#0022B4">
 				<h1>openRules</h1>
-				<h2>Pulmonary nodule - probability of malignancy using Mayo Clinic model</h2>
+				<h2>COVID-19 mitigation with positive deviance</h2>
 				<div>For <a href="#" class="hastip">indeterminate nodules</a>
 				<div class="tooltiptext">"a nodule that is not calcified in a benign pattern or that does not have other features strongly suggestive of a benign etiology, such as intranodular fat that is pathognomonic of hamartoma or a feeding artery and vein typical for arteriovenous malformation." - ACCP Guidelines. Chest 2013 <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3749714">PMC3749714</a></div>
 				</div>
@@ -174,16 +174,8 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
     <div id="output"></div>
 	
 	  <h3>References</h3>
-		<div style="font-weight:bold">Clinical practice guidelines for the management of a pulmonary nodule</div>
 	  <ol>
-	  <li>Gould MK et al. Evaluation of individuals with pulmonary nodules: when is it lung cancer? Diagnosis and management of lung cancer, 3rd ed: American College of Chest Physicians evidence-based clinical practice guidelines. Chest. 2013 May;143(5 Suppl):e93S-120S. doi: <a href="http://dx.doi.org/10.1378/chest.12-2351">10.1378/chest.12-2351</a>. PMID: <a href="http://pubmed.gov/23649456">23649456</a>; <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3749714">PMC3749714 (open access)</a>.</li>
-	  <li>(for subsolid nodules only) Naidich DP, Bankier AA, MacMahon H, Schaefer-Prokop CM, Pistolesi M, Goo JM, Macchiarini P, Crapo JD, Herold CJ, Austin JH, Travis WD. Recommendations for the management of subsolid pulmonary nodules detected at CT: a statement from the Fleischner Society. Radiology. 2013 Jan;266(1):304-17. doi: <a href="http://dx.doi.org/10.1148/radiol.12120628">10.1148/radiol.12120628</a>. Epub 2012 Oct 15.  PMID: <a href="http://pubmed.gov/23070270">23070270</a></li>
-	  <li><span style="color:red; font-weight:bold">New, not yet incorporated</span>MacMahon H, Naidich DP, Goo JM, Lee KS, Leung AN, Mayo JR, et al. Guidelines for Management of Incidental Pulmonary Nodules Detected on CT Images: From the Fleischner Society 2017. Radiology. 2017 Feb 23:161659. PMID <a href="https://pubmed.gov/28240562">28240562</a></li>
-	  </ol>
-		<div style="font-weight:bold">Source studies for predicting the probability of malignancy in a pulmonary nodule</div>
-	  <ol>
-	  <li>Swensen SJ, Silverstein MD, Ilstrup DM, Schleck CD, Edell ES: The probability of malignancy in solitary pulmonary nodules. Application to small radiologically indeterminate nodules. Arch Intern Med 1997;157(8):849-855. PMID: <a href="http://pubmed.gov/9129544">9129544</a></li>
-	  <li>Herder GJ, van Tinteren H, Golding RP, et al: Clinical prediction model to characterize pulmonary nodules: validation and added value of 18F-fluorodeoxyglucose positron emission tomography. Chest 2005;128(4):2490-2496. PMID: <a href="http://pubmed.gov/16236914">16236914</a></li>
+	  <li>Pending</li>
 	  </ol>
     <div class="row">
       <div class="span12">
@@ -191,9 +183,9 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 	  <h3>About</h3>
 	        <ul>
 			<li><a href="https://github.com/openRules">Source code at GitHub</a></li>
-			<li><a href="../man/pulmnodule/html">Manual</a></li>
-			<li>Contribute: <a href="https://github.com/openRules/home/issues?q=team%3AopenRules%2FPulmonary-nodule">open issues</a></li>
-			<li><a href="https://github.com/orgs/openRules/teams/pulmonary-nodule">Authors</a></li>
+			<li><a href="../man/positivedeviance/html">Manual</a></li>
+			<li>Contribute: <a href="https://github.com/qitools/home/issues?q=team%3AopenRules%2FPulmonary-nodule">open issues</a></li>
+			<li><a href="https://github.com/orgs/qitools/teams/pulmonary-nodule">Authors</a></li>
 			<li>These pages may not function on some versions of Internet Explorer.</li>
 		</ul>
 		</div>

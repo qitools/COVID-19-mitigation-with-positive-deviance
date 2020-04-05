@@ -1,22 +1,17 @@
 Package: home
 Type: OpenCPU Application
-Title: Clinical Prediction Rules application for OpenCPU
+Title: COVID-19 mitigation with positive deviance
 Version: 0.1
-Date: 2013-09-02
+Date: 2020-04-05
 Author: Robert Badgett
 Maintainer: Robert Badgett <rbadgett@kumc.edu>
 Description: OpenCPU application for Clinical Prediction Rules. 
 License: GPL
 Imports:
-    ggplot2,
     httr,
     RJSONIO,
     stringr,
     BCRA,
     reshape2
 Collate:
-    'home.R'
-    'bcra.R'
-    'pulmnodule.R'
-	'cardiovascularrisk.R'
-	'prostatecancerrisk.R'	
+    'positivedeviance.R'	

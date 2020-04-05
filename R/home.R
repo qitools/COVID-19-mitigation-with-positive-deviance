@@ -3,7 +3,7 @@
 #' This collection of functions implements selected functions from qcc.
 #' 
 #' @author Robert Badgett
-#' @import ggplot2 httr RJSONIO reshape2
+#' @import httr RJSONIO reshape2
 #' @export
 home <- function () {
 	
