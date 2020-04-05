@@ -1,5 +1,4 @@
-export(home)
-export(positivedeviance)
+export(covid19positivedeviance)
 import(RJSONIO)
 import(stringr)
 import(httr)

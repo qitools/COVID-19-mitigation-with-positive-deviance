@@ -1,11 +1,11 @@
-Package: home
+Package: covid19positivedeviance
 Type: OpenCPU Application
 Title: COVID-19 mitigation with positive deviance
 Version: 0.1
 Date: 2020-04-05
 Author: Robert Badgett
 Maintainer: Robert Badgett <rbadgett@kumc.edu>
-Description: OpenCPU application for Clinical Prediction Rules. 
+Description: OpenCPU application for COVID-19 mitigation with positive deviance. 
 License: GPL
 Imports:
     httr,
@@ -14,4 +14,5 @@ Imports:
     BCRA,
     reshape2
 Collate:
-    'positivedeviance.R'	
+    'covid19positivedeviance.R'
+	
