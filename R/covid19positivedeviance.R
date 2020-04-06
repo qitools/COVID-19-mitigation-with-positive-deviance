@@ -6,13 +6,16 @@ data.counties.final <- read.csv(text = x)
 data.counties.final$density <- as.numeric(data.counties.final$density)
 data.counties.final$population <- as.numeric(data.counties.final$population)
 
+message = '';
+
+(database.date <- as.Date(data.counties.final$CountyStartDate[1]) + data.counties.final$days[1])
+message = paste(message,'<div>Database current through: ', as.character(database.date),'</div>');
+
 county.index <- data.counties.final[data.counties.final$fips == fips,]
 
 if (nrow(county.index) == 0){
 stop(paste("Error. County not present in the database.", sep=""))
 }
-
-message = '';
 
 # Filter by density
 data.deviants <- data.counties <- data.counties.final[abs(data.counties.final$density/county.index$density -1) < densitytolerance/100,]
@@ -34,8 +37,8 @@ data.deviants.eligible <- data.deviants.eligible[with(data.deviants.eligible, or
 # Keep deviants and index
 data.deviants <- data.deviants.eligible[c(1:5,which(data.deviants.eligible$fips ==fips),(nrow(data.deviants.eligible)-4):nrow(data.deviants.eligible)),]
 
-	message = paste(message,'<div>data.counties.final: ',nrow(data.counties.final),'</div>');
-	message = paste(message,'<div>eligible deviants: ',nrow(data.deviants.eligible),'</div>');
+	message = paste(message,'<div>Total counties in database, data.counties.final: ',nrow(data.counties.final),' (excluded counties with < 2 cases or < 14 days since the first case.)</div>');
+	message = paste(message,'<div>Eligible deviant counties: ',nrow(data.deviants.eligible),'</div>');
 	if (nrow(data.deviants.eligible) > 10){
 		message = paste(message,'<div>There are two green rows in your table, because your county was a deviant. Perhaps broadern your criteria.</div>');
 	}
