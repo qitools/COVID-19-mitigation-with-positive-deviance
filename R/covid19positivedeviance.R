@@ -42,7 +42,7 @@ data.deviants <- data.deviants.eligible[c(1:5,which(data.deviants.eligible$fips 
 	if (nrow(data.deviants.eligible) < 20){
 	  message = paste(message,'<div><span style=\"font-weight:bold;color:red\">Alert</span>: Less than 20 elibible counties for comparison. Consider expanding your population and density criteria.</div>');
 	}
-	if (nrow(data.deviants) > 10){
+	if (nrow(data.deviants) == 10){
 		message = paste(message,'<div><span style=\"font-weight:bold;color:red\">Alert</span>: There are two green rows in your table because your county was a deviant. Perhaps broadern your criteria.</div>');
 	}
 	message = paste(message,'<table><tr><th>County</th><th>State</th><th>FIPS</th><th>Population<br/>(2018 est)</th><th>Pop density<br/>(2018 est)</th><th>cases</th><th>Start date</th><th>days</th><th>Growth rate (%)</th><th>Growth rate (%)<br/>(by nonlinear regression)</th><th>Doubling.time</th><th>tests<br/>(Not available)</th><th>testing.rate<br/>(Not available)</th><th>Stay at home<br/>(<a href=\"https://www.nytimes.com/interactive/2020/us/coronavirus-stay-at-home-order.html\" target=_blank>links</a>)</th></tr>');
