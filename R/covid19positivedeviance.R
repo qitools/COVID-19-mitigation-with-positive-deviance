@@ -9,7 +9,7 @@ data.counties.final$population <- as.numeric(data.counties.final$population)
 message = '';
 
 (database.date <- as.Date(data.counties.final$CountyStartDate[1]) + data.counties.final$days[1])
-message = paste(message,'<div>Database current through: ', as.character(database.date),'</div>');
+message = paste(message,'<div>Database (<a href=\"https://github.com/nytimes/covid-19-data\">source at GitHub</a> current through: ', as.character(database.date),'</div>');
 
 county.index <- data.counties.final[data.counties.final$fips == fips,]
 
