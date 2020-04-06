@@ -135,10 +135,12 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 		  
 	    <div style="display:block">County FIPS (<a href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/national/home/?cid=nrcs143_013697" target=_blank>look up</a>&nbsp;<img src="images/External.svg.png" alt="opens in new window" width="13">): <input type="text" id="fips" value="20173"></div>
 	    <div style="display:block"><span style="font-weight: bold">Criteria for similarity</span><br/>(smaller allowed ranges may lead to less deviants to select from and may trigger a server error if insufficient counties are identified)
-		<div style="display:block">Population size: +/-<input type="text" id="sizetolerance" value="25">%</div>
-	    <div style="display:block">Population densitiy: +/-<input type="text" id="densitytolerance" value="25">%</div>
-	    <div style="display:block">Growth rate method: <input type="radio" id="deterministic" name="growthratemethod" value="deterministic"><label for="deterministic">deterministic</label> <input type="radio" id="nlr" name="growthratemethod" value="nlr" checked><label for="nlr">non-linear regression</label><br></div>
-		</div>
+		<table border=0>
+			<tr><td><div style="display:block">Population size:</td><td>+/-<input type="text" id="sizetolerance" value="25">%</div></td></tr>
+			<tr><td><div style="display:block">Population densitiy:</td><td>+/-<input type="text" id="densitytolerance" value="25">%</div></td></tr>
+			<tr><td><div style="display:block">Growth rate method:</td><td><input type="radio" id="deterministic" name="growthratemethod" value="deterministic"><label for="deterministic">deterministic</label> <input type="radio" id="nlr" name="growthratemethod" value="nlr" checked><label for="nlr">non-linear regression</label><br></div></td></tr>
+	        </table>
+	    </div>
 		
 		<button id="submitbutton" type="button">Submit (answer will show below)</button>
  
@@ -147,11 +149,32 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 		
     <div id="output"></div>
 	
-	  <h3>References</h3>
-	  <ol>
-	  <li>Rose AJ, McCullough MB. A Practical Guide to Using the Positive Deviance Method in Health Services Research. Health Serv Res. 2017 Jun;52(3):1207-1222. doi: <a href="http://doi.org/10.1111/1475-6773.12524">10.1111/1475-6773.12524</a>. PMID: <a href="http://pubmed.gov/27349472">27349472</a>; PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5441507/">PMC5441507</a>.
-</li>
-	  </ol>
+	<h3>References</h3>
+	<h4>Overviews and methods for positive deviance</h4>
+	<ol>
+		<li>Rose AJ, McCullough MB. A Practical Guide to Using the Positive Deviance Method in Health Services Research. Health Serv Res. 2017 Jun;52(3):1207-1222. doi: 
+	<a href="http://doi.org/10.1111/1475-6773.12524">10.1111/1475-6773.12524</a>. PMID: <a href="http://pubmed.gov/27349472">27349472</a>; PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5441507/">PMC5441507</a>.</li>
+		<li>Bradley EH, Curry LA, Ramanadhan S, Rowe L, Nembhard IM, Krumholz HM. Research in action: using positive deviance to improve quality of health care. Implement Sci. 2009 doi: 
+	<a href="http://doi.org/10.1186/1748-5908-4-25">10.1186/1748-5908-4-25</a>. PMID: <a href="http://pubmed.gov/19426507">19426507</a>; PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2690576/">PMC2690576</a></li>
+		<li>Marsh DR, Schroeder DG, Dearden KA, Sternin J, Sternin M. The power of positive deviance. BMJ. 2004 
+	PMID: <a href="http://pubmed.gov/15539680">15539680</a>; PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC527707/">PMC527707</a>.
+	</ol>
+	<h4>Examples of interventions based on positive deviance</h4>
+	<ol>
+		<li>Rose AJ, Park A, Gillespie C, Van Deusen Lukas C, Ozonoff A, Petrakis BA, Reisman JI, Borzecki AM, Benedict AJ, Lukesh WN, Schmoke TJ, Jones EA, Morreale AP, Ourth HL, Schlosser JE, Mayo-Smith MF, Allen AL, Witt DM, Helfrich CD, McCullough MB. Results of a Regional Effort to Improve Warfarin Management. Ann Pharmacother. 2017 
+	doi: <a href="http://doi.org/10.1177/1060028016681030">10.1177/1060028016681030</a>. PMID: <a href="http://pubmed.gov/28367699">28367699</a>
+		<li>Marsh DR, Schroeder DG, Dearden KA, Sternin J, Sternin M. The power of positive deviance. BMJ. 2004 
+	PMID: <a href="http://pubmed.gov/15539680">15539680</a>; PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC527707/">PMC527707</a>.
+	</ol>
+	<h4>Examples of descriptions of organizations based on positive deviance</h4>
+	<ol>
+		<li>Bradley EH, Holmboe ES, Mattera JA, Roumanis SA, Radford MJ, Krumholz HM. A qualitative study of increasing beta-blocker use after myocardial infarction: Why do some hospitals succeed? JAMA. 2001 May 23-30;285(20):2604-11. 
+	PMID: <a href="http://pubmed.gov/11368734">11368734</a></li>
+		<li>Rose AJ, Petrakis BA, Callahan P, Mambourg S, Patel D, Hylek EM, Bokhour BG. Organizational characteristics of high- and low-performing anticoagulation clinics in the Veterans Health Administration. Health Serv Res. 2012 Aug;47(4):1541-60. 
+	doi: <a href="http://doi.org/10.1111/j.1475-6773.2011.01377.x">10.1111/j.1475-6773.2011.01377.x</a>. PMID: <a href="http://pubmed.gov/22299722">22299722</a>; PMCID: PMC3401398</a></li>
+		<li>1: Bradley EH, Curry LA, Spatz ES, Herrin J, Cherlin EJ, Curtis JP, Thompson JW, Ting HH, Wang Y, Krumholz HM. Hospital strategies for reducing risk-standardized mortality rates in acute myocardial infarction. Ann Intern Med. 2012  
+	doi: <a href="http://doi.org/10.7326/0003-4819-156-9-201205010-00003">10.7326/0003-4819-156-9-201205010-00003</a>. PMID: <a href="http://pubmed.gov/22547471">22547471</a>; PMCID: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3386642/">PMC3386642</a></li>
+	</ol>
     <div class="row">
       <div class="span12">
 
