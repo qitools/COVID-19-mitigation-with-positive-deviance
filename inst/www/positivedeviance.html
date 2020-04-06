@@ -130,14 +130,14 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 	<div style="clear:both"></div>
 	    <div style="display:block">This database includes U.S. counties with at least one case of COVID-19 that was identified at least 14 days ago.</div>
         <form id="paramform" target="target">
-          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:780px;height:175px;">
+          <fieldset style="border: 3px solid #6DC6E7; background-color: #FFFFFF;width:780px;height:200px;">
 		  <legend>Enter values:</legend>
 		  
 	    <div style="display:block">County FIPS (<a href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/national/home/?cid=nrcs143_013697" target=_blank>look up</a>&nbsp;<img src="images/External.svg.png" alt="opens in new window" width="13">): <input type="text" id="fips" value="20173"></div>
 	    <div style="display:block"><span style="font-weight: bold">Criteria for similarity</span><br/>(smaller allowed ranges may lead to less deviants to select from and may trigger a server error if insufficient counties are identified)
 		<table border=0>
-			<tr><td><div style="display:block">Population size:</td><td>+/-<input type="text" id="sizetolerance" value="25">%</div></td></tr>
-			<tr><td><div style="display:block">Population densitiy:</td><td>+/-<input type="text" id="densitytolerance" value="25">%</div></td></tr>
+			<tr><td><div style="display:block">Population size:</td><td>+/-&nbsp:<input type="text" id="sizetolerance" value="25">%</div></td></tr>
+			<tr><td><div style="display:block">Population densitiy:</td><td>+/-&nbsp:<input type="text" id="densitytolerance" value="25">%</div></td></tr>
 			<tr><td><div style="display:block">Growth rate method:</td><td><input type="radio" id="deterministic" name="growthratemethod" value="deterministic"><label for="deterministic">deterministic</label> <input type="radio" id="nlr" name="growthratemethod" value="nlr" checked><label for="nlr">non-linear regression</label><br></div></td></tr>
 	        </table>
 	    </div>
