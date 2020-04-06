@@ -29,16 +29,17 @@
         
         //read the values
         var fips = $("#fips").val() * 1;
-        var size = $("#sizetolerance").val() * 1;
+        var sizetolerance = $("#sizetolerance").val() * 1;
         var densitytolerance = $("#densitytolerance").val() * 1;
-        var growthratemethod = $("#growthratemethod").val() * 1;
+		var nlr = $("#nlr").prop( "checked" )
 		
         //perform the request
         var req = opencpu.r_fun_json("covid19positivedeviance", {
         fips : fips,
         sizetolerance : sizetolerance,
-        densitytolerance : densitytolerance
-		}, function(output){
+        densitytolerance : densitytolerance,
+		nlr : nlr
+	  }, function(output){
           document.getElementById("output").innerHTML = output.message
         });
         
@@ -135,7 +136,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 	    <div style="display:block">County FIPS: <input type="text" id="fips" value="20173"></div>
 	    <div style="display:block">Population size similarity: <input type="text" id="sizetolerance" value="25">%</div>
 	    <div style="display:block">Population densitiy similarity: <input type="text" id="densitytolerance" value="25">%</div>
-	    <div style="display:block">Growth rate method: <input type="radio" id="deterministic" name="growthratemethod" value="deterministic"><label for="male">deterministic</label> <input type="radio" id="nlr" name="growthratemethod" value="nlr" checked><label for="nlr">non-linear regression</label><br></div>
+	    <div style="display:block">Growth rate method: <input type="radio" id="deterministic" name="growthratemethod" value="deterministic"><label for="deterministic">deterministic</label> <input type="radio" id="nlr" name="growthratemethod" value="nlr" checked><label for="nlr">non-linear regression</label><br></div>
 			
 		<button id="submitbutton" type="button">Submit (answer will show below)</button>
  

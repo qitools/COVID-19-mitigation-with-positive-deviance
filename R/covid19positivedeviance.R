@@ -1,7 +1,11 @@
-covid19positivedeviance <- function(fips = 0, sizetolerance = 0, densitytolerance = 0, growthratemethod = 'nlr'){
+covid19positivedeviance <- function(fips, sizetolerance, densitytolerance, nlr){
 
 x <- getURL("https://raw.githubusercontent.com/qitools/COVID-19-mitigation-with-positive-deviance/master/data/data.counties.final.csv")
 data.counties.final <- read.csv(text = x)
+
+data.counties.final$density <- as.numeric(data.counties.final$density)
+data.counties.final$population <- as.numeric(data.counties.final$population)
+
 county.index <- data.counties.final[data.counties.final$fips == fips,]
 
 message = '';
@@ -9,11 +13,13 @@ message = '';
 # Filter by density
 data.deviants <- data.counties <- data.counties.final[abs(data.counties.final$density/county.index$density -1) < 0.25,]
 
+#stop(paste("stop with: ","here", sep=""))
+
 # Filter by absolute population (this is V2)
 data.deviants.eligible <- data.deviants[abs(data.deviants$population/county.index$population -1) < 0.25,]
 
 # Sort
-data.deviants.eligible <- data.deviants.eligible[with(data.deviants.eligible, order(Growth.rate.reg)), ]
+data.deviants.eligible <- data.deviants.eligible[with(data.deviants.eligible, order(data.deviants.eligible$Growth.rate.reg)), ]
 
 # Keep deviants and index
 data.deviants <- data.deviants.eligible[c(1:5,which(data.deviants.eligible$fips ==fips),(nrow(data.deviants.eligible)-4):nrow(data.deviants.eligible)),]
