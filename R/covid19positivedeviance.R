@@ -8,6 +8,10 @@ data.counties.final$population <- as.numeric(data.counties.final$population)
 
 county.index <- data.counties.final[data.counties.final$fips == fips,]
 
+if (nrow(county.index) == 0){
+stop(paste("Error. County not present in the database.", sep=""))
+}
+
 message = '';
 
 # Filter by density
