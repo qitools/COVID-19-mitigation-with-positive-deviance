@@ -28,7 +28,7 @@ stop(paste("Error. Insufficient counties identified: ",nrow(data.deviants.eligib
 }
 
 # Sort
-if (Growth.rate.14){
+if (Growth.rate.14){  
 #data.deviants.eligible <- data.deviants.eligible[with(data.deviants.eligible, order(data.deviants.eligible$Growth.rate.reg)), ]
 data.deviants.eligible <- data.deviants.eligible[with(data.deviants.eligible, order(data.deviants.eligible$Growth.rate.14)), ]
 }else{
