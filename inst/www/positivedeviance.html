@@ -31,14 +31,14 @@
         var fips = $("#fips").val() * 1;
         var sizetolerance = $("#sizetolerance").val() * 1;
         var densitytolerance = $("#densitytolerance").val() * 1;
-		var Growth.rate.14 = $("#Growth.rate.14").prop( "checked" )
+		var Growthrate14 = $("#Growthrate14").prop( "checked" )
 		
         //perform the request
         var req = opencpu.r_fun_json("covid19positivedeviance", {
         fips : fips,
         sizetolerance : sizetolerance,
         densitytolerance : densitytolerance,
-		nlr : nlr
+		Growthrate14 : Growthrate14
 	  }, function(output){
           document.getElementById("output").innerHTML = output.message
         });
@@ -138,7 +138,7 @@ http://code.google.com/p/jquery-csv/wiki/API -> instructions
 		<table border=0>
 			<tr><td><div style="display:block">Population size:</td><td>+/-&nbsp:<input type="text" id="sizetolerance" value="25">%</div></td></tr>
 			<tr><td><div style="display:block">Population densitiy:</td><td>+/-&nbsp:<input type="text" id="densitytolerance" value="25">%</div></td></tr>
-			<tr><td><div style="display:block">Growth rate method:</td><td><input type="radio" id="Growth.rate" name="growthratemethod" value="Growth.rate"><label for="Growth.rate">Since first case</label> <input type="radio" id="Growth.rate.14" name="growthratemethod" value="Growth.rate.14" checked><label for="Growth.rate.14">Last 14 days</label><br></div></td></tr>
+			<tr><td><div style="display:block">Growth rate method:</td><td><input type="radio" id="Growth.rate" name="growthratemethod" value="Growth.rate"><label for="Growth.rate">Since first case</label> <input type="radio" id="Growthrate14" name="growthratemethod" value="Growthrate14" checked><label for="Growthrate14">Last 14 days</label><br></div></td></tr>
 	        </table>
 	    </div>
 		

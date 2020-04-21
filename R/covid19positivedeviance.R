@@ -1,4 +1,4 @@
-covid19positivedeviance <- function(fips, sizetolerance, densitytolerance, Growth.rate.14){
+covid19positivedeviance <- function(fips, sizetolerance, densitytolerance, Growthrate14){
 
 x <- getURL("https://raw.githubusercontent.com/qitools/COVID-19-mitigation-with-positive-deviance/master/data/data.counties.final.csv")
 data.counties.final <- read.csv(text = x)
@@ -28,9 +28,9 @@ stop(paste("Error. Insufficient counties identified: ",nrow(data.deviants.eligib
 }
 
 # Sort
-if (Growth.rate.14){  
+if (Growthrate14){  
 #data.deviants.eligible <- data.deviants.eligible[with(data.deviants.eligible, order(data.deviants.eligible$Growth.rate.reg)), ]
-data.deviants.eligible <- data.deviants.eligible[with(data.deviants.eligible, order(data.deviants.eligible$Growth.rate.14)), ]
+data.deviants.eligible <- data.deviants.eligible[with(data.deviants.eligible, order(data.deviants.eligible$Growth.rate.last14)), ]
 }else{
 data.deviants.eligible <- data.deviants.eligible[with(data.deviants.eligible, order(data.deviants.eligible$Growth.rate)), ]
 }
@@ -56,7 +56,7 @@ for (i in 1:nrow(data.deviants)){
 		}else{
 		backgroundcolor <- 'white'
 		}
-	message = paste(message,'<tr style=\"background-color:',backgroundcolor,'\"><td><a target=_blank href=\"https://en.wikipedia.org/wiki/',data.deviants$county[i],'_County,_',data.deviants$state[i],'\">',data.deviants$county[i],'</a><br/>FIPS: ',data.deviants$fips[i],'</td><td>',data.deviants$state[i],'</td><td>',data.deviants$population[i],'</td><td>',data.deviants$density[i],'</td><td>',data.deviants$cases[i],'</td><td>',as.character(data.deviants$CountyStartDate[i]),'</td><td>',data.deviants$days[i],'</td><td>',round(100*(data.deviants$Growth.rate[i]-1),1),'</td><td>',round(100*(data.deviants$Growth.rate.reg[i]-1),1),'</td><td>',round(data.deviants$Doubling.time[i],1),'</td><td>',data.deviants$tests[i],'</td><td>',data.deviants$testing.rate[i],'</td><td><a href=\"https://en.wikipedia.org/wiki/U.S._state_and_local_government_response_to_the_2020_coronavirus_pandemic#',data.deviants$state[i],\"'>State response at WikiPedia</a><br/><a href=\"https://www.nytimes.com/interactive/2020/us/coronavirus-stay-at-home-order.html#',data.deviants$state[i],\"'>State response at NYTimes</a></td><td><a href=\"https://www.unacast.com/covid19/social-distancing-scoreboard?view=county&fips=',data.deviants$fips[i],'\">Unacast data</a></td><td>Comments: imposed by the state<br/>Date: 03/30/2020 Day no: 23<br/><a href=\"https://governor.kansas.gov/governor-kelly-issues-temporary-statewide-stay-home-order-in-ongoing-effort-to-combat-covid-19/\" target=_blank>Link</a> Contributed by jdoe@kumc.edu</td></tr>');
+	message = paste(message,'<tr style=\"background-color:',backgroundcolor,'\"><td><a target=_blank href=\"https://en.wikipedia.org/wiki/',trimws(data.deviants$county[i]),'_County,_',trimws(data.deviants$state[i]),'\">',data.deviants$county[i],'</a><br/>FIPS: ',data.deviants$fips[i],'</td><td>',data.deviants$state[i],'</td><td>',data.deviants$population[i],'</td><td>',data.deviants$density[i],'</td><td>',data.deviants$cases[i],'</td><td>',as.character(data.deviants$CountyStartDate[i]),'</td><td>',data.deviants$days[i],'</td><td>',round(100*(data.deviants$Growth.rate[i]-1),1),'</td><td>',round(100*(data.deviants$Growth.rate.last14[i]-1),1),'</td><td>',round(data.deviants$Doubling.time[i],1),'</td><td>',data.deviants$tests[i],'</td><td>',data.deviants$testing.rate[i],'</td><td><a href=\"https://en.wikipedia.org/wiki/U.S._state_and_local_government_response_to_the_2020_coronavirus_pandemic#',trimws(data.deviants$state[i]),'\" target=_blank >State response at WikiPedia</a><br/><a href=\"https://www.nytimes.com/interactive/2020/us/coronavirus-stay-at-home-order.html#',trimws(data.deviants$state[i]),'\" target=_blank >State response at NYTimes</a></td><td><a href=\"https://www.unacast.com/covid19/social-distancing-scoreboard?view=county&fips=',trimws(data.deviants$fips[i]),'\" target=_blank >Unacast data</a></td><td>Comments: imposed by the state<br/>Date: 03/30/2020 Day no: 23<br/><a href=\"https://governor.kansas.gov/governor-kelly-issues-temporary-statewide-stay-home-order-in-ongoing-effort-to-combat-covid-19/\" target=_blank>Link</a> Contributed by jdoe@kumc.edu</td></tr>',sep='');
 	}
 	message = paste(message,'</table>');
 	list(message = message)
