@@ -1,4 +1,4 @@
-covid19positivedeviance <- function(fips, sizetolerance, densitytolerance, nlr){
+covid19positivedeviance <- function(fips, sizetolerance, densitytolerance, Growth.rate.14){
 
 x <- getURL("https://raw.githubusercontent.com/qitools/COVID-19-mitigation-with-positive-deviance/master/data/data.counties.final.csv")
 data.counties.final <- read.csv(text = x)
@@ -9,7 +9,7 @@ data.counties.final$population <- as.numeric(data.counties.final$population)
 message = '';
 
 (database.date <- as.Date(data.counties.final$CountyStartDate[1]) + data.counties.final$days[1])
-message = paste(message,'<div>Database (<a href=\"https://github.com/nytimes/covid-19-data\">source at GitHub</a> current through: ', as.character(database.date),'</div>');
+message = paste(message,'<div>Database (<a href=\"https://github.com/nytimes/covid-19-data\">source at GitHub</a> current through: ', as.character(database.date),')</div>');
 
 county.index <- data.counties.final[data.counties.final$fips == fips,]
 
@@ -28,8 +28,9 @@ stop(paste("Error. Insufficient counties identified: ",nrow(data.deviants.eligib
 }
 
 # Sort
-if (nlr){
-data.deviants.eligible <- data.deviants.eligible[with(data.deviants.eligible, order(data.deviants.eligible$Growth.rate.reg)), ]
+if (Growth.rate.14){
+#data.deviants.eligible <- data.deviants.eligible[with(data.deviants.eligible, order(data.deviants.eligible$Growth.rate.reg)), ]
+data.deviants.eligible <- data.deviants.eligible[with(data.deviants.eligible, order(data.deviants.eligible$Growth.rate.14)), ]
 }else{
 data.deviants.eligible <- data.deviants.eligible[with(data.deviants.eligible, order(data.deviants.eligible$Growth.rate)), ]
 }
@@ -45,7 +46,7 @@ data.deviants <- data.deviants.eligible[c(1:5,which(data.deviants.eligible$fips 
 	if (length(unique(data.deviants$fips)) < 11){
 		message = paste(message,'<div><span style=\"font-weight:bold;color:red\">Alert</span>: There are two green rows in your table because your county was a deviant. Perhaps broadern your criteria.</div>');
 	}
-	message = paste(message,'<table><tr><th>County</th><th>State</th><th>Population<br/>(2018 est)</th><th>Pop density<br/>(2018 est)</th><th>cases</th><th>Start date</th><th>days</th><th>Growth rate (%)</th><th>Growth rate (%)<br/>(by nonlinear regression)</th><th>Doubling.time</th><th>tests<br/>(Not available)</th><th>testing.rate<br/>(Not available)</th><th>Unacast<br/>(mobility data)</th><th>Stay at home<br/>(<a href=\"https://www.nytimes.com/interactive/2020/us/coronavirus-stay-at-home-order.html\" target=_blank>links</a>)</th></tr>');
+	message = paste(message,'<table><tr><th>County</th><th>State</th><th>Population<br/>(2018 est)</th><th>Pop density<br/>(2018 est)</th><th>cases</th><th>Start date</th><th>days</th><th>Growth rate (%)<br/>(since first case)</th><th>Growth rate (%)<br/>(last 14 days)</th><th>Doubling.time</th><th>tests<br/>(Not available)</th><th>testing.rate<br/>(Not available)</th><th>Unacast<br/>(mobility data)</th><th>Stay at home<br/>(<a href=\"https://www.nytimes.com/interactive/2020/us/coronavirus-stay-at-home-order.html\" target=_blank>links</a>)</th></tr>');
 
 i <- 1
 style <- 'white'
